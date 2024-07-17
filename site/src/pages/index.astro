@@ -1,6 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import CollectionCard from '../components/CollectionCard.astro';
 import ThemedSection from '../components/ThemedSection.astro';
+
+const collections = [
+  {
+    title: 'Toys & Dolls',
+    description: 'They can dance in the dark.',
+    slug: 'blue-bear',
+    href: '/collections/toys',
+  },
+  {
+    title: 'Dishes',
+    description: 'Did someone say dinner?',
+    slug: 'blue-dish',
+    href: '/collections/dishes',
+  },
+  {
+    title: 'Containers',
+    description: "These won't hold water",
+    slug: 'clay-jug',
+    href: '/collections/containers',
+  },
+];
 ---
 
 <Layout title="Home">
@@ -9,37 +31,19 @@ import ThemedSection from '../components/ThemedSection.astro';
       <h2 class="card-header bg-black text-light">Explore our Collections</h2>
       <div class="card-body bg-gradient">
         <div class="card-group gap-5 m-4">
-          <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h3 class="card-title text-center">Card title</h3>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card-footer">
-              <a class="btn btn-primary w-100" href="/collections">Explore</a>
-            </div>
-          </div>
-          <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h3 class="card-title text-center">Card title</h3>
-              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            </div>
-            <div class="card-footer">
-              <a class="btn btn-primary w-100" href="/collections">Explore</a>
-            </div>
-          </div>
-          <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h3 class="card-title text-center">Card title</h3>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            </div>
-            <div class="card-footer">
-              <a class="btn btn-primary w-100" href="/collections">Explore</a>
-            </div>
-          </div>
+          {
+            collections.map(({title, description, slug, href}) => (
+              <CollectionCard slug={slug} width="300" style="max-height: 60rem; max-width: 60rem;">
+                <h3 class="card-title text-center" set:text={title} />                    
+                <p set:text={description} />
+                <a slot="footer" class="btn btn-primary w-100" {href}>Explore</a>            
+              </CollectionCard>
+            ))
+          }
         </div>
+      </div>
+      <div class="card-footer bg-dark text-end">
+        <a href="/collections">Our collections &rArr;</a>
       </div>
     </div>
   </ThemedSection>

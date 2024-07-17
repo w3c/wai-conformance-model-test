@@ -1,7 +1,31 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ThemedSection from '../../components/ThemedSection.astro';
+
+import { getCollection } from "astro:content";
+import { flattenDeep, startCase, uniq } from "lodash-es";
+
+const fullCollection = await getCollection("collection");
+const nestedTags = fullCollection.map(({ data }) => data.tags || []);
+const tags = uniq(flattenDeep(nestedTags));
+tags.sort();
+const titles = {
+  'toys': 'Toys & Dolls',
+};
+
 ---
 
 <Layout title="Collections">
-  <p>This is the collections page.</p>
+  <ThemedSection theme="light" gradient={true}>
+    <h2>Our Collections</h2>
+    <ul class="list-group list-group-flush">
+      {
+        tags.map(tag => (
+          <li class="list-group-item">
+            <a href={`./${tag}`} set:text={titles[tag] || startCase(tag)} />
+          </li>
+        ))
+      }
+    </ul>
+  </ThemedSection>
 </Layout>

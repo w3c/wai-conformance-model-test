@@ -12,6 +12,7 @@ import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 
 import logo from '../assets/images/mbt-logo.png';
+import links from '../lib/nav-links';
 
 const { crumbs = [] } = Astro.props;
 // const breadCrumbs = isEmpty(crumbs) ? [{ name: "Home", href: "/" }] : crumbs;
@@ -30,7 +31,7 @@ const { crumbs = [] } = Astro.props;
         />
       </a>
       <div class="navbar-brand me-auto">
-        <span class=" display-1">MUSEUM OF BROKEN THING<i>S</i></span>
+        <span class="display-1 text-uppercase">Museum of Broken Th<i>ings</i></span>
       </div>
       <form class="d-flex me-2" role="search">
         <div class="input-group">
@@ -53,27 +54,13 @@ const { crumbs = [] } = Astro.props;
     data-bs-theme="dark"
   >
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/collections">Collections</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/tour">Take a Tour</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/news">In the News</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/gift-shop">Gift Shop</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/map">Museum Map</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/volunteer">Volunteer</a>
-      </li>
+      {
+        links.map(({ name, href }) => (
+          <li class="nav-item">
+            <a class="nav-link" {href} set:text={name} />
+          </li>
+        ))
+      }
     </ul>
   </nav>  
 </header>

@@ -1,0 +1,96 @@
+---
+import { getEntry } from "astro:content";
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+interface Props {
+  slug: string;
+  item: CollectionEntry<"collection">;
+  height?: string | number;
+  width?: string | number;
+  title?: string;
+  class?: string;
+  style?: string;
+}
+
+const { slug, item, style, class: extraClasses } = Astro.props;
+
+const entry = item || await getEntry("collection", slug);
+const data = entry?.data;
+const {
+  description, 
+  image,
+  title: collectionTitle,
+} = data;
+
+const {
+  title = collectionTitle,
+  height = undefined,
+  width = undefined,
+} = Astro.props;
+
+// This is a weird hack to handle either slots or rendering the markdown.
+let html = '';
+let Content;
+if (Astro.slots.has('default')) {
+  html = await Astro.slots.render('default', [{ ...data }]);
+} else {
+  const rendered = await entry?.render();
+  Content = rendered?.Content;
+}
+---
+
+<div class:list={["card", extraClasses]} {style}>
+  {
+    image.vertical ? (
+      <div class="row g-0">
+        <div class="col-md-6 d-flex align-items-center">
+          <Image
+            src={image.src}
+            alt={image.alt || description}
+            class="img-fluid"
+            height={height}
+            width={width}
+          />
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            {
+              Astro.slots.has('default') ? (
+                <div class="card-text" set:html={html} />
+              ) : (
+                <h3 class="card-title text-center" set:text={title} />
+                <div class="card-text"><Content /></div>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    ) : (
+      <Image
+        src={image.src}
+        alt={image.alt || description}
+        class="card-img-top"
+        height={height}
+        width={width}
+      />
+      <div class="card-body">
+        {
+          Astro.slots.has('default') ? (
+            <div class="card-text" set:html={html} />
+          ) : (
+            <h3 class="card-title text-center" set:text={title} />
+            <div class="card-text"><Content /></div>
+          )
+        }
+      </div>
+    )
+  }
+  {
+    Astro.slots.has('footer') && (
+      <div class="card-footer">
+        <slot name="footer"></slot>
+      </div>
+    )
+  }
+</div>

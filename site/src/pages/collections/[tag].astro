@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+import { flattenDeep, sortBy, startCase, uniq } from "lodash-es";
+
+export async function getStaticPaths() {
+  const fullCollection = await getCollection("collection");
+  const nestedTags = fullCollection.map(({ data }) => data.tags || []);
+  const tags = uniq(flattenDeep(nestedTags));
+  const titles = {
+    'toys': 'Toys & Dolls',
+  };
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      fullCollection,
+      title: titles[tag] || startCase(tag),
+    }
+  }));
+}
+
+import Layout from '../../layouts/Layout.astro';
+import CollectionCard from '../../components/CollectionCard.astro';
+import ThemedSection from '../../components/ThemedSection.astro';
+
+const { tag } = Astro.params;
+const { fullCollection, title } = Astro.props;
+
+const collection = sortBy(
+  fullCollection.filter(
+    ({ data }) => data.tags?.includes(tag),
+  ),
+  ({ data }) => data.title,
+);
+---
+
+<Layout title="Home">
+  <ThemedSection theme="light" gradient={true}>
+    <div class="card text-bg-secondary w-100">
+      <h2 class="card-header bg-black text-light" set:text={title} />
+      <div class="card-body bg-gradient pt-5 px-5">        
+        {
+          collection.map((item) => (
+            <CollectionCard {item} class="w-100 mb-5" width="800"></CollectionCard>
+          ))
+        }
+      </div>
+    </div>
+  </ThemedSection>
+</Layout>

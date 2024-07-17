@@ -1,0 +1,48 @@
+---
+interface Crumbs {
+  name: String;
+  href: URL;
+}
+
+interface Props {
+  crumbs?: Array<Crumbs>;
+}
+
+import { isEmpty } from "lodash-es";
+
+const { crumbs = [] } = Astro.props;
+// const breadCrumbs = isEmpty(crumbs) ? [{ name: "Home", href: "/" }] : crumbs;
+---
+
+<header class="bg-black">
+  <nav
+    id="site-nav"
+    class="navbar navbar-expand-lg mx-3"
+    aria-label="Site"
+    data-bs-theme="dark"
+  >
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/collections">Collections</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/tour">Take a Tour</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/news">In the News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/gift-shop">Gift Shop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/map">Museum Map</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/volunteer">Volunteer</a>
+      </li>
+    </ul>
+  </nav>  
+</header>

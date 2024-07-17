@@ -154,7 +154,9 @@ $box-shadow-lg: inset 0 0 2px 3px hsla(0, 0%, 100%, 0.125),
 @import "bootstrap/scss/variables-dark";
 
 // 4. Include any default map overrides here
-$custom-colors: ();
+$custom-colors: (
+  "tertiary": $tertiary,
+);
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
 // 5a. Include remainder of required parts
@@ -166,7 +168,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 //***************/
 
 // The utilities don't pick up additional themes, so we'll add them automatically.
-$custom-subtle-themes: [];
+$custom-subtle-themes: tertiary,;
 $custom-util-text-emphasis-colors: ();
 $custom-util-bg-subtle: ();
 $custom-util-border-subtle: ();

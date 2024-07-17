@@ -22,7 +22,7 @@ const titles = {
       {
         tags.map(tag => (
           <li class="list-group-item">
-            <a href={`./${tag}`} set:text={titles[tag] || startCase(tag)} />
+            <a href={`/collections/${tag}`} set:text={titles[tag] || startCase(tag)} />
           </li>
         ))
       }

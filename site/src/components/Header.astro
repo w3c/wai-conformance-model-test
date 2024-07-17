@@ -18,8 +18,8 @@ const { crumbs = [] } = Astro.props;
 // const breadCrumbs = isEmpty(crumbs) ? [{ name: "Home", href: "/" }] : crumbs;
 ---
 
-<header class="bg-black">
-  <nav class="navbar text-bg-secondary bg-gradient">
+<header>
+  <nav class="navbar text-bg-secondary bg-opacity-50">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
         <Image
@@ -49,7 +49,7 @@ const { crumbs = [] } = Astro.props;
   
   <nav
     id="site-nav"
-    class="navbar navbar-expand-lg mx-3"
+    class="navbar navbar-expand-lg bg-black px-3"
     aria-label="Site"
     data-bs-theme="dark"
   >

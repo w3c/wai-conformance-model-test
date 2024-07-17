@@ -1,6 +1,12 @@
 @charset "UTF-8";
 @use "sass:map";
 
+// Fontsource input
+// @import "@fontsource/milonga/400.css";
+@import "@fontsource/patua-one/400.css";
+@import "@fontsource/averia-serif-libre/400.css";
+@import "@fontsource/averia-serif-libre/700.css";
+
 // From https://getbootstrap.com/docs/5.3/customize/sass/#importing
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "bootstrap/scss/functions";
@@ -8,9 +14,9 @@
 // 2. Include any default variable overrides here
 @import "./colors-and-themes";
 
-$font-size-root:              18px;
-// $font-family-sans-serif:      'Atkinson Hyperlegible', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$font-weight-bold:            700;
+$font-size-root:              16px;
+$font-family-sans-serif:      'Averia Serif Libre', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+// $font-weight-bold:            700;
 
 $h1-font-size:                2rem;
 $h2-font-size:                1.75rem;
@@ -19,21 +25,21 @@ $h4-font-size:                1.25rem;
 $h5-font-size:                1.1rem;
 $h6-font-size:                1rem;
 
-// $headings-font-family:        'Archivo Variable', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-// $headings-font-weight:        400;
+$headings-font-family:        'Averia Serif Libre', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$headings-font-weight:        400;
 
 $display-font-sizes: (
-  1: 4rem,
-  2: 3rem,
-  3: 2.5rem,
-  4: 2rem,
+  1: 2.5rem,
+  2: 2.25rem,
+  3: 2rem,
+  4: 1.75rem,
   5: 1.5rem,
   6: 1.25rem,
   65: 1.1rem,
   7: 1rem,
 );
-// $display-font-family:       $headings-font-family;
-// $display-font-weight:       400;
+$display-font-family:       $headings-font-family;
+$display-font-weight:       400;
 
 $lead-font-size:            1.25rem;
 $lead-font-weight:          400;
@@ -76,18 +82,12 @@ $breadcrumb-margin-bottom:          0;
 //*********
 //* Borders
 //*********/
+$border-color:                #000000;
 $border-radius:               0;
 $border-radius-sm:            0;
 $border-radius-lg:            0;
 $border-radius-xl:            0;
 $border-radius-xxl:           0;
-
-//*******
-//* Cards
-//*******/
-
-$card-border-color:                 #000000;
-
 
 //************
 //* Dropdowns
@@ -248,3 +248,7 @@ $theme-colors-border-subtle-dark: map-merge($theme-colors-border-subtle-dark, $c
 @import "bootstrap/scss/utilities/api";
 
 // 8. Add additional custom code here
+
+.card-title, .display-1, .display-2, .display-3 {
+  font-family: 'Patua One', $font-family-sans-serif;
+}

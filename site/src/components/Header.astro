@@ -1,0 +1,67 @@
+---
+interface Crumbs {
+  name: String;
+  href: URL;
+}
+
+interface Props {
+  crumbs?: Array<Crumbs>;
+}
+
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+
+import logo from '../assets/images/mbt-logo.png';
+import links from '../lib/nav-links';
+
+const { crumbs = [] } = Astro.props;
+// const breadCrumbs = isEmpty(crumbs) ? [{ name: "Home", href: "/" }] : crumbs;
+---
+
+<header>
+  <nav class="navbar text-bg-secondary bg-opacity-50">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <Image
+          src={logo}
+          class="align-text-top"
+          alt="Museum of Broken Things"
+          width="75"
+          height="75"
+        />
+      </a>
+      <div class="navbar-brand me-auto">
+        <span class="display-1 text-uppercase">Museum of Broken Th<i>ings</i></span>
+      </div>
+      <form class="d-flex me-2" role="search">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-dark" type="button">
+            <Icon name="fa-solid--search" />
+          </button>
+        </div>
+      </form>  
+      <form class="d-flex" role="search">
+        <button class="btn btn-primary" type="submit">Sign In</button>
+      </form>
+    </div>
+  </nav>
+  
+  <nav
+    id="site-nav"
+    class="navbar navbar-expand-lg bg-black px-3"
+    aria-label="Site"
+    data-bs-theme="dark"
+  >
+    <ul class="navbar-nav">
+      {
+        links.map(({ name, href }) => (
+          <li class="nav-item">
+            <a class="nav-link" {href} set:text={name} />
+          </li>
+        ))
+      }
+    </ul>
+  </nav>  
+</header>
+

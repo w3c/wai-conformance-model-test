@@ -1,0 +1,58 @@
+---
+interface Crumbs {
+  name: String;
+  href: URL;
+}
+
+interface Props {
+  crumbs?: Array<Crumbs>;
+}
+
+import { Image } from 'astro:assets';
+import logo from '../assets/images/mbt-logo.png';
+
+import links from '../lib/nav-links';
+---
+
+<footer class="bg-dark p-4">
+  <div class="d-flex gap-3 flex-column align-items-start flex-sm-row justify-content-sm-between">
+    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+      <div class="list-group list-group-flush">
+        {
+          links.map(({ name, href }) => (
+            <a
+              {href}
+              class="list-group-item list-group-item-action text-tertiary border-tertiary"
+              set:text={name}
+            />
+          ))
+        }
+      </div>
+    </div>
+    <div class="d-flex flex-column align-items-center col-6 align-items-sm-end col-sm-5 col-md-4 col-lg-3 col-xl-2">
+      <Image
+        src={logo}
+        alt="Museum of Broken Things"
+        width="250"
+        height="250"
+      />
+      <small class="text-tertiary my-2">
+        The Museum of Broken Things is brought to you by Accessible Community, with help from <a class="link-tertiary" href="https://unsplash.com/">Unsplash</a> and various AI chatbots.
+      </small>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer .list-group,
+  footer .list-group-item {
+    --bs-list-group-bg: inherit;
+  }
+
+  footer small {
+    font-size: 70%;
+    text-align: center;
+    min-width: 250px;
+    max-width: 250px;    
+  }
+</style>

@@ -1,44 +1,27 @@
 ---
-import { getEntry } from "astro:content";
-import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
-import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
 
-type Props = ({ slug: string; } | { item: CollectionEntry<"collection"> }) & {
-  height?: `${number}` | number;
-  width?: `${number}` | number;
-  title?: string;
+type Props = {
   class?: string;
   style?: string;
-};
+  height?: `${number}` | number;
+  width?: `${number}` | number;
+} & (
+  | {
+      description: string;
+      image: CollectionEntry<"collection">["data"]["image"];
+      title: string;
+    }
+  | { item: CollectionEntry<"collection"> }
+);
 
-const entry = "item" in Astro.props ? Astro.props.item : await getEntry("collection", Astro.props.slug);
-if (!entry) throw new Error(`No entry found for ${Astro.url}`);
+const { class: extraClasses, height, style, width } = Astro.props;
 
-const data = entry.data;
-const {
-  description, 
-  image,
-  title: collectionTitle,
-} = data;
-
-const {
-  class: extraClasses,
-  style,
-  title = collectionTitle,
-  height = undefined,
-  width = undefined,
-} = Astro.props;
-
-// This is a weird hack to handle either slots or rendering the markdown.
-let html = '';
-let Content: AstroComponentFactory | undefined;
-if (Astro.slots.has('default')) {
-  html = await Astro.slots.render('default', [{ ...data }]);
-} else {
-  const rendered = await entry?.render();
-  Content = rendered?.Content;
-}
+const Content =
+  "item" in Astro.props ? (await Astro.props.item.render()).Content : null;
+const { description, image, title } =
+  "item" in Astro.props ? Astro.props.item.data : Astro.props;
 ---
 
 <div class:list={["card", extraClasses]} {style}>
@@ -56,41 +39,31 @@ if (Astro.slots.has('default')) {
         </div>
         <div class="col-md-6">
           <div class="card-body">
-            {
-              Content ? (
-                <h3 class="card-title text-center" set:text={title} />
-                <div class="card-text"><Content /></div>
-              ) : (
-                <div class="card-text" set:html={html} />
-              )
-            }
+            <h3 class="card-title text-center" set:text={title} />
+            <div class="card-text">{Content ? <Content /> : description}</div>
           </div>
         </div>
       </div>
     ) : (
-      <Image
-        src={image.src}
-        alt={image.alt || description}
-        class="card-img-top"
-        height={height}
-        width={width}
-      />
-      <div class="card-body">
-        {
-          Content ? (
-            <h3 class="card-title text-center" set:text={title} />
-            <div class="card-text"><Content /></div>
-          ) : (
-            <div class="card-text" set:html={html} />
-          )
-        }
-      </div>
+      <>
+        <Image
+          src={image.src}
+          alt={image.alt || description}
+          class="card-img-top"
+          height={height}
+          width={width}
+        />
+        <div class="card-body">
+          <h3 class="card-title text-center" set:text={title} />
+          <div class="card-text">{Content ? <Content /> : description}</div>
+        </div>
+      </>
     )
   }
   {
-    Astro.slots.has('footer') && (
+    Astro.slots.has("footer") && (
       <div class="card-footer">
-        <slot name="footer"></slot>
+        <slot name="footer" />
       </div>
     )
   }

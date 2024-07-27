@@ -19,9 +19,15 @@ export async function getStaticPaths() {
   }));
 }
 
-import Layout from '../../layouts/Layout.astro';
-import CollectionCard from '../../components/CollectionCard.astro';
-import ThemedSection from '../../components/ThemedSection.astro';
+import Layout from "../../layouts/Layout.astro";
+import CollectionCard from "../../components/CollectionCard.astro";
+import ThemedSection from "../../components/ThemedSection.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  fullCollection: CollectionEntry<"collection">[];
+  title: string;
+}
 
 const { tag } = Astro.params;
 const { fullCollection, title } = Astro.props;

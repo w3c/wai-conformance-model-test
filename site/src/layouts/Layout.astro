@@ -7,6 +7,7 @@ const { title } = Astro.props;
 
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import Navigation from "../components/Navigation.astro";
 ---
 
 <!doctype html>
@@ -16,14 +17,19 @@ import Header from "../components/Header.astro";
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="/src/assets/styles/styles.css" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} - Fixable</title>
 	</head>
 	<body>
+		<a class="visually-hidden skip-link" href="#main">Skip to the main content</a>
     <Header />
-    <main>
-      <slot />
-    </main>
+    <Navigation />
+		<div class="wrapper">
+			<main>
+				<slot />
+			</main>
+		</div>
     <Footer />
 	</body>
 </html>

@@ -19,9 +19,15 @@ export async function getStaticPaths() {
   }));
 }
 
-import Layout from '../../layouts/Layout.astro';
-import CollectionCard from '../../components/CollectionCard.astro';
-import ThemedSection from '../../components/ThemedSection.astro';
+import Layout from "../../layouts/Layout.astro";
+import CollectionCard from "../../components/CollectionCard.astro";
+import ThemedSection from "../../components/ThemedSection.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  fullCollection: CollectionEntry<"collection">[];
+  title: string;
+}
 
 const { tag } = Astro.params;
 const { fullCollection, title } = Astro.props;
@@ -41,7 +47,7 @@ const collection = sortBy(
       <div class="card-body bg-gradient pt-5 px-5">        
         {
           collection.map((item) => (
-            <CollectionCard {item} class="w-100 mb-5" width="800"></CollectionCard>
+            <CollectionCard {item} class="w-100 mb-5" width="800" />
           ))
         }
       </div>

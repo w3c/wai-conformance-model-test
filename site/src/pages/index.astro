@@ -1,26 +1,27 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import CollectionCard from '../components/CollectionCard.astro';
-import ThemedSection from '../components/ThemedSection.astro';
+import { getEntry } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import CollectionCard from "../components/CollectionCard.astro";
+import ThemedSection from "../components/ThemedSection.astro";
 
 const collections = [
   {
-    title: 'Toys & Dolls',
-    description: 'They can dance in the dark.',
-    slug: 'blue-bear',
-    href: '/collections/toys',
+    title: "Toys & Dolls",
+    description: "They can dance in the dark.",
+    imageItem: await getEntry("collection", "blue-bear"),
+    href: "/collections/toys",
   },
   {
-    title: 'Dishes',
-    description: 'Did someone say dinner?',
-    slug: 'blue-dish',
-    href: '/collections/dishes',
+    title: "Dishes",
+    description: "Did someone say dinner?",
+    imageItem: await getEntry("collection", "blue-dish"),
+    href: "/collections/dishes",
   },
   {
-    title: 'Containers',
+    title: "Containers",
     description: "These won't hold water",
-    slug: 'clay-jug',
-    href: '/collections/containers',
+    imageItem: await getEntry("collection", "clay-jug"),
+    href: "/collections/containers",
   },
 ];
 ---
@@ -32,11 +33,17 @@ const collections = [
       <div class="card-body bg-gradient">
         <div class="card-group gap-5 m-4">
           {
-            collections.map(({title, description, slug, href}) => (
-              <CollectionCard slug={slug} width="300" style="max-height: 60rem; max-width: 60rem;">
-                <h3 class="card-title text-center" set:text={title} />                    
-                <p set:text={description} />
-                <a slot="footer" class="btn btn-primary w-100" {href}>Explore</a>            
+            collections.map(({ description, href, imageItem, title }) => (
+              <CollectionCard
+                title={title}
+                description={description}
+                image={imageItem.data.image}
+                width="300"
+                style="max-height: 60rem; max-width: 60rem;"
+              >
+                <a slot="footer" class="btn btn-primary w-100" {href}>
+                  Explore
+                </a>
               </CollectionCard>
             ))
           }

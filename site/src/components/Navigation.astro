@@ -1,0 +1,29 @@
+---
+interface Crumbs {
+  name: String;
+  href: URL;
+}
+
+interface Props {
+  crumbs?: Array<Crumbs>;
+}
+
+import { Icon } from 'astro-icon/components';
+
+import links from '../lib/nav-links';
+
+---  
+  <nav
+    class="site-nav"
+    aria-label="Site"
+  >
+    <ul class="navbar-nav">
+      {
+        links.map(({ name, href }) => (
+          <li>
+            <a {href} set:text={name} />
+          </li>
+        ))
+      }
+    </ul>
+  </nav>  

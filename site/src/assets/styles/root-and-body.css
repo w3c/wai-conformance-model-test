@@ -3,7 +3,43 @@
   box-sizing: border-box;
 
   /* See colors.css for colors, fonts.css for fonts */
+
+  /*
+  modular scale.
+  see: https://www.modularscale.com/?1&em&1.125
+  Base: 1em
+  Ratio: Major Second / 1.125
+  */
+
+  --ms20: 10.547;
+  --ms19: 9.375;
+  --ms18: 8.333;
+  --ms17: 7.407;
+  --ms16: 6.583;
+  --ms15: 5.852;
+  --ms14: 5.202;
+  --ms13: 4.624;
+  --ms12: 4.11;
+  --ms11: 3.653;
+  --ms10: 3.247;
+  --ms9: 2.887;
+  --ms8: 2.566;
+  --ms7: 2.281;
+  --ms6: 2.027;
+  --ms5: 1.802;
+  --ms4: 1.602;
+  --ms3: 1.424;
+  --ms2: 1.266;
+  --ms1: 1.125;
+  --ms0: 1;
+  --ms-1: 0.889;
+  --ms-2: 0.79;
+  --ms-3: 0.702;
+  --ms-4: 0.624;
+  --ms-5: 0.555;
+  --ms-6: 0.493;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -21,8 +57,4 @@ body {
   color: var(--black);
   font: 1rem/1.5 var(--body-font-family);
   margin: 0;
-}
-
-h3, h4, h5, h6 {
-  font-family: var(--title-font-family);
 }

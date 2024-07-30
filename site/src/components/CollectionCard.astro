@@ -32,15 +32,14 @@ const { description, image, title } =
           <Image
             src={image.src}
             alt={image.alt || description}
-            class="img-fluid"
             height={height}
             width={width}
           />
         </div>
-        <div class="col-md-6">
-          <div class="card-body">
-            <h3 class="card-title text-center" set:text={title} />
-            <div class="card-text">{Content ? <Content /> : description}</div>
+        <div>
+          <div>
+            <h3 set:text={title} />
+            <div>{Content ? <Content /> : description}</div>
           </div>
         </div>
       </div>
@@ -49,13 +48,12 @@ const { description, image, title } =
         <Image
           src={image.src}
           alt={image.alt || description}
-          class="card-img-top"
           height={height}
           width={width}
         />
-        <div class="card-body">
-          <h3 class="card-title text-center" set:text={title} />
-          <div class="card-text">{Content ? <Content /> : description}</div>
+        <div>
+          <h3 set:text={title} />
+          <div>{Content ? <Content /> : description}</div>
         </div>
       </>
     )

@@ -15,9 +15,7 @@
     "@fontsource/patua-one": "^5.0.19",
     "astro": "^4.10.2",
     "astro-icon": "^1.1.0",
-    "bootstrap": "^5.3.3",
     "lodash-es": "^4.17.21",
-    "sass": "^1.77.8",
     "typescript": "^5.4.5"
   },
   "devDependencies": {

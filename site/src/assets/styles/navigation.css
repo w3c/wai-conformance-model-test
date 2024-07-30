@@ -1,0 +1,15 @@
+.site-nav{
+	background: var(--black);
+	& ul{
+		display:flex;
+		gap:1em;
+		list-style: none;
+		padding:0;
+		& a{
+			color:var(--white);
+			display:block;
+			padding:0.5em;
+			text-decoration: none;
+		}
+	}
+}

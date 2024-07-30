@@ -1,0 +1,26 @@
+:root {
+  font-size: 100%;
+  box-sizing: border-box;
+
+  --white: #fff;
+  --black: #000;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font:
+    1rem/1.5 system-ui,
+    sans-serif;
+}

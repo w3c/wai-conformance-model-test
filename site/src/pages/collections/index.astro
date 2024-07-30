@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ThemedSection from '../../components/ThemedSection.astro';
+import Layout from "@/layouts/Layout.astro";
+import { tagTitleOverrides } from "@/lib/tags";
 
 import { getCollection } from "astro:content";
 import { flattenDeep, startCase, uniq } from "lodash-es";
@@ -8,23 +8,20 @@ import { flattenDeep, startCase, uniq } from "lodash-es";
 const fullCollection = await getCollection("collection");
 const nestedTags = fullCollection.map(({ data }) => data.tags || []);
 const tags = uniq(flattenDeep(nestedTags)).sort();
-const titles = {
-  'toys': 'Toys & Dolls',
-};
-
 ---
 
 <Layout title="Collections">
-  <ThemedSection theme="light" gradient={true}>
-    <h2>Our Collections</h2>
-    <ul class="list-group list-group-flush">
-      {
-        tags.map(tag => (
-          <li class="list-group-item">
-            <a href={`/collections/${tag}`} set:text={titles[tag] || startCase(tag)} />
-          </li>
-        ))
-      }
-    </ul>
-  </ThemedSection>
+  <h2>Our Collections</h2>
+  <ul class="list-group list-group-flush">
+    {
+      tags.map((tag) => (
+        <li class="list-group-item">
+          <a
+            href={`/collections/${tag}`}
+            set:text={tagTitleOverrides[tag] || startCase(tag)}
+          />
+        </li>
+      ))
+    }
+  </ul>
 </Layout>

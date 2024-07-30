@@ -6,23 +6,20 @@ export async function getStaticPaths() {
   const fullCollection = await getCollection("collection");
   const nestedTags = fullCollection.map(({ data }) => data.tags || []);
   const tags = uniq(flattenDeep(nestedTags));
-  const titles = {
-    'toys': 'Toys & Dolls',
-  };
 
   return tags.map((tag) => ({
     params: { tag },
     props: {
       fullCollection,
-      title: titles[tag] || startCase(tag),
+      title: tagTitleOverrides[tag] || startCase(tag),
     }
   }));
 }
 
-import Layout from "../../layouts/Layout.astro";
-import CollectionCard from "../../components/CollectionCard.astro";
-import ThemedSection from "../../components/ThemedSection.astro";
 import type { CollectionEntry } from "astro:content";
+import CollectionCard from "@/components/CollectionCard.astro";
+import Layout from "@/layouts/Layout.astro";
+import { tagTitleOverrides } from "@/lib/tags";
 
 interface Props {
   fullCollection: CollectionEntry<"collection">[];
@@ -41,16 +38,14 @@ const collection = sortBy(
 ---
 
 <Layout title="Home">
-  <ThemedSection theme="light" gradient={true}>
-    <div class="card text-bg-secondary w-100">
-      <h2 class="card-header bg-black text-light" set:text={title} />
-      <div class="card-body bg-gradient pt-5 px-5">        
-        {
-          collection.map((item) => (
-            <CollectionCard {item} class="w-100 mb-5" width="800" />
-          ))
-        }
-      </div>
+  <div class="card text-bg-secondary w-100">
+    <h2 class="card-header bg-black text-light" set:text={title} />
+    <div class="card-body bg-gradient pt-5 px-5">        
+      {
+        collection.map((item) => (
+          <CollectionCard {item} class="w-100 mb-5" width="800" />
+        ))
+      }
     </div>
-  </ThemedSection>
+  </div>
 </Layout>

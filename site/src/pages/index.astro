@@ -1,8 +1,7 @@
 ---
 import { getEntry } from "astro:content";
-import Layout from "../layouts/Layout.astro";
-import CollectionCard from "../components/CollectionCard.astro";
-import ThemedSection from "../components/ThemedSection.astro";
+import CollectionCard from "@/components/CollectionCard.astro";
+import Layout from "@/layouts/Layout.astro";
 
 const collections = [
   {
@@ -27,31 +26,29 @@ const collections = [
 ---
 
 <Layout title="Home">
-  <ThemedSection theme="light" gradient={true}>
-    <div class="card text-bg-secondary mb-3 w-100">
-      <h2 class="card-header bg-black text-light">Explore our Collections</h2>
-      <div class="card-body bg-gradient">
-        <div class="card-group gap-5 m-4">
-          {
-            collections.map(({ description, href, imageItem, title }) => (
-              <CollectionCard
-                title={title}
-                description={description}
-                image={imageItem.data.image}
-                width="300"
-                style="max-height: 60rem; max-width: 60rem;"
-              >
-                <a slot="footer" class="btn btn-primary w-100" {href}>
-                  Explore
-                </a>
-              </CollectionCard>
-            ))
-          }
-        </div>
-      </div>
-      <div class="card-footer bg-dark text-end">
-        <a href="/collections">Our collections &rArr;</a>
+  <div class="card text-bg-secondary mb-3 w-100">
+    <h2 class="card-header bg-black text-light">Explore our Collections</h2>
+    <div class="card-body bg-gradient">
+      <div class="card-group gap-5 m-4">
+        {
+          collections.map(({ description, href, imageItem, title }) => (
+            <CollectionCard
+              title={title}
+              description={description}
+              image={imageItem.data.image}
+              width="300"
+              style="max-height: 60rem; max-width: 60rem;"
+            >
+              <a slot="footer" class="btn btn-primary w-100" {href}>
+                Explore
+              </a>
+            </CollectionCard>
+          ))
+        }
       </div>
     </div>
-  </ThemedSection>
+    <div class="card-footer bg-dark text-end">
+      <a href="/collections">Our collections &rArr;</a>
+    </div>
+  </div>
 </Layout>

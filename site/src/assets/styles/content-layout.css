@@ -1,10 +1,10 @@
-.wrapper{
-	display:grid;
-	gap:1em;
-	grid-template-columns:[page-start] minmax(1em, 1fr) [content-start] repeat(8, 130px) [content-end] minmax(1em, 1fr) [page-end];
+.wrapper {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: [page-start] minmax(1em, 1fr) [content-start] repeat(8, 130px) [content-end] minmax(1em, 1fr) [page-end];
 }
 
-main{
-	grid-column: 2 / 10;
-	padding:1rem;
+main {
+  grid-column: 2 / 10;
+  padding: 1rem;
 }

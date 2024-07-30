@@ -26,29 +26,38 @@ const collections = [
 ---
 
 <Layout title="Home">
-  <div class="card text-bg-secondary mb-3 w-100">
-    <h2 class="card-header bg-black text-light">Explore our Collections</h2>
-    <div class="card-body bg-gradient">
-      <div class="card-group gap-5 m-4">
-        {
-          collections.map(({ description, href, imageItem, title }) => (
-            <CollectionCard
-              title={title}
-              description={description}
-              image={imageItem.data.image}
-              width="300"
-              style="max-height: 60rem; max-width: 60rem;"
-            >
-              <a slot="footer" class="btn btn-primary w-100" {href}>
-                Explore
-              </a>
-            </CollectionCard>
-          ))
-        }
-      </div>
-    </div>
-    <div class="card-footer bg-dark text-end">
-      <a href="/collections">Our collections &rArr;</a>
-    </div>
+  <h2 class="card-header bg-black text-light">Explore our Collections</h2>
+  <div class="cards">
+    {
+      collections.map(({ description, href, imageItem, title }) => (
+        <CollectionCard
+          title={title}
+          description={description}
+          image={imageItem.data.image}
+          height="200"
+          style="max-height: 60rem; max-width: 60rem;"
+        >
+          <a slot="footer" class="btn btn-primary w-100" {href}>
+            Explore
+          </a>
+        </CollectionCard>
+      ))
+    }
+  </div>
+  <div class="cards-footer">
+    <a href="/collections">Our collections &rArr;</a>
   </div>
 </Layout>
+
+<style>
+  .cards {
+    display: grid;
+    column-gap: 3rem;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .cards-footer {
+    padding: 1rem; 0 2rem;
+    text-align: right;
+  }
+</style>

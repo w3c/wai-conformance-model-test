@@ -12,7 +12,7 @@ export async function getStaticPaths() {
     props: {
       fullCollection,
       title: tagTitleOverrides[tag] || startCase(tag),
-    }
+    },
   }));
 }
 
@@ -30,22 +30,28 @@ const { tag } = Astro.params;
 const { fullCollection, title } = Astro.props;
 
 const collection = sortBy(
-  fullCollection.filter(
-    ({ data }) => data.tags?.includes(tag),
-  ),
-  ({ data }) => data.title,
+  fullCollection.filter(({ data }) => data.tags?.includes(tag)),
+  ({ data }) => data.title
 );
 ---
 
-<Layout title="Home">
-  <div class="card text-bg-secondary w-100">
-    <h2 class="card-header bg-black text-light" set:text={title} />
-    <div class="card-body bg-gradient pt-5 px-5">        
-      {
-        collection.map((item) => (
-          <CollectionCard {item} class="w-100 mb-5" width="800" />
-        ))
-      }
+<Layout title={title}>
+  <div class="container">
+    <h2>{title}</h2>
+    <div class="cards">
+      {collection.map((item) => <CollectionCard {item} />)}
     </div>
   </div>
 </Layout>
+
+<style>
+  .container {
+    padding-bottom: 3rem;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+</style>

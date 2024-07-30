@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 type Props = {
@@ -25,44 +24,78 @@ const { description, image, title } =
 ---
 
 <div class:list={["card", extraClasses]} {style}>
-  {
-    image.vertical ? (
-      <div class="row g-0">
-        <div class="col-md-6 d-flex align-items-center">
-          <Image
-            src={image.src}
-            alt={image.alt || description}
-            height={height}
-            width={width}
-          />
-        </div>
-        <div>
-          <div>
-            <h3 set:text={title} />
-            <div>{Content ? <Content /> : description}</div>
-          </div>
-        </div>
-      </div>
-    ) : (
-      <>
-        <Image
-          src={image.src}
-          alt={image.alt || description}
-          height={height}
-          width={width}
-        />
-        <div>
-          <h3 set:text={title} />
-          <div>{Content ? <Content /> : description}</div>
-        </div>
-      </>
-    )
-  }
+  <div class={image.vertical ? "vertical" : "horizontal"}>
+    <div class="image-container">
+      {
+        /* Notes:
+        - object-fit precludes use of Image component due to its auto-setting size attributes
+        - Image component also won't allow intentionally omitting alt for failures
+        - image.src is a full Astro image schema object; could use a better name?
+      */
+      }
+      <img
+        src={image.src.src}
+        alt={image.alt || description}
+        height={height}
+        width={width}
+        object-fit="cover"
+      />
+    </div>
+    <div class="content">
+      <h3 set:text={title} />
+      <div>{Content ? <Content /> : description}</div>
+    </div>
+  </div>
+
   {
     Astro.slots.has("footer") && (
-      <div class="card-footer">
+      <div class="footer">
         <slot name="footer" />
       </div>
     )
   }
 </div>
+
+<style>
+  h3 {
+    margin: 0 0 0.5rem;
+    text-align: center;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    position: relative;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .horizontal {
+    & .image-container {
+      max-height: 35rem;
+      overflow: hidden;
+    }
+  }
+
+  .vertical {
+    display: flex;
+
+    & .content,
+    & .image-container {
+      width: 50%;
+    }
+  }
+
+  .footer {
+    background: rgb(27, 27, 27, 0.03);
+    border-top: 1px solid var(--hairline);
+    padding: 0.5rem;
+  }
+</style>

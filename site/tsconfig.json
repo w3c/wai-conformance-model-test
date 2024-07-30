@@ -2,7 +2,10 @@
   // Note: No change needed if you use "astro/tsconfigs/strict" or "astro/tsconfigs/strictest"
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+    },
     "strictNullChecks": true,
-    "allowJs": true
   }
 }

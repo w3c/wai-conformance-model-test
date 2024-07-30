@@ -1,9 +1,0 @@
-.skip-link:focus-visible{
-	all:revert;
-}
-
-header{
-	align-items: center;
-	display:flex;
-	justify-content: space-between;
-}

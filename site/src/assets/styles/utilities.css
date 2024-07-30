@@ -14,3 +14,8 @@
 	white-space: nowrap;
 	width: 1px;
 }
+
+/* Specialization of .visually-hidden for skip navigation link */
+.skip-link:focus-visible {
+	all: revert;
+}

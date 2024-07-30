@@ -1,0 +1,43 @@
+button,
+a.button,
+button.outline,
+a.button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+button:not([class]),
+a.button {
+  background-color: var(--blue-500);
+  border: none;
+  color: var(--white);
+  transition: color, background-color 150ms ease-in-out;
+
+  &:hover {
+    background-color: var(--blue-600);
+  }
+  &:active {
+    background-color: var(--blue-700);
+  }
+}
+
+button.outline,
+a.button-outline {
+  background-color: transparent;
+  border: 1px solid;
+  border-color: var(--gray-400);
+  color: var(--gray-900);
+  transition: color, border-color 150ms ease-in-out;
+
+  &:hover {
+    border-color: var(--black);
+  }
+  &:active {
+    color: var(--black);
+  }
+}

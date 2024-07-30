@@ -1,25 +1,14 @@
 ---
-interface Crumbs {
-  name: String;
-  href: URL;
-}
-
-interface Props {
-  crumbs?: Array<Crumbs>;
-}
-
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
-import logo from "../assets/images/mbt-logo.png";
+import logo from "@/assets/images/mbt-logo.png";
 ---
 
 <header>
-  <div>
-    <a href="/">
-      <Image
+  <div class="logo">
+    <a href="/"><Image
         src={logo}
-        class="align-text-top"
         alt="Museum of Broken Things"
         width="75"
         height="75"
@@ -27,11 +16,45 @@ import logo from "../assets/images/mbt-logo.png";
     </a>
     <div>Museum of Broken Things</div>
   </div>
-  <form role="search">
-    <input type="search" placeholder="Search" aria-label="Search" />
-    <button type="button">
-      <Icon name="fa-solid--search" />
-    </button>
-    <button type="submit">Sign In</button>
-  </form>
+  <div>
+    <form role="search">
+      <input type="search" placeholder="Search" aria-label="Search" />
+      <button class="outline">
+        <Icon name="ri:search-line" />
+      </button>
+    </form>
+    <button type="button">Sign In</button>
+  </div>
 </header>
+
+<style>
+  header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  .logo {
+    font: 2.5rem var(--title-font-family);
+    text-transform: uppercase;
+    & img {
+      display: block; /* avoids descender space under image */
+    }
+  }
+
+  form {
+    display: flex;
+    align-items: stretch;
+    button {
+      position: relative;
+      inset-inline-start: -1px;
+    }
+  }
+</style>

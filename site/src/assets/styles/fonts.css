@@ -1,0 +1,8 @@
+@import url(@fontsource/patua-one/400.css);
+@import url(@fontsource/averia-serif-libre/400.css);
+@import url(@fontsource/averia-serif-libre/700.css);
+
+:root {
+  --body-font-family: 'Averia Serif Libre', serif;
+  --title-font-family: 'Patua One', serif;
+}

@@ -8,32 +8,55 @@ interface Props {
   crumbs?: Array<Crumbs>;
 }
 
-import { Image } from 'astro:assets';
-import logo from '../assets/images/mbt-logo.png';
+import { Image } from "astro:assets";
+import logo from "../assets/images/mbt-logo.png";
 
-import links from '../lib/nav-links';
+import { navLinks } from "../lib/nav-links";
 ---
 
 <footer>
-      <div>
-        {
-          links.map(({ name, href }) => (
-            <a
-              {href}
-              set:text={name}
-            />
-          ))
-        }
-      </div>
-    </div>
-    <div>
-      <Image
-        src={logo}
-        alt="Museum of Broken Things"
-        width="250"
-        height="250"
-      />
-      <small>
-        The Museum of Broken Things is brought to you by Accessible Community, with help from <a href="https://unsplash.com/">Unsplash</a> and various AI chatbots.
-      </small>
+  <div class="links">
+    {navLinks.map(({ name, href }) => <a {href}>{name}</a>)}
+  </div>
+  <div>
+    <Image src={logo} alt="Museum of Broken Things" width="250" height="250" />
+    <p>
+      The Museum of Broken Things is brought to you by Accessible Community, with
+      help from <a href="https://unsplash.com/">Unsplash</a> and various AI chatbots.
+    </p>
+  </div>  
 </footer>
+
+<style>
+  footer {
+    background-color: var(--black);
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+
+    &, & a {
+      color: var(--gold-vivid-400);
+      text-decoration: none;
+    }
+    & a:hover {
+      color: var(--gold-vivid-200);
+    }
+
+    & p {
+      font-size: 70%;
+      text-align: center;
+      min-width: 250px;
+      max-width: 250px;    
+    }
+  }
+
+  .links a {
+    border-bottom: 1px solid var(--gold-vivid-400);
+    display: block;
+    padding: 0.5rem;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

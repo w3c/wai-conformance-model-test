@@ -1,4 +1,4 @@
-const links = [
+export const navLinks = [
   { href: "/collections", name: "Collections" },
   { href: "/tour", name: "Take a Tour" },
   { href: "/news", name: "In the News" },
@@ -6,5 +6,4 @@ const links = [
   { href: "/map", name: "Museum Map" },
   { href: "/volunteer", name: "Volunteer" },
   { href: "/about", name: "About" },
-]
-export default links;
+];

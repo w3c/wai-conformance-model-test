@@ -32,5 +32,45 @@ import Navigation from "@/components/Navigation.astro";
 			</main>
 		</div>
     <Footer />
+		<section>
+			<h2 class="visually-hidden">Page explainer</h2>
+			<details>
+				<summary>What's wrong with this page?</summary>
+				<div>
+					<h3>WCAG 2 issues</h3>
+					<dl>
+						<dt>Non-Text Content</dt>
+						<dd>The image of the cheese has <code class="language-html">alt</code> text that doesn't accurately describe it.</dd>
+						<dt>Focus Order</dt>
+						<dd>When the modal dialog is opened, focus isn't moved into the modal element.</dd>
+						<dd>When the modal dialog is closed, focus isn't moved onto the element that triggered the the modal to open.</dd>
+					</dl>
+					<h3>WCAG 3 issues</h3>
+					<dl>
+						<dt>Some Issue</dt>
+						<dd>Some Description</dd>
+						<dt>Some Other Issue</dt>
+						<dd>Some Other Description</dd>
+					</dl>
+				</div>
+			</details>
+		</section>
 	</body>
 </html>
+
+<style>
+
+	details div{
+		column-count: 2;
+		padding:calc(var(--ms0) * 1rem);
+	}
+	summary{
+		background:pink;
+		font-size:calc(var(--ms3) * 1rem);
+		padding:calc(var(--ms0) * 1rem);
+	}
+
+	dt{
+		font-weight: bold;
+	}
+</style>

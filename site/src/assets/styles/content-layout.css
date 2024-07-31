@@ -1,7 +1,7 @@
 .wrapper {
   display: grid;
   gap: 1em;
-  grid-template-columns: [page-start] minmax(1em, 1fr) [content-start] repeat(8, 130px) [content-end] minmax(1em, 1fr) [page-end];
+  grid-template-columns: [page-start] minmax(1em, 1fr) [content-start] repeat(8, 133px) [content-end] minmax(1em, 1fr) [page-end];
 }
 
 main {

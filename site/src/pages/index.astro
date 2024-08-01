@@ -8,19 +8,19 @@ const collections = [
     title: "Toys & Dolls",
     description: "They can dance in the dark.",
     imageItem: await getEntry("collection", "blue-bear"),
-    href: "/collections/toys",
+    tag: "toys",
   },
   {
     title: "Dishes",
     description: "Did someone say dinner?",
     imageItem: await getEntry("collection", "blue-dish"),
-    href: "/collections/dishes",
+    tag: "dishes",
   },
   {
     title: "Containers",
     description: "These won't hold water",
     imageItem: await getEntry("collection", "clay-jug"),
-    href: "/collections/containers",
+    tag: "containers",
   },
 ];
 ---
@@ -29,7 +29,7 @@ const collections = [
   <h2 class="card-header bg-black text-light">Explore our Collections</h2>
   <div class="cards">
     {
-      collections.map(({ description, href, imageItem, title }) => (
+      collections.map(({ description, imageItem, tag, title }) => (
         <CollectionCard
           title={title}
           description={description}
@@ -37,7 +37,7 @@ const collections = [
           height="200"
           style="max-height: 60rem; max-width: 60rem;"
         >
-          <a slot="footer" class="btn btn-primary w-100" {href}>
+          <a slot="footer" class="btn btn-primary w-100" href={`collections/${tag}/`}>
             Explore
           </a>
         </CollectionCard>
@@ -45,7 +45,7 @@ const collections = [
     }
   </div>
   <div class="cards-footer">
-    <a href="/collections">Our collections &rArr;</a>
+    <a href="collections/">Our collections &rArr;</a>
   </div>
   <dl slot="wcag2">
     <dt>Non-Text Content</dt>

@@ -17,7 +17,7 @@ const tags = uniq(flattenDeep(nestedTags)).sort();
       tags.map((tag) => (
         <li class="list-group-item">
           <a
-            href={`/collections/${tag}`}
+            href={`${tag}/`}
             set:text={tagTitleOverrides[tag] || startCase(tag)}
           />
         </li>

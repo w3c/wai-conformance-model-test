@@ -1,0 +1,41 @@
+---
+import { getImage, type LocalImageProps } from "astro:assets";
+import { omit } from "lodash-es";
+
+/** @fileoverview
+ * Custom Image component designed for the following edge cases:
+ * - Allows omitting alt text for intentional WCAG failures
+ * - Does not force setting width/height attributes on img,
+ *   to avoid unwanted interference with object-fit
+ * - Still runs through Astro's image optimization function
+ */
+
+type Props = LocalImageProps & {
+  processHeight?: number;
+  processWidth?: number;
+};
+
+const { height, width } = Astro.props;
+
+const image = await getImage({
+  ...Astro.props,
+  ...(typeof height === "string" && { height: parseInt(height) }),
+  ...(typeof width === "string" && { width: parseInt(width) }),
+});
+
+const attributes =
+  "object-fit" in Astro.props
+    ? {
+        // Only include width/height if they were originally specified
+        ...omit(image.attributes, "height", "width"),
+        height,
+        width,
+      }
+    : image.attributes;
+---
+
+<img
+  src={image.src}
+  {...attributes}
+  {...image.srcSet.values.length && { srcset: image.srcSet.attribute }}
+/>

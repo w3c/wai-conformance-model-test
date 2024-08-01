@@ -39,7 +39,7 @@ const collection = sortBy(
   <div class="container">
     <h2>{title}</h2>
     <div class="cards">
-      {collection.map((item) => <CollectionCard {item} />)}
+      {collection.map((item) => <CollectionCard {item} widths={[1200]} />)}
     </div>
   </div>
 </Layout>

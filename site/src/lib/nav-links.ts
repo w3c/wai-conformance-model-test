@@ -1,3 +1,5 @@
+import { museumBaseUrl } from "./constants";
+
 export const navLinks = [
   { href: "collections/", name: "Collections" },
   { href: "tour/", name: "Take a Tour" },
@@ -7,6 +9,6 @@ export const navLinks = [
   { href: "volunteer/", name: "Volunteer" },
   { href: "about/", name: "About" },
 ].map(({href, name}) => ({
-  href: `${import.meta.env.BASE_URL}${href}`,
+  href: `${museumBaseUrl}${href}`,
   name
 }));

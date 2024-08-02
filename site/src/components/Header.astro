@@ -1,13 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import { museumBaseUrl } from "@/lib/constants";
 
 import logo from "@/assets/images/mbt-logo.png";
 ---
 
 <header>
   <div class="logo">
-    <a href={import.meta.env.BASE_URL}><Image
+    <a href={museumBaseUrl}><Image
         src={logo}
         alt="Museum of Broken Things"
         width="75"
@@ -23,7 +24,7 @@ import logo from "@/assets/images/mbt-logo.png";
         <Icon name="ri:search-line" />
       </button>
     </form>
-    <a class="button" href=`${import.meta.env.BASE_URL}login/`>Sign In</a>
+    <a class="button" href=`${museumBaseUrl}login/`>Sign In</a>
   </div>
 </header>
 

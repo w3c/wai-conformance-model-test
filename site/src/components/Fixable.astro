@@ -1,0 +1,24 @@
+---
+/** @fileoverview
+ * Component that enables defining both broken and fixed state of an HTML element.
+ * Attributes specific to broken or fixed state can be nested within the respective
+ * property; attributes common to both states can be specified top-level as usual.
+ */
+
+import { getMode } from '@/lib/mode';
+import type { HTMLTag, Polymorphic } from 'astro/types';
+
+const mode = getMode();
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
+  /** Any attributes that should only be set on the broken version */
+  broken?: Partial<Omit<Polymorphic<{ as: Tag }>, "as">>;
+  /** Any attributes that should only be set on the fixed version */
+  fixed?: Partial<Omit<Polymorphic<{ as: Tag }>, "as">>;
+};
+
+
+const { as: Tag, broken, fixed, ...props } = Astro.props;
+---
+
+<Tag {...props} {...(mode === "broken" ? broken : fixed)} />

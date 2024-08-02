@@ -1,0 +1,82 @@
+---
+import Fixable from "@/components/Fixable.astro";
+import FixableRegion from "@/components/FixableRegion.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Sign In">
+  <h1>Sign In</h1>
+  {/* TODO: dedicated successful login page? */}
+  <form action={`${import.meta.env.BASE_URL}`} method="post">
+    <FixableRegion>
+      <input class="broken" name="username" placeholder="username" />
+      <input
+        class="broken"
+        type="password"
+        name="password"
+        placeholder="password"
+      />
+      <Fragment slot="fixed">
+        <label
+          >Username
+          <input class="fixed" name="username" placeholder="name" />
+        </label>
+        <label>
+          Password
+          <input class="fixed" type="password" name="password" />
+        </label>
+      </Fragment>
+    </FixableRegion>
+    <Fixable as="p" id="notification" hidden fixed={{ tabindex: -1 }} />
+    <button>Submit</button>
+  </form>
+</Layout>
+
+<script>
+  import { persist } from "@/lib/client/store";
+  import { getMode } from "@/lib/mode";
+
+  const form = document.querySelector("main form") as HTMLFormElement;
+  const notificationEl = document.getElementById(
+    "notification"
+  ) as HTMLParagraphElement;
+
+  form.addEventListener("focusout", (event) => {
+    const el = event.target as HTMLElement;
+    if (el.tagName === "INPUT") {
+      el.classList.toggle("error", !(el as HTMLInputElement).value);
+    }
+  });
+
+  form.addEventListener("submit", (event) => {
+    // Mock login validation
+    const usernameInput = form.elements["username"] as HTMLInputElement;
+    const passwordInput = form.elements["password"] as HTMLInputElement;
+    if (usernameInput.value !== "test" || passwordInput.value !== "WCAG") {
+      event.preventDefault();
+      notificationEl.removeAttribute("hidden");
+      notificationEl.className = "error";
+      notificationEl.textContent =
+        "Incorrect username or password; please try again.";
+
+      if (getMode() === "fixed") notificationEl.focus();
+    } else {
+      persist("isLoggedIn", true);
+    }
+  });
+</script>
+
+<style>
+  form > * {
+    display: block;
+    margin: 1rem 0;
+  }
+
+  input.broken::placeholder {
+    color: var(--gray-300);
+  }
+
+  input.fixed::placeholder {
+    color: var(--gray-600);
+  }
+</style>

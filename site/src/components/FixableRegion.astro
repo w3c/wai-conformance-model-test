@@ -1,0 +1,12 @@
+---
+import { getMode } from "@/lib/mode";
+
+/** @fileoverview
+ * Component that enables defining both broken and fixed state of a region of a page.
+ * Broken definition goes in the default slot; fixed goes in a separate named slot.
+ */
+
+const mode = getMode();
+---
+
+{mode === "broken" ? <slot /> : <slot name="fixed" />}

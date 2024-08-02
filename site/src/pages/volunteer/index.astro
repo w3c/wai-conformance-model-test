@@ -1,0 +1,59 @@
+---
+import Fixable from "@/components/Fixable.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Volunteer">
+  <form action="thank-you/" method="post">
+    <label
+      >First name
+      <input name="firstname" />
+    </label>
+    <label
+      >Middle name
+      <input name="middlename" />
+    </label>
+    <label
+      >Last name
+      <input name="lastname" />
+    </label>
+    <label
+      >Email address
+      <Fixable as="input" fixed={{ type: "email" }} name="email" />
+    </label>
+    <label
+      >Phone number
+      <Fixable as="input" fixed={{ type: "tel" }} name="phone" />
+    </label>
+    <p id="timeout" class="error" hidden>
+      The form has expired; please refresh the page to start over.
+    </p>
+    <button type="submit">Submit</button>
+  </form>
+  <dl slot="wcag2">
+    <dt>2.2.6: Timeouts</dt>
+    <dd>The form becomes unsubmittable after a short time period which is not disclosed in advance.</dd>
+  </dl>
+</Layout>
+
+<script>
+  const form = document.querySelector("main form") as HTMLFormElement;
+  // Intentionally (and rudely) lock out the form after a time period
+  setTimeout(() => {
+    document.getElementById("timeout")!.hidden = false;
+    form.querySelectorAll("input").forEach((input) => (input.disabled = true));
+    form
+      .querySelectorAll("button")
+      .forEach((button) => (button.disabled = true));
+  }, 30000);
+</script>
+
+<style>
+  form > * {
+    display: block;
+    margin: 1rem 0;
+  }
+  input {
+    display: block;
+  }
+</style>

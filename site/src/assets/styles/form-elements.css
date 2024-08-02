@@ -8,6 +8,11 @@ input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="r
   &.error {
     border-color: var(--red-warm-500);
   }
+
+  &:disabled {
+    border-color: var(--gray-200);
+    color: var(--gray-500);
+  }
 }
 
 p.error {

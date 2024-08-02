@@ -1,29 +1,25 @@
 ---
-interface Crumbs {
-  name: String;
-  href: URL;
-}
-
-interface Props {
-  crumbs?: Array<Crumbs>;
-}
-
 import { Image } from "astro:assets";
 import logo from "@/assets/images/mbt-logo.png";
 
+import { slugifyPath } from "@/lib/meta";
 import { navLinks } from "@/lib/nav-links";
 
+const metaAnchor = slugifyPath(Astro.url.pathname.replace(import.meta.env.BASE_URL, ""));
 ---
 
 <footer>
   <div class="links">
     {navLinks.map(({ name, href }) => <a {href}>{name}</a>)}
   </div>
-  <div>
+  <div class="about">
     <Image src={logo} alt="Museum of Broken Things" width="250" height="250" />
-    <p>
-      The Museum of Broken Things is brought to you by Accessible Community, with
+    <p class="attribution">
+      The Museum of Broken Things is brought to you by Accessible Community and W3C, with
       help from <a href="https://unsplash.com/">Unsplash</a> and various AI chatbots.
+    </p>
+    <p>
+      <a href={`${import.meta.env.BASE_URL}#${metaAnchor}`}>What's wrong with this page?</a>
     </p>
   </div>  
 </footer>
@@ -42,13 +38,16 @@ import { navLinks } from "@/lib/nav-links";
     & a:hover {
       color: var(--gold-vivid-200);
     }
+  }
 
-    & p {
-      font-size: 70%;
-      text-align: center;
-      min-width: 250px;
-      max-width: 250px;    
-    }
+  .about {
+    text-align: center;
+  }
+
+  .attribution {
+    font-size: 70%;
+    min-width: 250px;
+    max-width: 250px;    
   }
 
   .links a {

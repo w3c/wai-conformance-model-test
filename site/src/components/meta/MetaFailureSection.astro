@@ -1,0 +1,50 @@
+---
+/** @fileoverview Component that handles some boilerplate for each failure section in the top page. */
+
+interface Props {
+  /** Path to the page being described, e.g. museum/, museum/login/, etc. */
+  href: string;
+  title: string;
+}
+
+const { href, title } = Astro.props;
+---
+
+<section id={href.replace(/\//g, "-").replace(/-$/, "")}>
+  <h3><a href={`${import.meta.env.BASE_URL}${href}`}>{title}</a></h3>
+  {
+    Astro.slots.wcag2 && (
+      <>
+        <h4>WCAG 2</h4>
+        <slot name="wcag2" />
+      </>
+    )
+  }
+  {
+    Astro.slots.wcag3 && (
+      <>
+        <h4>WCAG 3</h4>
+        <slot name="wcag3" />
+      </>
+    )
+  }
+</section>
+
+<script>
+  if (location.hash)
+    document.getElementById(location.hash.slice(1))?.classList.add("destination");
+</script>
+
+<style>
+  section {
+    padding: 0 1rem;
+  }
+
+  .destination {
+    background-color: var(--gold-vivid-100);
+  }
+
+  dt {
+    font-weight: bold;
+  }
+</style>

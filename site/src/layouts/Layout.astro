@@ -1,26 +1,25 @@
 ---
-interface Props {
-  title: string;
-}
-
-const { title } = Astro.props;
-
 import "@/assets/styles/styles.css";
 
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Navigation from "@/components/Navigation.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href=`${import.meta.env.BASE_URL}favicon.svg` />
     <meta name="generator" content={Astro.generator} />
-    <title>{title} - Fixable</title>
+    <title>{title} - The Museum of Broken Things</title>
   </head>
   <body>
     <a class="visually-hidden skip-link" href="#main">Skip to the main content</a>
@@ -32,47 +31,5 @@ import Navigation from "@/components/Navigation.astro";
 			</main>
 		</div>
     <Footer />
-    {
-      (Astro.slots.wcag2 || Astro.slots.wcag3) && (
-        <section>
-          <h2 class="visually-hidden">Page explainer</h2>
-          <details>
-            <summary>What's wrong with this page?</summary>
-            <div>
-							<div>
-								<h3>WCAG 2 issues</h3>
-								<slot name="wcag2">
-									<p>No issues.</p>
-								</slot>
-							</div>
-							<div>
-								<h3>WCAG 3 issues</h3>
-								<slot name="wcag3">
-									<p>No issues.</p>
-								</slot>
-							</div>
-            </div>
-          </details>
-        </section>
-      )
-    }
   </body>
 </html>
-
-<style>
-  details > div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: calc(var(--ms0) * 1rem);
-    padding: calc(var(--ms0) * 1rem);
-  }
-  summary {
-    background: pink;
-    font-size: calc(var(--ms3) * 1rem);
-    padding: calc(var(--ms0) * 1rem);
-  }
-
-  dt {
-    font-weight: bold;
-  }
-</style>

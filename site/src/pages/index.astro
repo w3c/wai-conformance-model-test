@@ -1,0 +1,86 @@
+---
+import MetaFailureSection from "@/components/meta/MetaFailureSection.astro";
+import MetaLayout from "@/layouts/MetaLayout.astro";
+---
+
+<MetaLayout title="General Information">
+  <h1>General Information</h1>
+  <section id="about-this-site">
+    <h2>About The Museum of Broken Things</h2>
+    <p>
+      This site is designed to demonstrate a wide range of accessibility
+      failures, for teaching and assessment purposes.
+    </p>
+  </section>
+
+  <section id="summary-of-failures">
+    <h2>Summary of failures</h2>
+    <p>
+      This section provides a breakdown of failures, organized on a per-page
+      basis.
+    </p>
+
+    {
+      import.meta.env.DEV && (
+        <p id="dev-error" class="error" hidden>
+          The section specified in the hash does not exist. Check for typos in
+          href, or make sure to add it to this page.
+        </p>
+      )
+    }
+
+    <MetaFailureSection href="museum/" title="Home">
+      <dl slot="wcag2">
+        <dt>1.4.3: Contrast (Minimum)</dt>
+        <dd>
+          Text overlaying images in the carousel does not include a background
+          to guarantee contrast.
+        </dd>
+        <dt>2.2.2: Pause, Stop, Hide</dt>
+        <dd>
+          The carousel does not include controls to stop moving and updating.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
+    <MetaFailureSection href="museum/login/" title="Sign In">
+      <dl slot="wcag2">
+        <dt>1.4.3: Contrast (Minimum)</dt>
+        <dd>Placeholder text does not meet the minimum contrast ratio.</dd>
+        <dt>3.3.2: Labels or Instructions</dt>
+        <dd>Form inputs have no labels.</dd>
+      </dl>
+    </MetaFailureSection>
+
+    <MetaFailureSection href="museum/volunteer/" title="Volunteer">
+      <dl slot="wcag2">
+        <dt>2.2.6: Timeouts</dt>
+        <dd>
+          The form becomes unsubmittable after a short time period which is not
+          disclosed in advance.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+  </section>
+
+  <section id="acknowledgment">
+    <h2>Acknowledgment</h2>
+    <p>
+      The Museum of Broken Things is brought to you by
+      <a href="https://accessiblecommunity.org/">Accessible Community</a> and the
+      <a href="https://www.w3.org/WAI/about/groups/agwg/"
+        >W3C Accessibility Guidelines Working Group</a
+      >.
+    </p>
+  </section>
+</MetaLayout>
+
+<script>
+  if (
+    import.meta.env.DEV &&
+    location.hash &&
+    !document.getElementById(location.hash.slice(1))
+  ) {
+    document.getElementById("dev-error")!.hidden = false;
+  }
+</script>

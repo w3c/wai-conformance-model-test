@@ -1,0 +1,33 @@
+---
+/** @fileoverview Layout for meta (top-level, non-museum) pages. */
+
+import "@/assets/styles/styles.css";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href=`${import.meta.env.BASE_URL}favicon.svg`
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} - Fixable</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <main id="main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

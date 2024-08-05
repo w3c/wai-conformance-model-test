@@ -8,6 +8,12 @@ const storage = localStorage;
  * Every property should include .default for upgrade-friendliness.
  */
 const storeSchema = z.object({
+  // Note(ken): This is intentionally under a temporary name
+  // so that any existing values will be cleared when we finalize it
+  cartPrototype: z.record(z.string(), z.object({
+    quantity: z.number().min(1),
+    unitPrice: z.number().min(0.01),
+  })).default({}),
   isLoggedIn: z.boolean().default(false),
 });
 type Store = z.infer<typeof storeSchema>;
@@ -25,7 +31,7 @@ function initStore() {
 const store = initStore();
 
 /** Recalls a single client-side-stored value. */
-export const recall = (key: keyof Store) => store[key];
+export const recall = <K extends keyof Store>(key: K): Store[K] => store[key];
 
 /** Persists a single client-side-stored value. */
 export function persist<K extends keyof Store>(key: K, value: Store[K]) {

@@ -4,6 +4,7 @@ import { Icon } from "astro-icon/components";
 import { museumBaseUrl } from "@/lib/constants";
 
 import logo from "@/assets/images/mbt-logo.png";
+import UserControls from "./UserControls.astro";
 ---
 
 <header>
@@ -24,7 +25,7 @@ import logo from "@/assets/images/mbt-logo.png";
         <Icon name="ri:search-line" />
       </button>
     </form>
-    <a class="button" href=`${museumBaseUrl}login/`>Sign In</a>
+    <UserControls />
   </div>
 </header>
 

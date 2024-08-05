@@ -1,0 +1,23 @@
+---
+import { museumBaseUrl } from "@/lib/constants";
+---
+
+<a id="sign-in" class="button" href=`${museumBaseUrl}login/`>Sign In</a>
+<button id="sign-out" type="button" hidden>Sign Out</button>
+
+<script>
+  import { persist, recall } from "@/lib/client/store";
+
+  const signInButton = document.getElementById("sign-in") as HTMLButtonElement;
+  const signOutButton = document.getElementById("sign-out") as HTMLButtonElement;
+
+  signOutButton.addEventListener("click", () => {
+    persist("isLoggedIn", false);
+    location.href = location.href;
+  });
+
+  if (recall("isLoggedIn")) {
+    signInButton.hidden = true;
+    signOutButton.hidden = false;
+  }
+</script>

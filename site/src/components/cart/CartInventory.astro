@@ -1,0 +1,57 @@
+---
+interface Props {
+  includeRemove?: boolean;
+}
+
+const { includeRemove } = Astro.props;
+---
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      {includeRemove && <th data-actions="">Actions</th>}
+    </tr>
+  </thead>
+  <tbody id="cart-tbody"></tbody>
+</table>
+
+<script>
+  import {
+    handleCartInteractions,
+    renderCartInventory,
+  } from "@/lib/client/cart";
+  import { onStoreChange } from "@/lib/client/store";
+
+  handleCartInteractions();
+
+  onStoreChange("cartPrototype", (cart) =>
+    renderCartInventory(
+      cart,
+      "cart-tbody",
+      !!document.querySelector("[data-actions]")
+    )
+  );
+</script>
+
+<style>
+  /* Nesting is required for styles to reach programmatically-added elements */
+  table {
+    th,
+    td {
+      padding: calc(1rem * var(--ms-5));
+    }
+
+    td {
+      border-top: 1px solid var(--hairline);
+    }
+
+    th:not(:first-child),
+    td:not(:first-child) {
+      border-left: 1px solid var(--hairline);
+      text-align: center;
+    }
+  }
+</style>

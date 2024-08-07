@@ -1,0 +1,31 @@
+---
+import { museumBaseUrl } from "@/lib/constants";
+---
+
+<p>
+  Your cart contains <strong id="cart-total-items">0 items</strong>, totaling <strong
+    id="cart-total-cost">$0.00</strong
+  >.
+</p>
+{
+  !Astro.url.pathname.endsWith("/checkout/") && (
+    <p id="cart-proceed" hidden>
+      <a href={`${museumBaseUrl}gift-shop/checkout/`}>Proceed to Checkout</a>
+    </p>
+  )
+}
+
+<script>
+  import { computeTotals } from "@/lib/client/cart";
+  import { onStoreChange } from "@/lib/client/store";
+
+  onStoreChange("cartPrototype", (cart) => {
+    const { totalCost, totalItems } = computeTotals(cart);
+    document.getElementById("cart-total-items")!.textContent =
+      `${totalItems} item${totalItems === 1 ? "" : "s"}`;
+    document.getElementById("cart-total-cost")!.textContent =
+      `$${totalCost.toFixed(2)}`;
+    document.getElementById("cart-proceed")!.hidden =
+      Object.keys(cart).length === 0;
+  });
+</script>

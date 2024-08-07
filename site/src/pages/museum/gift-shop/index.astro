@@ -1,6 +1,7 @@
 ---
+import CartStatus from "@/components/cart/CartStatus.astro";
 import Layout from "@/layouts/Layout.astro";
-import { startCase } from "lodash-es";
+import startCase from "lodash-es/startCase";
 
 // TODO: flesh out products, likely in a content collection;
 // this is temporary to test cart functionality
@@ -24,113 +25,41 @@ const products = {
 
 <Layout title="Gift Shop">
   <h1>Gift Shop</h1>
-  <div class="container">
-    <div class="products">
-      <h2>Products</h2>
-      {
-        Object.keys(products).map((category) => (
-          <>
-            <h3>{category}</h3>
-            <ul>
-              {Object.entries(products[category]).map(([id, unitPrice]) => (
-                <li>
-                  {startCase(id.replace(/-/g, " "))} (${unitPrice}){" "}
-                  <button id={`${id}-add`} data-price={unitPrice} type="button">
-                    Add to cart
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </>
-        ))
-      }
-    </div>
-    <div class="cart">
-      <h2>Cart</h2>
-      <p id="cart-empty">No items in cart.</p>
-      <ul id="cart-list"></ul>
-      <p id="cart-total" hidden></p>
-    </div>
+  <CartStatus />
+  <div>
+    <h2>Products</h2>
+    {
+      Object.keys(products).map((category) => (
+        <>
+          <h3>{category}</h3>
+          <ul>
+            {Object.entries(products[category]).map(([id, unitPrice]) => (
+              <li>
+                {startCase(id.replace(/-/g, " "))} (${unitPrice}){" "}
+                <button id={`${id}-add`} data-price={unitPrice} type="button">
+                  Add to cart
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
+      ))
+    }
   </div>
 </Layout>
 
 <script>
-  import startCase from "lodash-es/startCase";
-  import { persist, recall } from "@/lib/client/store";
+  import { handleCartInteractions } from "@/lib/client/cart";
 
-  const cart = recall("cartPrototype");
-  renderCart();
-
-  function renderCart() {
-    const listEl = document.getElementById("cart-list") as HTMLUListElement;
-    listEl.innerHTML = "";
-
-    const totalEl = document.getElementById(
-      "cart-total"
-    ) as HTMLParagraphElement;
-
-    const entries = Object.entries(cart);
-    document.getElementById("cart-empty")!.hidden = !!entries.length;
-    totalEl.hidden = !entries.length;
-
-    let total = 0;
-    for (const [id, { quantity, unitPrice }] of entries) {
-      const removeEl = document.createElement("button");
-      removeEl.id = `${id}-remove`;
-      removeEl.type = "button";
-      removeEl.textContent = "Remove";
-
-      const itemEl = document.createElement("li");
-      itemEl.textContent = `${startCase(id.replace(/-/g, " "))} (${quantity} × $${unitPrice}) `;
-      itemEl.appendChild(removeEl);
-
-      listEl.appendChild(itemEl);
-
-      total += quantity * unitPrice;
-    }
-
-    totalEl.innerHTML = `<strong>Total: $${total.toFixed(2)}</strong>`;
-  }
-
-  document.body.addEventListener("click", (event) => {
-    const buttonEl = event.target as HTMLButtonElement;
-    if (buttonEl.tagName !== "BUTTON") return;
-    const match = /^(.*)-(add|remove)$/.exec(buttonEl.id);
-    if (!match || !match[1]) return;
-
-    const cartProduct = cart[match[1]];
-    if (cartProduct) {
-      cartProduct.quantity += match[2] === "add" ? 1 : -1;
-      if (cartProduct.quantity < 1) delete cart[match[1]];
-    } else if (match[2] === "add") {
-      cart[match[1]] = { quantity: 1, unitPrice: +buttonEl.dataset.price! };
-    }
-
-    renderCart();
-    persist("cartPrototype", cart);
-  });
+  handleCartInteractions();
 </script>
 
 <style>
-  .container {
-    display: flex;
-    gap: calc(1rem * var(--ms15));
-  }
-
-  .products {
-    flex-grow: 1;
-  }
-
-  .cart {
-    width: 20rem;
-  }
-
   ul {
     list-style-type: none;
     padding: 0;
 
-    /* This needs to be nested to reach programmatically-generated list items */
-    li {
+    & li {
       display: flex;
       align-items: center;
       justify-content: space-between;

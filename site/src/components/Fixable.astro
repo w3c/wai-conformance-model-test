@@ -21,4 +21,6 @@ type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 const { as: Tag, broken, fixed, ...props } = Astro.props;
 ---
 
-<Tag {...props} {...(mode === "broken" ? broken : fixed)} />
+<Tag {...props} {...(mode === "broken" ? broken : fixed)}>
+  <slot />
+</Tag>

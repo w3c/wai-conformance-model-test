@@ -11,6 +11,10 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       This site is designed to demonstrate a wide range of accessibility
       failures, for teaching and assessment purposes.
     </p>
+    <p>
+      <strong>Reminder:</strong> This site is an example and does not perform
+      real sign-in or payment processing. Do not enter real information!
+    </p>
   </section>
 
   <section id="summary-of-failures">
@@ -43,12 +47,108 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
     </MetaFailureSection>
 
+    <MetaFailureSection href="museum/gift-shop/checkout/" title="Gift Shop Checkout">
+      <p>Note: One or more items must be in the cart to continue the checkout process.</p>
+      <dl slot="wcag2">
+        <dt>2.2.3: No Timing</dt>
+        <dd>
+          Forms in the checkout process time out after an undisclosed period of time.
+        </dd>
+        <dt>3.3.1: Error Identification</dt>
+        <dd>
+          Errors do not specifically describe what expectation was failed for each field.
+        </dd>
+        <dt>3.3.2: Labels or Instructions</dt>
+        <dd>
+          Fields have no labels, and no indication is given on accepted input formats.
+        </dd>
+        <dt>3.3.3: Error Suggestion</dt>
+        <dd>
+          Errors do not provide suggested corrections.
+        </dd>
+        <dt>3.3.4 and 3.3.6: Error Prevention</dt>
+        <dd>
+          There is no confirmation step after entering payment information,
+          failing 3.3.4 for financial information in addition to 3.3.6.
+        </dd>
+        <dt>3.3.5: Help</dt>
+        <dd>
+          No context-sensitive help is available.
+        </dd>
+      </dl>
+      <dl slot="wcag3">
+        <dt>Allow automated entry</dt>
+        <dd>
+          The input fields on the payment step disallow paste.
+        </dd>
+        <dt>Error association</dt>
+        <dd>
+          There is no error message programmatically associated with each input.
+        </dd>
+        <dt>Error identification</dt>
+        <dd>
+          The only indication of error is a border color change.
+        </dd>
+        <dt>Error notification</dt>
+        <dd>
+          Errors do not specifically describe what expectation was failed for each field.
+        </dd>
+        <dt>Input instructions</dt>
+        <dd>
+          No indication of input formats is provided.
+        </dd>
+        <dt>Input labels</dt>
+        <dd>
+          No input labels are present.
+        </dd>
+        <dt>Persistent error notification</dt>
+        <dd>
+          There is no way to dismiss errors until the entire form is resubmitted.
+        </dd>
+        <dt>Visible error</dt>
+        <dd>
+          There is only one generic error message, at the top of the entire form.
+        </dd>
+        <dt>Adequate time</dt>
+        <dd>
+          There is a timeout on each step that may be too short to enter required information.
+        </dd>
+        <dt>Action required</dt>
+        <dd>
+          There is no visible indication of fields being required, until the user attempts to submit.
+        </dd>
+        <dt>Go back in process</dt>
+        <dd>
+          There is no mechanism within the page for stepping back through the process,
+          or indicating position within the process.
+        </dd>
+        <dt>Inform at start</dt>
+        <dd>
+          Nothing is disclosed up-front about the information that will be required to complete checkout.
+        </dd>
+        <dt>Numbered steps</dt>
+        <dd>
+          Checkout steps are not numbered; progress through the process is not indicated at all.
+        </dd>
+        <dt>Contextual Help</dt>
+        <dd>
+          No contextual help is available.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/login/" title="Sign In">
       <dl slot="wcag2">
         <dt>1.4.3: Contrast (Minimum)</dt>
         <dd>Placeholder text does not meet the minimum contrast ratio.</dd>
         <dt>3.3.2: Labels or Instructions</dt>
         <dd>Form inputs have no labels.</dd>
+      </dl>
+      <dl slot="wcag3">
+        <dt>Input labels</dt>
+        <dd>Form inputs have no labels.</dd>
+        <dt>Minimum text contrast</dt>
+        <dd>Placeholder text does not meet the minimum contrast ratio.</dd>
       </dl>
     </MetaFailureSection>
 

@@ -1,10 +1,11 @@
 ---
 import Fixable from "@/components/Fixable.astro";
+import Timeout from "@/components/Timeout.astro";
 import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout title="Volunteer">
-  <form action="thank-you/" method="post">
+  <form action="thank-you/">
     <label
       >First name
       <input name="firstname" />
@@ -25,24 +26,12 @@ import Layout from "@/layouts/Layout.astro";
       >Phone number
       <Fixable as="input" fixed={{ type: "tel" }} name="phone" />
     </label>
-    <p id="timeout" class="error" hidden>
+    <Timeout>
       The form has expired; please refresh the page to start over.
-    </p>
+    </Timeout>
     <button type="submit">Submit</button>
   </form>
 </Layout>
-
-<script>
-  const form = document.querySelector("main form") as HTMLFormElement;
-  // Intentionally (and rudely) lock out the form after a time period
-  setTimeout(() => {
-    document.getElementById("timeout")!.hidden = false;
-    form.querySelectorAll("input").forEach((input) => (input.disabled = true));
-    form
-      .querySelectorAll("button")
-      .forEach((button) => (button.disabled = true));
-  }, 30000);
-</script>
 
 <style>
   form > * {

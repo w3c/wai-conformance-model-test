@@ -1,0 +1,18 @@
+---
+import CartInventory from "@/components/cart/CartInventory.astro";
+import Layout from "@/layouts/Layout.astro";
+import { museumBaseUrl } from "@/lib/constants";
+---
+
+<Layout title="Order Confirmation">
+  <h1>Thank you for your order!</h1>
+  <h2 id="order">Order #</h2>
+  <CartInventory />
+  <p>
+    <a href={museumBaseUrl}>Return to Homepage</a>
+  </p>
+</Layout>
+
+<script>
+  document.getElementById("order")!.textContent = `Order #${Date.now()}`;
+</script>

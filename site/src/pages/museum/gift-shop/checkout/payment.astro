@@ -1,0 +1,78 @@
+---
+import Fixable from "@/components/Fixable.astro";
+import Timeout from "@/components/Timeout.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Checkout">
+  <h1>Checkout</h1>
+  <h2>Payment Information</h2>
+  <p>
+    The payment method you enter below will be charged <strong id="total"
+    ></strong>.
+  </p>
+  <Fixable
+    as="form"
+    broken={{ action: "../confirmation/" }}
+    fixed={{ action: "../review/" }}
+  >
+    <p id="error" class="error" hidden></p>
+    <input name="name" placeholder="Name on Card" />
+    <input name="card" placeholder="Card Number" />
+    <input name="expiration" placeholder="Expiration" />
+    <input name="code" placeholder="CVC" />
+    <input name="zip" placeholder="ZIP Code" />
+    <button>Continue</button>
+    <Timeout>
+      The form has expired; please <a href="../">return to checkout</a> to start
+      over.
+    </Timeout>
+  </Fixable>
+</Layout>
+
+<script>
+  import { computeTotals } from "@/lib/client/cart";
+  import { validateInputs } from "@/lib/client/form";
+  import { recall } from "@/lib/client/store";
+  import { getMode } from "@/lib/mode";
+
+  const cart = recall("cartPrototype");
+  document.getElementById("total")!.textContent =
+    `$${computeTotals(cart).totalCost.toFixed(2)}`;
+
+  if (getMode() === "broken") {
+    document
+      .querySelectorAll("input")
+      .forEach((input) =>
+        input.addEventListener("paste", (event) => event.preventDefault())
+      );
+  }
+
+  document.querySelector("main form")?.addEventListener("submit", (event) => {
+    const hasInvalidFields = validateInputs(event.target as HTMLFormElement, {
+      name: /^.+$/,
+      card: /^\d{16}$/,
+      expiration: /^(0[1-9]|1[0-2])\/(2[4-9]|3\d)$/,
+      code: /^\d{3}$/,
+      zip: /^\d{5}$/,
+    });
+
+    if (hasInvalidFields) {
+      event.preventDefault();
+      const errorEl = document.getElementById("error") as HTMLParagraphElement;
+      errorEl.textContent = "Invalid payment information; please try again.";
+      errorEl.hidden = false;
+    }
+  });
+</script>
+
+<style>
+  form > * {
+    display: block;
+    margin: 1rem 0;
+  }
+
+  input::placeholder {
+    color: var(--gray-300);
+  }
+</style>

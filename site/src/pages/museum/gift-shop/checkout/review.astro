@@ -1,0 +1,23 @@
+---
+import CartInventory from "@/components/cart/CartInventory.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Checkout">
+  <h1>Checkout</h1>
+  <h2>Review</h2>
+  <CartInventory />
+  <p><strong id="total"></strong> will be charged to the previously-entered card.</p>
+  <form action="../confirmation/">
+    <button>Place Order</button>
+  </form>
+</Layout>
+
+<script>
+  import { computeTotals } from "@/lib/client/cart";
+  import { recall } from "@/lib/client/store";
+
+  const cart = recall("cartPrototype");
+  document.getElementById("total")!.textContent =
+    `$${computeTotals(cart).totalCost}`;
+</script>

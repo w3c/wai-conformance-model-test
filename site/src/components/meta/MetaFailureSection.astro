@@ -12,6 +12,7 @@ const { href, title } = Astro.props;
 
 <section id={href.replace(/\//g, "-").replace(/-$/, "")}>
   <h3><a href={`${import.meta.env.BASE_URL}${href}`}>{title}</a></h3>
+  <slot />
   {
     Astro.slots.wcag2 && (
       <>

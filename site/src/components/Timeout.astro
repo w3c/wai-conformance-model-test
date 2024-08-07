@@ -1,0 +1,30 @@
+---
+/**
+ * @fileoverview Component which disables all form inputs in the main region and shows a message
+ * after a given timeout.
+ */
+
+interface Props {
+  /** Timeout duration, in milliseconds */
+  duration?: number;
+}
+
+const { duration = 30000 } = Astro.props;
+---
+
+<p id="timeout-message" data-duration={duration} hidden>
+  <slot />
+</p>
+
+<script>
+  const messageEl = document.getElementById("timeout-message") as HTMLParagraphElement;
+  const form = document.querySelector("main form") as HTMLFormElement;
+  const inputSelectors = ["input", "select", "button"] as const;
+
+  setTimeout(() => {
+    messageEl.hidden = false;
+    inputSelectors.forEach((selector) =>
+      form.querySelectorAll(selector).forEach((el) => (el.disabled = true))
+    );
+  }, +messageEl.dataset.duration!);
+</script>

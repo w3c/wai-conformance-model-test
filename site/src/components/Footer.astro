@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import logo from "@/assets/images/mbt-logo.png";
+import logo from "@/assets/images/mbt-logo.webp";
 
 import { slugifyPath } from "@/lib/meta";
 import { navLinks } from "@/lib/nav-links";
@@ -13,7 +13,7 @@ const metaAnchor = slugifyPath(Astro.url.pathname.replace(import.meta.env.BASE_U
     {navLinks.map(({ name, href }) => <a {href}>{name}</a>)}
   </div>
   <div class="about">
-    <Image src={logo} alt="Museum of Broken Things" width="250" height="250" />
+    <Image src={logo} alt="Museum of Broken Things" width="256" height="256" />
     <p class="attribution">
       The Museum of Broken Things is brought to you by Accessible Community and W3C, with
       help from <a href="https://unsplash.com/">Unsplash</a> and various AI chatbots.

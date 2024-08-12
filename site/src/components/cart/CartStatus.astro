@@ -25,7 +25,8 @@ import { museumBaseUrl } from "@/lib/constants";
       `${totalItems} item${totalItems === 1 ? "" : "s"}`;
     document.getElementById("cart-total-cost")!.textContent =
       `$${totalCost.toFixed(2)}`;
-    document.getElementById("cart-proceed")!.hidden =
-      Object.keys(cart).length === 0;
+
+    const proceedEl = document.getElementById("cart-proceed");
+    if (proceedEl) proceedEl.hidden = Object.keys(cart).length === 0;
   });
 </script>

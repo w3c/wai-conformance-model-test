@@ -1,0 +1,87 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Create Account">
+  <h1>Create Account</h1>
+  <form action="../login/">
+    <h2>Account Information</h2>
+    <label
+      >Display Name
+      <input name="displayName" />
+    </label>
+    <label
+      >Email Address
+      <input type="email" name="email" />
+    </label>
+    <label
+      >Password
+      <input name="password" type="password" />
+    </label>
+    <label
+      >Confirm password
+      <input name="password-confirm" type="password" />
+    </label>
+    <h2>Prove You're a Human</h2>
+    <canvas id="captcha" width="360" height="80"></canvas>
+    <label
+      >Enter the letters shown above:
+      <input name="captcha" />
+    </label>
+    <button>Submit</button>
+  </form>
+</Layout>
+
+<script>
+  import { z } from "astro/zod";
+  import random from "lodash-es/random";
+  import { validateInputs } from "@/lib/client/form";
+  import { persist, storeSchema } from "@/lib/client/store";
+
+  const canvas = document.getElementById("captcha") as HTMLCanvasElement;
+  const ctx = canvas.getContext("2d")!;
+  ctx.font = "36px serif";
+
+  const codeLetters: string[] = [];
+  for (let i = 0; i < 5; i++)
+    codeLetters.push(String.fromCodePoint(random(65, 90)));
+  codeLetters.forEach((letter, i) => {
+    const tx = 50 + i * 60;
+    const ty = 30;
+    ctx.save();
+    ctx.translate(tx, ty);
+    ctx.rotate((random(0, 360) * Math.PI) / 180);
+    ctx.fillText(letter, 0, 0, 40);
+    ctx.restore();
+  });
+
+  const form = document.querySelector("main form") as HTMLFormElement;
+  form.addEventListener("submit", (event) => {
+    const codeText = codeLetters.join("");
+    const registrationSchema = storeSchema.shape.registration
+      .removeDefault()
+      .unwrap();
+
+    const result = validateInputs(
+      form,
+      registrationSchema.extend({
+        "displayName": z.string().min(1),
+        "password-confirm": z
+          .string()
+          .refine((value) => value === form.elements["password"].value),
+        captcha: z.string().refine((value) => value.toUpperCase() === codeText),
+      })
+    );
+
+    if (!result.success) event.preventDefault();
+    // Re-parse to strip fields that shouldn't persist
+    else persist("registration", registrationSchema.parse(result.data));
+  });
+</script>
+
+<style>
+  form > * {
+    display: block;
+    margin: 1rem 0;
+  }
+</style>

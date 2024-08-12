@@ -31,6 +31,7 @@ import Layout from "@/layouts/Layout.astro";
 </Layout>
 
 <script>
+  import { z } from "astro/zod";
   import { computeTotals } from "@/lib/client/cart";
   import { validateInputs } from "@/lib/client/form";
   import { recall } from "@/lib/client/store";
@@ -51,15 +52,18 @@ import Layout from "@/layouts/Layout.astro";
   }
 
   form.addEventListener("submit", (event) => {
-    const hasInvalidFields = validateInputs(event.target as HTMLFormElement, {
-      name: /^.+$/,
-      card: /^\d{16}$/,
-      expiration: /^(0[1-9]|1[0-2])\/(2[4-9]|3\d)$/,
-      code: /^\d{3}$/,
-      zip: /^\d{5}$/,
-    });
+    const result = validateInputs(
+      event.target as HTMLFormElement,
+      z.object({
+        name: z.string().min(1),
+        card: z.string().regex(/^\d{16}$/),
+        expiration: z.string().regex(/^(0[1-9]|1[0-2])\/(2[4-9]|3\d)$/),
+        code: z.string().regex(/^\d{3}$/),
+        zip: z.string().regex(/^\d{5}$/),
+      })
+    );
 
-    if (hasInvalidFields) {
+    if (!result.success) {
       event.preventDefault();
       const errorEl = document.getElementById("error") as HTMLParagraphElement;
       errorEl.textContent = "Invalid payment information; please try again.";

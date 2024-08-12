@@ -7,10 +7,10 @@ import { museumBaseUrl } from "@/lib/constants";
 
 <Layout title="Sign In">
   <h1>Sign In</h1>
-  {/* TODO: dedicated successful login page? */}
+  <p id="registered" hidden>Registration successful. Please sign in below.</p>
   <form action={`${museumBaseUrl}`}>
     <FixableRegion>
-      <input class="broken" name="username" placeholder="username" />
+      <input class="broken" name="email" placeholder="email@domain.com" />
       <input
         class="broken"
         type="password"
@@ -19,8 +19,8 @@ import { museumBaseUrl } from "@/lib/constants";
       />
       <Fragment slot="fixed">
         <label
-          >Username
-          <input class="fixed" name="username" placeholder="name" />
+          >Email
+          <input class="fixed" type="email" name="email" placeholder="name" />
         </label>
         <label>
           Password
@@ -31,16 +31,26 @@ import { museumBaseUrl } from "@/lib/constants";
     <Fixable as="p" id="notification" hidden fixed={{ tabindex: -1 }} />
     <button>Submit</button>
   </form>
+  <p id="register">
+    Don't have an account?
+    <a href="../register/">Register</a>
+  </p>
 </Layout>
 
 <script>
-  import { persist } from "@/lib/client/store";
+  import { persist, recall } from "@/lib/client/store";
   import { getMode } from "@/lib/mode";
+
+  if (new URL(location.href).searchParams.get("email")) {
+    document.getElementById("registered")!.hidden = false;
+    document.getElementById("register")!.hidden = true;
+  }
 
   const form = document.querySelector("main form") as HTMLFormElement;
   const notificationEl = document.getElementById(
     "notification"
   ) as HTMLParagraphElement;
+  const registration = recall("registration");
 
   if (getMode() === "broken") {
     form
@@ -59,18 +69,22 @@ import { museumBaseUrl } from "@/lib/constants";
 
   form.addEventListener("submit", (event) => {
     // Mock login validation
-    const usernameInput = form.elements["username"] as HTMLInputElement;
+    const emailInput = form.elements["email"] as HTMLInputElement;
     const passwordInput = form.elements["password"] as HTMLInputElement;
-    if (usernameInput.value !== "test" || passwordInput.value !== "WCAG") {
+    if (
+      !registration ||
+      emailInput.value !== registration.email ||
+      passwordInput.value !== registration.password
+    ) {
       event.preventDefault();
       notificationEl.removeAttribute("hidden");
       notificationEl.className = "error";
       notificationEl.textContent =
-        "Incorrect username or password; please try again.";
+        "Incorrect email or password; please try again.";
 
       if (getMode() === "fixed") notificationEl.focus();
     } else {
-      persist("isLoggedIn", true);
+      persist("loggedInAt", new Date().toISOString());
     }
   });
 </script>

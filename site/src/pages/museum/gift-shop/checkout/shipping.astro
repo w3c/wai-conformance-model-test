@@ -22,17 +22,21 @@ import Layout from "@/layouts/Layout.astro";
 </Layout>
 
 <script>
+  import { z } from "astro/zod";
   import { validateInputs } from "@/lib/client/form";
 
   document.querySelector("main form")?.addEventListener("submit", (event) => {
-    const hasInvalidFields = validateInputs(event.target as HTMLFormElement, {
-      street1: /^.+$/,
-      city: /^.+$/,
-      state: /^[A-Z]{2}$/,
-      zip: /^\d{5}$/,
-    });
+    const result = validateInputs(
+      event.target as HTMLFormElement,
+      z.object({
+        street1: z.string().min(1),
+        city: z.string().min(1),
+        state: z.string().regex(/^[A-Z]{2}$/),
+        zip: z.string().regex(/^\d{5}$/),
+      })
+    );
 
-    if (hasInvalidFields) {
+    if (!result.success) {
       event.preventDefault();
       const errorEl = document.getElementById("error") as HTMLParagraphElement;
       errorEl.textContent = "Invalid shipping information; please try again.";

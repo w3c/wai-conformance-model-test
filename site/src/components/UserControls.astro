@@ -12,11 +12,11 @@ import { museumBaseUrl } from "@/lib/constants";
   const signOutButton = document.getElementById("sign-out") as HTMLButtonElement;
 
   signOutButton.addEventListener("click", () => {
-    persist("isLoggedIn", false);
+    persist("loggedInAt", null);
     location.href = location.href;
   });
 
-  if (recall("isLoggedIn")) {
+  if (recall("loggedInAt")) {
     signInButton.hidden = true;
     signOutButton.hidden = false;
   }

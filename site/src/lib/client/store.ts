@@ -7,7 +7,7 @@ const storage = localStorage;
  * Schema for validating and populating defaults for local store.
  * Every property should include .default for upgrade-friendliness.
  */
-const storeSchema = z.object({
+export const storeSchema = z.object({
   // Note(ken): This is intentionally under a temporary name
   // so that any existing values will be cleared when we finalize it
   cartPrototype: z
@@ -19,7 +19,11 @@ const storeSchema = z.object({
       })
     )
     .default({}),
-  isLoggedIn: z.boolean().default(false),
+  loggedInAt: z.string().datetime().nullable().default(null),
+  registration: z.object({
+    email: z.string(),
+    password: z.string(),
+  }).nullable().default(null),
 });
 export type Store = z.infer<typeof storeSchema>;
 type StoreKey = keyof Store;

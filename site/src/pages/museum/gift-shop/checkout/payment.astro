@@ -40,15 +40,17 @@ import Layout from "@/layouts/Layout.astro";
   document.getElementById("total")!.textContent =
     `$${computeTotals(cart).totalCost.toFixed(2)}`;
 
+  const form = document.querySelector("main form") as HTMLFormElement;
+
   if (getMode() === "broken") {
-    document
+    form
       .querySelectorAll("input")
       .forEach((input) =>
         input.addEventListener("paste", (event) => event.preventDefault())
       );
   }
 
-  document.querySelector("main form")?.addEventListener("submit", (event) => {
+  form.addEventListener("submit", (event) => {
     const hasInvalidFields = validateInputs(event.target as HTMLFormElement, {
       name: /^.+$/,
       card: /^\d{16}$/,

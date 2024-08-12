@@ -42,6 +42,14 @@ import { museumBaseUrl } from "@/lib/constants";
     "notification"
   ) as HTMLParagraphElement;
 
+  if (getMode() === "broken") {
+    form
+      .querySelectorAll("input")
+      .forEach((input) =>
+        input.addEventListener("paste", (event) => event.preventDefault())
+      );
+  }
+
   form.addEventListener("focusout", (event) => {
     const el = event.target as HTMLElement;
     if (el.tagName === "INPUT") {

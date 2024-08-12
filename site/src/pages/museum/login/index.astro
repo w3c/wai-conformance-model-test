@@ -1,6 +1,7 @@
 ---
 import Fixable from "@/components/Fixable.astro";
 import FixableRegion from "@/components/FixableRegion.astro";
+import FormLayout from "@/components/FormLayout.astro";
 import Layout from "@/layouts/Layout.astro";
 import { museumBaseUrl } from "@/lib/constants";
 ---
@@ -8,7 +9,15 @@ import { museumBaseUrl } from "@/lib/constants";
 <Layout title="Sign In">
   <h1>Sign In</h1>
   <p id="registered" hidden>Registration successful. Please sign in below.</p>
-  <form action={`${museumBaseUrl}`}>
+  <FormLayout class="form" action={`${museumBaseUrl}`}>
+    <Fixable
+      as="p"
+      id="error"
+      class="error"
+      hidden
+      role="alert"
+      fixed={{ tabindex: -1 }}
+    />
     <FixableRegion>
       <input class="broken" name="email" placeholder="email@domain.com" />
       <input
@@ -28,9 +37,8 @@ import { museumBaseUrl } from "@/lib/constants";
         </label>
       </Fragment>
     </FixableRegion>
-    <Fixable as="p" id="notification" hidden fixed={{ tabindex: -1 }} />
     <button>Submit</button>
-  </form>
+  </FormLayout>
   <p id="register">
     Don't have an account?
     <a href="../register/">Register</a>
@@ -47,9 +55,7 @@ import { museumBaseUrl } from "@/lib/constants";
   }
 
   const form = document.querySelector("main form") as HTMLFormElement;
-  const notificationEl = document.getElementById(
-    "notification"
-  ) as HTMLParagraphElement;
+  const errorEl = document.getElementById("error") as HTMLParagraphElement;
   const registration = recall("registration");
 
   if (getMode() === "broken") {
@@ -59,13 +65,6 @@ import { museumBaseUrl } from "@/lib/constants";
         input.addEventListener("paste", (event) => event.preventDefault())
       );
   }
-
-  form.addEventListener("focusout", (event) => {
-    const el = event.target as HTMLElement;
-    if (el.tagName === "INPUT") {
-      el.classList.toggle("error", !(el as HTMLInputElement).value);
-    }
-  });
 
   form.addEventListener("submit", (event) => {
     // Mock login validation
@@ -77,12 +76,10 @@ import { museumBaseUrl } from "@/lib/constants";
       passwordInput.value !== registration.password
     ) {
       event.preventDefault();
-      notificationEl.removeAttribute("hidden");
-      notificationEl.className = "error";
-      notificationEl.textContent =
-        "Incorrect email or password; please try again.";
+      errorEl.removeAttribute("hidden");
+      errorEl.textContent = "Incorrect email or password; please try again.";
 
-      if (getMode() === "fixed") notificationEl.focus();
+      if (getMode() === "fixed") errorEl.focus();
     } else {
       persist("loggedInAt", new Date().toISOString());
     }
@@ -90,9 +87,12 @@ import { museumBaseUrl } from "@/lib/constants";
 </script>
 
 <style>
-  form > * {
-    display: block;
-    margin: 1rem 0;
+  .form {
+    margin: 10vh 0;
+  }
+
+  button {
+    margin-top: calc(1rem * var(--ms9));
   }
 
   input.broken::placeholder {

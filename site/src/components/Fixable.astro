@@ -1,26 +1,40 @@
 ---
 /** @fileoverview
- * Component that enables defining both broken and fixed state of an HTML element.
- * Attributes specific to broken or fixed state can be nested within the respective
- * property; attributes common to both states can be specified top-level as usual.
+ * Component that enables defining both broken and fixed state of an element or component.
+ * Props specific to broken or fixed state can be nested within the respective
+ * property; props common to both states can be specified top-level as usual.
  */
 
-import { getMode } from '@/lib/mode';
-import type { HTMLTag, Polymorphic } from 'astro/types';
+import type { ComponentProps, HTMLTag, Polymorphic } from "astro/types";
+import { getMode } from "@/lib/mode";
 
 const mode = getMode();
 
-type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
-  /** Any attributes that should only be set on the broken version */
-  broken?: Partial<Omit<Polymorphic<{ as: Tag }>, "as">>;
-  /** Any attributes that should only be set on the fixed version */
-  fixed?: Partial<Omit<Polymorphic<{ as: Tag }>, "as">>;
-};
+// NOTE: Props _needs_ to be the first declared type for Astro to process correctly
 
+type Props<Tag extends HTMLTag | AstroComponent> = Tag extends HTMLTag
+  ? Polymorphic<{ as: Tag }> &
+      SpecialCaseProps<Partial<Omit<Polymorphic<{ as: Tag }>, "as">>>
+  : Tag extends AstroComponent
+    ? // This second ternary is required to pass type checking but the `never` will never occur
+      ComponentProps<Tag> &
+        SpecialCaseProps<Partial<ComponentProps<Tag>>> & {
+          as: Tag;
+        }
+    : never;
+
+type AstroComponent = (args: any) => any;
+
+type SpecialCaseProps<T> = {
+  /** Any attributes that should only be set on the broken version */
+  broken?: T;
+  /** Any attributes that should only be set on the fixed version */
+  fixed?: T;
+};
 
 const { as: Tag, broken, fixed, ...props } = Astro.props;
 ---
 
-<Tag {...props} {...(mode === "broken" ? broken : fixed)}>
+<Tag {...props} {...mode === "broken" ? broken : fixed}>
   <slot />
 </Tag>

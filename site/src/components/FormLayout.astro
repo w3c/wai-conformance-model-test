@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+/** @fileoverview Form shell with general layout styles */
+
+interface Props extends HTMLAttributes<"form"> {}
+---
+
+<form {...Astro.props}>
+  <slot />
+</form>
+
+<style is:global>
+  main form {
+    > * {
+      display: block;
+      margin: 1rem 0;
+    }
+
+    select,
+    textarea,
+    input:not([type="checkbox"]):not([type="radio"]) {
+      display: block;
+    }
+  }
+</style>

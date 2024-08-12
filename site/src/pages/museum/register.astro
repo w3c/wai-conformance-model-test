@@ -1,11 +1,20 @@
 ---
+import Fixable from "@/components/Fixable.astro";
+import FormLayout from "@/components/FormLayout.astro";
 import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout title="Create Account">
   <h1>Create Account</h1>
-  <form action="../login/">
+  <FormLayout action="../login/">
     <h2>Account Information</h2>
+    <Fixable
+      as="p"
+      id="error"
+      class="error"
+      hidden
+      fixed={{ role: "alert", tabindex: -1 }}
+    />
     <label
       >Display Name
       <input name="displayName" />
@@ -29,7 +38,7 @@ import Layout from "@/layouts/Layout.astro";
       <input name="captcha" />
     </label>
     <button>Submit</button>
-  </form>
+  </FormLayout>
 </Layout>
 
 <script>
@@ -37,6 +46,7 @@ import Layout from "@/layouts/Layout.astro";
   import random from "lodash-es/random";
   import { validateInputs } from "@/lib/client/form";
   import { persist, storeSchema } from "@/lib/client/store";
+  import { getMode } from "@/lib/mode";
 
   const canvas = document.getElementById("captcha") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d")!;
@@ -55,6 +65,7 @@ import Layout from "@/layouts/Layout.astro";
     ctx.restore();
   });
 
+  const errorEl = document.getElementById("error") as HTMLParagraphElement;
   const form = document.querySelector("main form") as HTMLFormElement;
   form.addEventListener("submit", (event) => {
     const codeText = codeLetters.join("");
@@ -65,23 +76,25 @@ import Layout from "@/layouts/Layout.astro";
     const result = validateInputs(
       form,
       registrationSchema.extend({
-        "displayName": z.string().min(1),
+        displayName: z.string().min(1),
         "password-confirm": z
           .string()
+          .min(1)
           .refine((value) => value === form.elements["password"].value),
         captcha: z.string().refine((value) => value.toUpperCase() === codeText),
       })
     );
 
-    if (!result.success) event.preventDefault();
+    if (!result.success) {
+      event.preventDefault();
+      errorEl.textContent =
+        "All fields are required and the password fields must match.";
+      errorEl.hidden = false;
+
+      if (getMode() === "fixed") errorEl.focus();
+    }
+
     // Re-parse to strip fields that shouldn't persist
     else persist("registration", registrationSchema.parse(result.data));
   });
 </script>
-
-<style>
-  form > * {
-    display: block;
-    margin: 1rem 0;
-  }
-</style>

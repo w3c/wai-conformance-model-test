@@ -1,18 +1,20 @@
 ---
 import Fixable from "@/components/Fixable.astro";
+import FixableRegion from "@/components/FixableRegion.astro";
+import FormLayout from "@/components/FormLayout.astro";
 import Timeout from "@/components/Timeout.astro";
 import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout title="Checkout">
   <h1>Checkout</h1>
-  <h2>Payment Information</h2>
+  <FixableRegion><h2 slot="fixed">Payment Information</h2></FixableRegion>
   <p>
     The payment method you enter below will be charged <strong id="total"
     ></strong>.
   </p>
   <Fixable
-    as="form"
+    as={FormLayout}
     broken={{ action: "../confirmation/" }}
     fixed={{ action: "../review/" }}
   >
@@ -73,11 +75,6 @@ import Layout from "@/layouts/Layout.astro";
 </script>
 
 <style>
-  form > * {
-    display: block;
-    margin: 1rem 0;
-  }
-
   input::placeholder {
     color: var(--gray-300);
   }

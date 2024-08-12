@@ -15,6 +15,6 @@ input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="r
   }
 }
 
-p.error {
+div.error, p.error {
   color: var(--red-warm-500);
 }

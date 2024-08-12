@@ -1,11 +1,12 @@
 ---
 import Fixable from "@/components/Fixable.astro";
+import FormLayout from "@/components/FormLayout.astro";
 import Timeout from "@/components/Timeout.astro";
 import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout title="Volunteer">
-  <form action="thank-you/">
+  <FormLayout action="thank-you/">
     <label
       >First name
       <input name="firstname" />
@@ -30,15 +31,5 @@ import Layout from "@/layouts/Layout.astro";
       The form has expired; please refresh the page to start over.
     </Timeout>
     <button type="submit">Submit</button>
-  </form>
+  </FormLayout>
 </Layout>
-
-<style>
-  form > * {
-    display: block;
-    margin: 1rem 0;
-  }
-  input {
-    display: block;
-  }
-</style>

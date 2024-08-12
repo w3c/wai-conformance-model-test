@@ -21,8 +21,8 @@ export const storeSchema = z.object({
     .default({}),
   loggedInAt: z.string().datetime().nullable().default(null),
   registration: z.object({
-    email: z.string(),
-    password: z.string(),
+    email: z.string().email(),
+    password: z.string().min(1),
   }).nullable().default(null),
 });
 export type Store = z.infer<typeof storeSchema>;

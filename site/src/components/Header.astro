@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
 import { museumBaseUrl } from "@/lib/constants";
+import Search from "./Search.astro";
+import UserControls from "./UserControls.astro";
 
 import logo from "@/assets/images/mbt-logo.webp";
-import UserControls from "./UserControls.astro";
 ---
 
 <header>
@@ -19,12 +19,7 @@ import UserControls from "./UserControls.astro";
     <div>Museum of Broken Things</div>
   </div>
   <div>
-    <form role="search">
-      <input type="search" placeholder="Search" aria-label="Search" />
-      <button class="outline">
-        <Icon name="ri:search-line" />
-      </button>
-    </form>
+    <Search />
     <UserControls />
   </div>
 </header>
@@ -48,15 +43,6 @@ import UserControls from "./UserControls.astro";
     text-transform: uppercase;
     & img {
       display: block; /* avoids descender space under image */
-    }
-  }
-
-  form {
-    display: flex;
-    align-items: stretch;
-    button {
-      position: relative;
-      inset-inline-start: -1px;
     }
   }
 </style>

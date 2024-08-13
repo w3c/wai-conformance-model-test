@@ -1,0 +1,96 @@
+---
+import { Icon } from "astro-icon/components";
+import FixableRegion from "./FixableRegion.astro";
+import { museumBaseUrl } from "@/lib/constants";
+---
+
+<FixableRegion>
+  <input id="search" placeholder="Search" />
+  <form slot="fixed" role="search" action={`${museumBaseUrl}search/`}>
+    <label
+      >Search
+      <input id="search" type="search" name="query" />
+    </label>
+    <button class="outline"><Icon name="ri:search-line" /></button>
+  </form>
+</FixableRegion>
+
+<script>
+  import debounce from "lodash-es/debounce";
+  import { museumBaseUrl } from "@/lib/constants";
+  import { getMode } from "@/lib/mode";
+  import type { SearchResult } from "@/pages/museum/api/search";
+
+  const allResults = (await (
+    await fetch(`${museumBaseUrl}api/search/`)
+  ).json()) as SearchResult[];
+
+  const searchInput = document.getElementById("search") as HTMLInputElement;
+
+  function search(query: string) {
+    searchInput.value = query;
+    const filteredResults = allResults.filter(({ title }) =>
+      title.toLowerCase().includes(query.toLowerCase())
+    );
+    const resultsHtml = query
+      ? `<ul>${filteredResults.map(
+          ({ title, url }) => `<li><a href="${url}">${title}</a></li>`
+        )}</ul>`
+      : "<p>No query specified.</p>";
+
+    const mainEl = document.querySelector("main") as HTMLElement;
+    mainEl.innerHTML = `
+      <h1>Search Results</h1>
+      ${resultsHtml}
+    `;
+  }
+
+  // Perform search immediately when loading this component on search page
+  const url = new URL(location.href);
+  if (url.pathname === `${museumBaseUrl}search/`) {
+    const query = url.searchParams.get("query") || "";
+    search(query);
+  }
+
+  if (getMode() === "broken") {
+    window.addEventListener("popstate", (event) => {
+      const url = new URL(location.href);
+      const query = url.searchParams.get("query") || "";
+      if (url.pathname === `${museumBaseUrl}search/`) search(query);
+      else location.reload(); // Perform full navigation when leaving search page
+    });
+
+    searchInput.addEventListener(
+      "input",
+      debounce(() => {
+        const query = searchInput.value;
+
+        if (location.pathname !== "/search")
+          history.replaceState({}, "", location.href);
+        // No-op if the value didn't change after debounced input events
+        else if (query === new URL(location.href).searchParams.get("query"))
+          return;
+
+        history.pushState(
+          {},
+          "",
+          `${museumBaseUrl}search/?query=${encodeURIComponent(query)}`
+        );
+
+        search(query);
+      }, 500)
+    );
+  }
+</script>
+
+<style>
+  form {
+    display: flex;
+    align-items: stretch;
+    button {
+      padding: 0 calc(1rem * var(--ms-6));
+      position: relative;
+      inset-inline-start: -1px;
+    }
+  }
+</style>

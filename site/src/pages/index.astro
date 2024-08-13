@@ -33,6 +33,23 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       )
     }
 
+    <MetaFailureSection href="museum/" title="Common Component: Search Box">
+      <dl slot="wcag2">
+        <dt>3.2.2: On Input</dt>
+        <dd>
+          The search box automatically performs client-side navigation to
+          the search page on a delay after input stops.
+          There is no dedicated submit button and no warning about the behavior.
+          (This may not be a failure for the search page itself.)
+          The page title also does not update to reflect the page change.
+        </dd>
+        <dt>4.1.2: Name, Role, Value</dt>
+        <dd>
+          There is no search landmark indicating the presence or purpose of the search box.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/" title="Home">
       <dl slot="wcag2">
         <dt>1.4.3: Contrast (Minimum)</dt>

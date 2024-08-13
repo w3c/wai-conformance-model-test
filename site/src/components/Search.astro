@@ -17,13 +17,13 @@ import { museumBaseUrl } from "@/lib/constants";
 
 <script>
   import debounce from "lodash-es/debounce";
+  import type { SearchResult } from "@/pages/museum/api/search";
   import { museumBaseUrl } from "@/lib/constants";
   import { getMode } from "@/lib/mode";
-  import type { SearchResult } from "@/pages/museum/api/search";
+  import { fetchApi } from "@/lib/client/fetch";
 
-  const allResults = (await (
-    await fetch(`${museumBaseUrl}api/search/`)
-  ).json()) as SearchResult[];
+  const response = await fetchApi(`${museumBaseUrl}api/search/`);
+  const allResults = (await response.json()) as SearchResult[];
 
   const searchInput = document.getElementById("search") as HTMLInputElement;
 
@@ -53,7 +53,7 @@ import { museumBaseUrl } from "@/lib/constants";
   }
 
   if (getMode() === "broken") {
-    window.addEventListener("popstate", (event) => {
+    window.addEventListener("popstate", () => {
       const url = new URL(location.href);
       const query = url.searchParams.get("query") || "";
       if (url.pathname === `${museumBaseUrl}search/`) search(query);

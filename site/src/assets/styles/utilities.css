@@ -1,21 +1,38 @@
+/* For use with .hidden / breakpoint classes */
+.block {
+  display: block;
+}
+
 .hidden,
 [hidden] {
-  display: none !important;
+  display: none;
+}
+
+/* Responsive breakpoint classes */
+@media (width < 30em) {
+  .hidden-below-md {
+    display: none;
+  }
+}
+@media (width < 60em) {
+  .hidden-below-lg {
+    display: none;
+  }
 }
 
 .visually-hidden {
-	border: 0;
-	clip: rect(0, 0, 0, 0);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	white-space: nowrap;
-	width: 1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 /* Specialization of .visually-hidden for skip navigation link */
 .skip-link:focus-visible {
-	all: revert;
+  all: revert;
 }

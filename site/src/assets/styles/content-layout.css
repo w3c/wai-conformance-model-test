@@ -1,10 +1,19 @@
-.wrapper {
-  display: grid;
-  gap: 1em;
-  grid-template-columns: [page-start] minmax(1em, 1fr) [content-start] repeat(8, 133px) [content-end] minmax(1em, 1fr) [page-end];
+@media (min-width: 30em) {
+  .grid-wrapper {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: [content-start] repeat(6, minmax(0, 133px)) [content-end];
+  }
+}
+
+@media (min-width: 60em) {
+  .grid-wrapper {
+    grid-template-columns: [content-start] repeat(12, minmax(0, 133px)) [content-end];
+  }
 }
 
 main {
-  grid-column: 2 / 10;
+  max-width: 75rem;
+  margin: 0 auto;
   padding: 1rem;
 }

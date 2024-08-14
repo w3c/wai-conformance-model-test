@@ -35,7 +35,6 @@ const collections = [
           description={description}
           image={imageItem.data.image}
           height="200"
-          style="max-height: 60rem; max-width: 60rem;"
         >
           <a slot="footer" class="btn btn-primary w-100" href={`collections/${tag}/`}>
             Explore
@@ -53,7 +52,8 @@ const collections = [
   .cards {
     display: grid;
     column-gap: 3rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(15rem, 1fr));
+    overflow: auto;
   }
 
   .cards-footer {

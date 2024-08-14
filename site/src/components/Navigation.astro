@@ -5,8 +5,8 @@ import { navLinks } from "@/lib/nav-links";
 <nav aria-label="Site">
   <ul>
     {
-      navLinks.map(({ name, href }) => (
-        <li>
+      navLinks.map(({ name, href, headerClass }) => (
+        <li class={headerClass}>
           <a {href}>{name}</a>
         </li>
       ))
@@ -31,6 +31,7 @@ import { navLinks } from "@/lib/nav-links";
       display: block;
       padding: 0.5em;
       text-decoration: none;
+      white-space: nowrap;
       &:hover {
         color: var(--white);
       }

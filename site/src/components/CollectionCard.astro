@@ -2,7 +2,7 @@
 import type { LocalImageProps } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { pick } from "lodash-es";
-import LaxImage from "./LaxImage.astro";
+import CoverImage from "./CoverImage.astro";
 
 const imagePropNames = ["height", "width", "sizes", "widths"] as const;
 
@@ -30,7 +30,7 @@ const { description, image, title } =
 <div class:list={["card", extraClasses]} {style}>
   <div class={image.vertical ? "vertical" : "horizontal"}>
     <div class="image-container">
-      <LaxImage
+      <CoverImage
         src={image.src}
         alt={image.alt || null}
         object-fit="cover"

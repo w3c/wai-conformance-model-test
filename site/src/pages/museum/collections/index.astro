@@ -1,25 +1,21 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { tagTitleOverrides } from "@/lib/tags";
-
 import { getCollection } from "astro:content";
-import { flattenDeep, startCase, uniq } from "lodash-es";
+import Layout from "@/layouts/Layout.astro";
+import { sortBy } from "lodash-es";
 
-const fullCollection = await getCollection("collection");
-const nestedTags = fullCollection.map(({ data }) => data.tags || []);
-const tags = uniq(flattenDeep(nestedTags)).sort();
+const categories = sortBy(
+  await getCollection("exhibit-categories"),
+  ({ data }) => data.title
+);
 ---
 
 <Layout title="Collections">
   <h2>Our Collections</h2>
   <ul class="list-group list-group-flush">
     {
-      tags.map((tag) => (
+      categories.map(({ data, slug }) => (
         <li class="list-group-item">
-          <a
-            href={`${tag}/`}
-            set:text={tagTitleOverrides[tag] || startCase(tag)}
-          />
+          <a href={`${slug}/`} set:text={data.title} />
         </li>
       ))
     }

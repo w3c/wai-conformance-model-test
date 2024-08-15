@@ -1,0 +1,82 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const allExhibits = await getCollection("exhibits");
+
+  return allExhibits.map((exhibit) => {
+    const [category, exhibitSlug] = exhibit.slug.split("/");
+    return {
+      params: { category, exhibit: exhibitSlug },
+      props: { exhibit },
+    };
+  });
+}
+
+import type { CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import CoverImage from "@/components/CoverImage.astro";
+
+interface Props {
+  exhibit: CollectionEntry<"exhibits">;
+  title: string;
+}
+
+const { exhibit } = Astro.props;
+const { Content } = await exhibit.render();
+---
+
+<Layout title={exhibit.data.title}>
+  <h1>{exhibit.data.title}</h1>
+  <div class="container">
+    <div class="image-container">
+      <CoverImage
+        src={exhibit.data.image}
+        alt={exhibit.data.skipAlt ? null : exhibit.data.description}
+        objectPosition={exhibit.data.imagePosition}
+        widths={[960]}
+      />
+    </div>
+    <div class="content">
+      <Content />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  h1 {
+    text-align: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 60em) {
+    .container {
+      flex-direction: row;
+    }
+
+    .image-container,
+    .content {
+      width: 50%;
+    }
+  }
+
+  .image-container {
+    grid-column: content-start / content-half;
+    display: flex;
+    align-items: flex-start;
+
+    & img {
+      max-width: 100%;
+    }
+  }
+
+  .content {
+    grid-column: content-half / content-end;
+    overflow: auto;
+  }
+</style>

@@ -13,11 +13,10 @@ import { omit } from "lodash-es";
  */
 
 type Props = LocalImageProps & {
-  processHeight?: number;
-  processWidth?: number;
+  objectPosition?: string;
 };
 
-const { height, width } = Astro.props;
+const { height, objectPosition, width } = Astro.props;
 
 const image = await getImage({
   ...Astro.props,
@@ -30,6 +29,7 @@ const attributes = {
   ...omit(image.attributes, "height", "width"),
   height,
   width,
+  ...(objectPosition && { style: { objectPosition } }),
 };
 ---
 
@@ -42,6 +42,5 @@ const attributes = {
 <style>
   .cover {
     object-fit: cover;
-    object-position: 33% center;
   }
 </style>

@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+import { sortBy } from "lodash-es";
+
+export async function getStaticPaths() {
+  const allExhibits = await getCollection("exhibits");
+  const categories = await getCollection("exhibit-categories");
+
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: {
+      category,
+      exhibits: sortBy(
+        allExhibits.filter(({ id }) => id.startsWith(`${category.slug}/`)),
+        ({ data }) => data.title
+      ),
+    },
+  }));
+}
+
+import type { CollectionEntry } from "astro:content";
+import CoverImage from "@/components/CoverImage.astro";
+import Layout from "@/layouts/Layout.astro";
+
+interface Props {
+  category: CollectionEntry<"exhibit-categories">;
+  exhibits: CollectionEntry<"exhibits">[];
+}
+
+const { category, exhibits } = Astro.props;
+const { Content } = await category.render();
+---
+
+<Layout title={category.data.title}>
+  <h2>{category.data.title}</h2>
+  <Content />
+  <ul class="grid-wrapper">
+    {
+      exhibits.map(({ data, slug }) => (
+        <li>
+          <div class="image-container">
+            <CoverImage
+              src={data.image}
+              alt={data.skipAlt ? null : data.description}
+              objectPosition={data.imagePosition}
+              height="200"
+              widths={[960]}
+            />
+          </div>
+          <div class="content">
+            <a href={`../${slug}/`}>{data.title}</a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
+
+<style>
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: calc(1rem * var(--ms6)) 0 calc(1rem * var(--ms10));
+  }
+
+  li {
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    grid-column-end: span 2;
+  }
+
+  .image-container {
+    height: calc(1rem * var(--ms20));
+    overflow: hidden;
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  .content a {
+    display: block;
+    padding: 1rem;
+    text-align: center;
+  }
+</style>

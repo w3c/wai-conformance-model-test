@@ -1,45 +1,52 @@
 ---
-import { getEntry } from "astro:content";
-import CollectionCard from "@/components/CollectionCard.astro";
+import { getCollection, getEntry } from "astro:content";
+import CoverImage from "@/components/CoverImage.astro";
 import Layout from "@/layouts/Layout.astro";
 
-const collections = [
-  {
-    title: "Toys & Dolls",
-    description: "They can dance in the dark.",
-    imageItem: await getEntry("collection", "blue-bear"),
-    tag: "toys",
-  },
-  {
-    title: "Dishes",
-    description: "Did someone say dinner?",
-    imageItem: await getEntry("collection", "blue-dish"),
-    tag: "dishes",
-  },
-  {
-    title: "Containers",
-    description: "These won't hold water",
-    imageItem: await getEntry("collection", "clay-jug"),
-    tag: "containers",
-  },
-];
+const featuredCategories = (await getCollection("exhibit-categories")).filter(
+  ({ data }) => !!data.topDescription && !!data.topImageItem
+);
+const expandedCategories = await Promise.all(
+  featuredCategories.map(async (category) => ({
+    ...category,
+    data: {
+      ...category.data,
+      topDescription: category.data.topDescription!,
+      topImageItem: (await getEntry(category.data.topImageItem!)).data,
+    },
+  }))
+);
 ---
 
 <Layout title="Home">
   <h2>Explore our Collections</h2>
   <div class="cards">
     {
-      collections.map(({ description, imageItem, tag, title }) => (
-        <CollectionCard
-          title={title}
-          description={description}
-          image={imageItem.data.image}
-          height="200"
-        >
-          <a slot="footer" class="btn btn-primary w-100" href={`collections/${tag}/`}>
-            Explore
-          </a>
-        </CollectionCard>
+      expandedCategories.map(({ data, slug }) => (
+        <div class="card">
+          <div class="card-image-container">
+            <CoverImage
+              src={data.topImageItem.image}
+              alt={
+                data.topImageItem.skipAlt ? null : data.topImageItem.description
+              }
+              objectPosition={data.topImageItem.imagePosition}
+              height="200"
+            />
+          </div>
+          <div class="card-content">
+            <h3 set:text={data.title} />
+            <div>{data.topDescription}</div>
+          </div>
+          <div class="card-footer">
+            <a
+              class="btn btn-primary w-100"
+              href={`collections/${slug}/`}
+            >
+              Explore
+            </a>
+          </div>
+        </div>
       ))
     }
   </div>
@@ -59,5 +66,35 @@ const collections = [
   .cards-footer {
     padding: 1rem 0 2rem;
     text-align: right;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    position: relative;
+  }
+
+  h3 {
+    margin: 0 0 0.5rem;
+    text-align: center;
+  }
+
+  .card-image-container {
+    max-height: 35rem;
+    overflow: hidden;
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  .card-content {
+    padding: 1rem;
+  }
+
+  .card-footer {
+    background: rgb(27, 27, 27, 0.03);
+    border-top: 1px solid var(--hairline);
+    padding: 0.5rem;
   }
 </style>

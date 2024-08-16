@@ -1,22 +1,17 @@
-/* For use with .hidden / breakpoint classes */
-.block {
-  display: block;
-}
-
 .hidden,
 [hidden] {
-  display: none;
+  display: none !important;
 }
 
 /* Responsive breakpoint classes */
 @media (width < 30em) {
   .hidden-below-md {
-    display: none;
+    display: none !important;
   }
 }
 @media (width < 60em) {
   .hidden-below-lg {
-    display: none;
+    display: none !important;
   }
 }
 

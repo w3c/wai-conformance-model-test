@@ -14,7 +14,7 @@ const metaAnchor = slugifyPath(
   <div class="links">
     {
       navLinks.map(({ name, href, footerClass }) => (
-        <a class:list={["block", footerClass]} {href}>
+        <a class={footerClass} {href}>
           {name}
         </a>
       ))
@@ -64,6 +64,7 @@ const metaAnchor = slugifyPath(
 
   .links a {
     border-bottom: 1px solid var(--gold-vivid-400);
+    display: block;
     padding: 0.5rem;
 
     &:last-child {

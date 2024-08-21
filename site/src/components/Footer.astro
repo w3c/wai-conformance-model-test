@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import logo from "@/assets/images/mbt-logo.webp";
 
 import { slugifyPath } from "@/lib/meta";
-import { navLinks } from "@/lib/nav-links";
+import { defaultNavLinks } from "@/lib/nav-links";
 
 const metaAnchor = slugifyPath(
   Astro.url.pathname.replace(import.meta.env.BASE_URL, "")
@@ -13,7 +13,7 @@ const metaAnchor = slugifyPath(
 <footer>
   <div class="links">
     {
-      navLinks.map(({ name, href, footerClass }) => (
+      defaultNavLinks.map(({ name, href, footerClass }) => (
         <a class={footerClass} {href}>
           {name}
         </a>

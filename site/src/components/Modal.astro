@@ -1,0 +1,121 @@
+---
+/** @fileoverview
+ * Component supporting broken (custom) and fixed (native) modal dialogs.
+ * Non-native dialogs can designate close CTAs via data-modal-close attribute;
+ * native can use a submit button, relying on form method="dialog".
+ */
+
+import { getMode } from "@/lib/mode";
+
+interface Props {
+  class?: string;
+  /** Whether to close upon clicking the backdrop (affects both modes) */
+  closeOnBackdrop?: boolean;
+  /** Whether to close upon pressing escape (affects broken mode only) */
+  closeOnKeyboard?: boolean;
+  id: string;
+}
+
+const { class: extraClass, closeOnBackdrop, closeOnKeyboard, id } = Astro.props;
+const contentClassList = ["content", extraClass];
+const mode = getMode();
+---
+
+{
+  mode === "broken" ? (
+    <div
+      class="backdrop"
+      id={id}
+      hidden
+      data-modal-close-on-backdrop={closeOnBackdrop}
+      data-modal-close-on-keyboard={closeOnKeyboard}
+    >
+      <div class:list={contentClassList}>
+        <slot />
+      </div>
+    </div>
+  ) : (
+    <dialog
+      id={id}
+      class:list={contentClassList}
+      data-modal-close-on-backdrop={closeOnBackdrop}
+    >
+      <form method="dialog">
+        <slot />
+      </form>
+    </dialog>
+  )
+}
+
+<script>
+  import { hideModal } from "@/lib/client/modal";
+
+  document.body.addEventListener("click", (event) => {
+    const el = event.target as HTMLElement;
+    // This works both for the custom modal and native;
+    // in the native dialog, the form occupies the full "foreground",
+    // so this only matches the backdrop
+    if ("modalCloseOnBackdrop" in el.dataset) hideModal(el.id);
+
+    // Handle close buttons in non-native dialogs directly
+    if ("modalClose" in el.dataset) {
+      const modalEl = el.closest(".backdrop[id]");
+      if (modalEl) hideModal(modalEl.id);
+    }
+  });
+
+  document.body.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    // Detecting this way allows hiding an open modal via Escape even if
+    // focus isn't within it, which is what happens on the site we used for reference
+    const el = document.querySelector(
+      "[data-modal-close-on-keyboard]:not([hidden])"
+    );
+    if (el) hideModal(el.id);
+  });
+</script>
+
+<style>
+  .backdrop,
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .backdrop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    position: fixed;
+    inset: 0;
+    transition: opacity 300ms linear;
+    z-index: 1;
+
+    &[hidden] {
+      opacity: 0;
+    }
+  }
+
+  .content {
+    background: var(--white);
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+    max-height: 90vh;
+    max-width: 90vw;
+    overflow: auto;
+
+    &:not(dialog) {
+      padding: 1rem;
+    }
+  }
+
+  /* Move native dialog padding to help click listener logic */
+  dialog {
+    padding: 0;
+
+    & form {
+      padding: 1rem;
+    }
+  }
+</style>

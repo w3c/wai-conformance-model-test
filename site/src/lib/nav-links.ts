@@ -1,6 +1,13 @@
 import { museumBaseUrl } from "./constants";
 
-export const navLinks = [
+export interface NavLink {
+  href: string;
+  headerClass?: string;
+  footerClass?: string;
+  name: string;
+}
+
+export const defaultNavLinks: NavLink[] = [
   { href: "collections/", name: "Collections" },
   { href: "tour/", name: "Take a Tour" },
   { href: "news/", name: "In the News", headerClass: "hidden-below-lg" },

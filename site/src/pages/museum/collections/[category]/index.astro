@@ -1,6 +1,13 @@
 ---
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import { sortBy } from "lodash-es";
+import CoverImage from "@/components/CoverImage.astro";
+import Layout from "@/layouts/Layout.astro";
+
+interface Props {
+  category: CollectionEntry<"exhibit-categories">;
+  exhibits: CollectionEntry<"exhibits">[];
+}
 
 export async function getStaticPaths() {
   const allExhibits = await getCollection("exhibits");
@@ -14,17 +21,8 @@ export async function getStaticPaths() {
         allExhibits.filter(({ id }) => id.startsWith(`${category.slug}/`)),
         ({ data }) => data.title
       ),
-    },
+    } as Props,
   }));
-}
-
-import type { CollectionEntry } from "astro:content";
-import CoverImage from "@/components/CoverImage.astro";
-import Layout from "@/layouts/Layout.astro";
-
-interface Props {
-  category: CollectionEntry<"exhibit-categories">;
-  exhibits: CollectionEntry<"exhibits">[];
 }
 
 const { category, exhibits } = Astro.props;

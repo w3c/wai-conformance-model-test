@@ -19,7 +19,7 @@ import { museumBaseUrl } from "@/lib/constants";
   import { computeTotals } from "@/lib/client/cart";
   import { onStoreChange } from "@/lib/client/store";
 
-  onStoreChange("cartPrototype", (cart) => {
+  onStoreChange("cart", (cart) => {
     const { totalCost, totalItems } = computeTotals(cart);
     document.getElementById("cart-total-items")!.textContent =
       `${totalItems} item${totalItems === 1 ? "" : "s"}`;

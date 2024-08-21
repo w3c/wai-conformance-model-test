@@ -20,20 +20,25 @@ const { includeRemove } = Astro.props;
 
 <script>
   import {
-    handleCartInteractions,
+    handleCartRemovals,
     renderCartInventory,
   } from "@/lib/client/cart";
-  import { onStoreChange } from "@/lib/client/store";
+  import { onStoreChange, recall } from "@/lib/client/store";
 
-  handleCartInteractions();
+  const includeRemove = !!document.querySelector("th[data-actions]");
 
-  onStoreChange("cartPrototype", (cart) =>
-    renderCartInventory(
-      cart,
-      "cart-tbody",
-      !!document.querySelector("[data-actions]")
-    )
-  );
+  handleCartRemovals();
+
+  if (includeRemove) {
+    onStoreChange("cart", (cart) =>
+      renderCartInventory(cart, "cart-tbody", true)
+    );
+  } else {
+    // Intentionally render "statically" without reacting to further events,
+    // so that we can safely clear cart during confirmation step
+    const cart = recall("cart");
+    renderCartInventory(cart, "cart-tbody", false);
+  }
 </script>
 
 <style>

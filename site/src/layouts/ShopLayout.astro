@@ -1,0 +1,65 @@
+---
+/** @fileoverview Layout for Gift Shop pages. */
+
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import Navigation from "@/components/Navigation.astro";
+import BaseLayout from "./BaseLayout.astro";
+import { museumBaseUrl } from "@/lib/constants";
+import { Icon } from "astro-icon/components";
+import { defaultNavLinks } from "@/lib/nav-links";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const headerNavLinks = [
+  ...defaultNavLinks.filter(({ name }) => name === "Gift Shop"),
+  ...defaultNavLinks.filter(({ name }) => name !== "Gift Shop")
+];
+---
+
+<BaseLayout title={title}>
+  <Header />
+  <Navigation navLinks={headerNavLinks}>
+    <a href={`${museumBaseUrl}gift-shop/checkout/`}>
+      <span id="cart-empty"><Icon name="ri:shopping-cart-line" /></span>
+      <span id="cart-filled" hidden><Icon name="ri:shopping-cart-fill" /></span>
+      <span id="cart-stats"></span>
+    </a>
+  </Navigation>
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  import { computeTotals } from "@/lib/client/cart";
+  import { onStoreChange } from "@/lib/client/store";
+
+  onStoreChange("cart", (cart) => {
+    const { totalCost, totalItems } = computeTotals(cart);
+    document.getElementById("cart-empty")!.hidden = !!totalItems;
+    document.getElementById("cart-filled")!.hidden = !totalItems;
+    document.getElementById("cart-stats")!.textContent =
+      totalItems ? `${totalItems} ($${totalCost.toFixed(2)})` : "";
+  });
+</script>
+
+<style is:global>
+  button:not([class]),
+  a.button {
+    background-color: var(--gray-700);
+
+    &:not([disabled]):hover {
+      background-color: var(--gray-800);
+    }
+
+    &:not([disabled]):active {
+      background-color: var(--gray-900);
+    }
+  }
+</style>

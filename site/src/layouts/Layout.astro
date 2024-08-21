@@ -1,33 +1,24 @@
 ---
+/** @fileoverview Default layout for most pages. */
+
 import "@/assets/styles/styles.css";
 
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Navigation from "@/components/Navigation.astro";
+import type { ComponentProps } from "astro/types";
+import BaseLayout from "./BaseLayout.astro";
 
-interface Props {
-  title: string;
-}
+type Props = ComponentProps<typeof BaseLayout>;
 
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href=`${import.meta.env.BASE_URL}favicon.svg` />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title} - The Museum of Broken Things</title>
-  </head>
-  <body>
-    <a class="visually-hidden skip-link" href="#main">Skip to the main content</a>
-    <Header />
-    <Navigation />
-    <main id="main">
-      <slot />
-    </main>
-    <Footer />
-  </body>
-</html>
+<BaseLayout title={title}>
+  <Header />
+  <Navigation />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>

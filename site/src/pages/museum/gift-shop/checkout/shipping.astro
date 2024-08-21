@@ -2,10 +2,10 @@
 import FixableRegion from "@/components/FixableRegion.astro";
 import FormLayout from "@/components/FormLayout.astro";
 import Timeout from "@/components/Timeout.astro";
-import Layout from "@/layouts/Layout.astro";
+import ShopLayout from "@/layouts/ShopLayout.astro";
 ---
 
-<Layout title="Checkout">
+<ShopLayout title="Checkout">
   <h1>Checkout</h1>
   <FixableRegion><h2 slot="fixed">Shipping Information</h2></FixableRegion>
   <FormLayout action="../payment/">
@@ -22,7 +22,7 @@ import Layout from "@/layouts/Layout.astro";
       over.
     </Timeout>
   </FormLayout>
-</Layout>
+</ShopLayout>
 
 <script>
   import { z } from "astro/zod";

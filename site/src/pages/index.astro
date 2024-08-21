@@ -82,6 +82,23 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
     </MetaFailureSection>
 
+    <MetaFailureSection href="museum/gift-shop/" title="Gift Shop">
+      <dl slot="wcag2">
+        <dt>1.4.3 and 1.4.6: Contrast</dt>
+        <dd>Text is superimposed over images with no overlay to guarantee minimum contrast.</dd>
+      </dl>
+    </MetaFailureSection>
+
+    <MetaFailureSection href="museum/gift-shop/vessels/water-bottle/" title="Gift Shop Product Page">
+      <dl slot="wcag2">
+        <dt>3.3.6: Error Prevention (All)</dt>
+        <dd>
+          The quantity field uses <code>type="tel"</code>, which allows non-numeric input,
+          rather than the more appropriate <code>type="number"</code>.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/gift-shop/checkout/" title="Gift Shop Checkout">
       <p>Note: One or more items must be in the cart to continue the checkout process.</p>
       <dl slot="wcag2">

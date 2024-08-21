@@ -1,18 +1,24 @@
 ---
 import CartInventory from "@/components/cart/CartInventory.astro";
-import Layout from "@/layouts/Layout.astro";
+import ShopLayout from "@/layouts/ShopLayout.astro";
 import { museumBaseUrl } from "@/lib/constants";
 ---
 
-<Layout title="Order Confirmation">
+<ShopLayout title="Order Confirmation">
   <h1>Thank you for your order!</h1>
   <h2 id="order">Order #</h2>
   <CartInventory />
   <p>
     <a href={museumBaseUrl}>Return to Homepage</a>
   </p>
-</Layout>
+</ShopLayout>
 
 <script>
+import { persist } from "@/lib/client/store";
+
   document.getElementById("order")!.textContent = `Order #${Date.now()}`;
+  // Clear cart on a delay, to give inventory a chance to render first
+  setTimeout(() => {
+    persist("cart", {});
+  });
 </script>

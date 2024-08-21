@@ -1,0 +1,98 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import { sortBy, startCase, uniq } from "lodash-es";
+import CoverImage from "@/components/CoverImage.astro";
+import ShopLayout from "@/layouts/ShopLayout.astro";
+
+interface Props {
+  category: string;
+  products: CollectionEntry<"products">[];
+}
+
+export async function getStaticPaths() {
+  const allProducts = await getCollection("products");
+  const categories = uniq(allProducts.map(({ slug }) => slug.split("/")[0] ));
+
+  return categories.map((category) => ({
+    params: { category },
+    props: {
+      category: startCase(category),
+      products: sortBy(
+        allProducts.filter(({ id }) => id.startsWith(`${category}/`)),
+        ({ data }) => data.title
+      ),
+    } as Props,
+  }));
+}
+
+const { category, products } = Astro.props;
+---
+
+<ShopLayout title={category}>
+  <h2>{category}</h2>
+  <ul class="grid-wrapper">
+    {
+      products.map(({ data, slug }) => (
+        <li>
+          <div class="image-container">
+            <CoverImage
+              src={data.image}
+              alt=""
+              objectPosition={data.imagePosition}
+              height="200"
+              widths={[960]}
+            />
+          </div>
+          <div class="content">
+            <a href={`../${slug}/`}>
+              <div class="title">{data.title}</div>
+              <div class="price">${data.price}</div>
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</ShopLayout>
+
+<style>
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: calc(1rem * var(--ms6)) 0 calc(1rem * var(--ms10));
+  }
+
+  li {
+    background: var(--white);
+    grid-column-end: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: calc(1rem * var(--ms-5));
+    padding: calc(1rem * var(--ms-5));
+  }
+
+  .image-container {
+    height: calc(1rem * var(--ms20));
+    overflow: hidden;
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  .content a {
+    color: var(--gray-700);
+    display: block;
+    padding-top: calc(1rem * var(--ms-5));
+    text-align: center;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--black);
+    }
+  }
+
+  .title {
+    font-weight: bold;
+  }
+</style>

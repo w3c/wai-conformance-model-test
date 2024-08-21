@@ -1,9 +1,9 @@
 ---
 import CartInventory from "@/components/cart/CartInventory.astro";
-import Layout from "@/layouts/Layout.astro";
+import ShopLayout from "@/layouts/ShopLayout.astro";
 ---
 
-<Layout title="Checkout">
+<ShopLayout title="Checkout">
   <h1>Checkout</h1>
   <h2>Review</h2>
   <CartInventory />
@@ -11,13 +11,13 @@ import Layout from "@/layouts/Layout.astro";
   <form action="../confirmation/">
     <button>Place Order</button>
   </form>
-</Layout>
+</ShopLayout>
 
 <script>
   import { computeTotals } from "@/lib/client/cart";
   import { recall } from "@/lib/client/store";
 
-  const cart = recall("cartPrototype");
+  const cart = recall("cart");
   document.getElementById("total")!.textContent =
     `$${computeTotals(cart).totalCost}`;
 </script>

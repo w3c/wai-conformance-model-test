@@ -8,14 +8,14 @@ const storage = localStorage;
  * Every property should include .default for upgrade-friendliness.
  */
 export const storeSchema = z.object({
-  // Note(ken): This is intentionally under a temporary name
-  // so that any existing values will be cleared when we finalize it
-  cartPrototype: z
+  cart: z
     .record(
-      z.string(),
+      z.string(), // Key is product slug
       z.object({
+        // Object includes extra fields for client-side render logic
+        name: z.string().min(1),
         quantity: z.number().min(1),
-        unitPrice: z.number().min(0.01),
+        price: z.number().min(0.01),
       })
     )
     .default({}),

@@ -3,10 +3,10 @@ import Fixable from "@/components/Fixable.astro";
 import FixableRegion from "@/components/FixableRegion.astro";
 import FormLayout from "@/components/FormLayout.astro";
 import Timeout from "@/components/Timeout.astro";
-import Layout from "@/layouts/Layout.astro";
+import ShopLayout from "@/layouts/ShopLayout.astro";
 ---
 
-<Layout title="Checkout">
+<ShopLayout title="Checkout">
   <h1>Checkout</h1>
   <FixableRegion><h2 slot="fixed">Payment Information</h2></FixableRegion>
   <p>
@@ -30,7 +30,7 @@ import Layout from "@/layouts/Layout.astro";
       over.
     </Timeout>
   </Fixable>
-</Layout>
+</ShopLayout>
 
 <script>
   import { z } from "astro/zod";
@@ -39,7 +39,7 @@ import Layout from "@/layouts/Layout.astro";
   import { recall } from "@/lib/client/store";
   import { getMode } from "@/lib/mode";
 
-  const cart = recall("cartPrototype");
+  const cart = recall("cart");
   document.getElementById("total")!.textContent =
     `$${computeTotals(cart).totalCost.toFixed(2)}`;
 

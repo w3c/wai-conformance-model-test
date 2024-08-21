@@ -1,46 +1,42 @@
-import { startCase } from "lodash-es";
 import { persist, recall, type Store } from "./store";
+import { museumBaseUrl } from "../constants";
 
 /** Returns aggregated statistics about cart contents. */
-export function computeTotals(cart: Store["cartPrototype"]) {
+export function computeTotals(cart: Store["cart"]) {
   let totalItems = 0;
   let totalCost = 0;
-  for (const { quantity, unitPrice } of Object.values(cart)) {
+  for (const { quantity, price } of Object.values(cart)) {
     totalItems += quantity;
-    totalCost += unitPrice * quantity;
+    totalCost += price * quantity;
   }
   return { totalCost, totalItems };
 }
 
-let isHandlingInteractions = false;
+let isHandlingRemovals = false;
 /**
- * Hooks up a document-level click listener for cart add/remove operations.
- * Controls are expected to be buttons beginning with a product ID and
- * ending with -add/-remove. Add controls should also define data-price.
- * (These expectations are likely to change upon developing full product pages.)
+ * Hooks up a document-level click listener for cart remove operations.
+ * Controls are expected to be buttons beginning with a product slug and
+ * ending with -remove.
  */
-export function handleCartInteractions() {
-  if (isHandlingInteractions) return; // Only hook up once per page
+export function handleCartRemovals() {
+  if (isHandlingRemovals) return; // Only hook up once per page
 
   document.addEventListener("click", (event) => {
     const buttonEl = event.target as HTMLButtonElement;
     if (buttonEl.tagName !== "BUTTON") return;
-    const match = /^(.*)-(add|remove)$/.exec(buttonEl.id);
+    const match = /^(.*)-remove$/.exec(buttonEl.id);
     if (!match || !match[1]) return;
 
-    const cart = recall("cartPrototype");
+    const cart = recall("cart");
     const cartProduct = cart[match[1]];
     if (cartProduct) {
-      cartProduct.quantity += match[2] === "add" ? 1 : -1;
+      cartProduct.quantity -= 1;
       if (cartProduct.quantity < 1) delete cart[match[1]];
-    } else if (match[2] === "add") {
-      cart[match[1]] = { quantity: 1, unitPrice: +buttonEl.dataset.price! };
+      persist("cart", cart);
     }
-
-    persist("cartPrototype", cart);
   });
 
-  isHandlingInteractions = true;
+  isHandlingRemovals = true;
 }
 
 /**
@@ -48,7 +44,7 @@ export function handleCartInteractions() {
  * Intended for use by event handlers.
  */
 export function renderCartInventory(
-  cart: Store["cartPrototype"],
+  cart: Store["cart"],
   tableId: string,
   includeRemove: boolean
 ) {
@@ -57,17 +53,17 @@ export function renderCartInventory(
   tbodyEl.innerHTML = "";
 
   const entries = Object.entries(cart);
-  for (const [id, { quantity, unitPrice }] of entries) {
+  for (const [slug, { name, quantity, price }] of entries) {
     const rowEl = document.createElement("tr");
     rowEl.innerHTML = `
-      <td>${startCase(id.replace(/-/g, " "))}</td>
-      <td>$${unitPrice.toFixed(2)}</td>
+      <td><a href="${museumBaseUrl}gift-shop/${slug}/">${name}</a></td>
+      <td>$${price.toFixed(2)}</td>
       <td>${quantity}</td>
     `;
 
     if (includeRemove) {
       const removeCell = document.createElement("td");
-      removeCell.innerHTML = `<button id="${id}-remove" type="button">Remove</button>`;
+      removeCell.innerHTML = `<button id="${slug}-remove" type="button">Remove</button>`;
       rowEl.appendChild(removeCell);
     }
 

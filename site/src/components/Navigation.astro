@@ -1,5 +1,11 @@
 ---
-import { navLinks } from "@/lib/nav-links";
+import { defaultNavLinks, type NavLink } from "@/lib/nav-links";
+
+interface Props {
+  navLinks?: NavLink[]
+}
+
+const { navLinks = defaultNavLinks } = Astro.props;
 ---
 
 <nav aria-label="Site">
@@ -12,11 +18,15 @@ import { navLinks } from "@/lib/nav-links";
       ))
     }
   </ul>
+  <slot />
 </nav>
 
-<style>
-  nav {
+<style is:global>
+  /* Apply styles globally to also encompass any links in the end slot */
+  nav[aria-label='Site'] {
     background: var(--black);
+    display: flex;
+    justify-content: space-between;
     padding: 0 1rem;
 
     & ul {
@@ -27,13 +37,13 @@ import { navLinks } from "@/lib/nav-links";
       padding: 0;
     }
     & a {
-      color: var(--gray-200);
+      color: var(--gray-050);
       display: block;
       padding: 0.5em;
       text-decoration: none;
       white-space: nowrap;
       &:hover {
-        color: var(--white);
+        text-decoration: underline;
       }
     }
   }

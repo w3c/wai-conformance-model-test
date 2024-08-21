@@ -1,20 +1,20 @@
 ---
 import CartInventory from "@/components/cart/CartInventory.astro";
 import CartStatus from "@/components/cart/CartStatus.astro";
-import Layout from "@/layouts/Layout.astro";
+import ShopLayout from "@/layouts/ShopLayout.astro";
 ---
 
-<Layout title="Checkout">
+<ShopLayout title="Checkout">
   <h1>Checkout</h1>
   <CartInventory includeRemove />
   <CartStatus />
   <a id="continue" class="button" href="shipping/" hidden>Continue</a>
-</Layout>
+</ShopLayout>
 
 <script>
   import { onStoreChange } from "@/lib/client/store";
 
-  onStoreChange("cartPrototype", (cart) => {
+  onStoreChange("cart", (cart) => {
     document.getElementById("continue")!.hidden =
       Object.keys(cart).length === 0;
   });

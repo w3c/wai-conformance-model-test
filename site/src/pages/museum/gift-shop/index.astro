@@ -1,72 +1,81 @@
 ---
 import CartStatus from "@/components/cart/CartStatus.astro";
-import Layout from "@/layouts/Layout.astro";
-import startCase from "lodash-es/startCase";
+import Fixable from "@/components/Fixable.astro";
+import ShopLayout from "@/layouts/ShopLayout.astro";
+import { getCollection } from "astro:content";
+import { sortBy, startCase, uniqBy } from "lodash-es";
 
-// TODO: flesh out products, likely in a content collection;
-// this is temporary to test cart functionality
-const products = {
-  Apparel: {
-    "t-shirt": 17.99,
-    sweatshirt: 27.99,
-    cap: 14.99,
-  },
-  "(Non-broken) Containers": {
-    "water-bottle": 15.99,
-    "coffee-mug": 12.99,
-    "travel-mug": 24.99,
-  },
-  Accessories: {
-    "keychain-charm": 19.99,
-    "sticker-set": 9.99,
-  },
-} as const;
+const allProducts = await getCollection("products");
+const categories = sortBy(
+  uniqBy(allProducts, ({ slug }) => slug.split("/")[0]).map(
+    ({ data, slug }) => ({
+      image: data.image,
+      imagePosition: data.imagePosition,
+      name: startCase(slug.split("/")[0]),
+      slug: slug.split("/")[0],
+    })
+  ),
+  ({ name }) => name
+);
 ---
 
-<Layout title="Gift Shop">
+<ShopLayout title="Gift Shop">
   <h1>Gift Shop</h1>
   <CartStatus />
   <div>
-    <h2>Products</h2>
-    {
-      Object.keys(products).map((category) => (
-        <>
-          <h3>{category}</h3>
-          <ul>
-            {Object.entries(products[category]).map(([id, unitPrice]) => (
-              <li>
-                {startCase(id.replace(/-/g, " "))} (${unitPrice}){" "}
-                <button id={`${id}-add`} data-price={unitPrice} type="button">
-                  Add to cart
-                </button>
-              </li>
-            ))}
-          </ul>
-        </>
-      ))
-    }
+    <ul class="grid-wrapper">
+      {
+        categories.map(({ image, imagePosition, name, slug }) => (
+          <li
+            style={{
+              backgroundImage: `url(${image.src})`,
+              backgroundPosition: imagePosition,
+            }}
+          >
+            <Fixable as="a" fixed={{ class: "fixed" }} href={`${slug}/`}>
+              {name}
+            </Fixable>
+          </li>
+        ))
+      }
+    </ul>
   </div>
-</Layout>
-
-<script>
-  import { handleCartInteractions } from "@/lib/client/cart";
-
-  handleCartInteractions();
-</script>
+</ShopLayout>
 
 <style>
   ul {
     list-style-type: none;
     padding: 0;
+  }
 
-    & li {
+  li {
+    background-size: cover;
+    grid-column-end: span 6;
+    height: calc(5rem * var(--ms10));
+    position: relative;
+
+    & a {
+      border: 1px solid var(--white);
+      color: var(--white);
+      font-family: var(--title-font-family);
+      font-size: 32px;
+      text-decoration: none;
+      text-transform: uppercase;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: calc(1rem * var(--ms-2)) 0;
+      justify-content: center;
+      position: absolute;
+      inset: 1px;
 
-      &:not(:last-child) {
-        border-bottom: 1px solid var(--hairline);
+      &:hover {
+        background-color: rgba(0, 0, 0, .08);
+      }
+      &:active {
+        background-color: rgba(0, 0, 0, .16);
+      }
+
+      &.fixed {
+        font-size: 2rem;
       }
     }
   }

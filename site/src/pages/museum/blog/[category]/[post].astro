@@ -1,0 +1,90 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  return posts.map((post) => {
+    const [category, postSlug] = post.slug.split("/");
+    return {
+      params: { category, post: postSlug },
+      props: { post },
+    };
+  });
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  title: string;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const dateFormat = new Intl.DateTimeFormat(["en-GB"], { dateStyle: "medium" });
+---
+
+<Layout title={post.data.title} withInsetMain={false}>
+  <article>
+    <div
+      class="background"
+      style={{ backgroundImage: `url(${post.data.image.src})`, backgroundPosition: post.data.imagePosition }}
+    >
+      <header>
+        <h1>{post.data.title}</h1>
+        <div class="date">
+          {
+            post.data.date === "now"
+              ? "Happening now"
+              : `Written on ${dateFormat.format(post.data.date)}`
+          }
+        </div>
+      </header>
+    </div>
+    <div class="content">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  article {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  .background {
+    background: fixed center / cover no-repeat;
+    height: 50vh;
+    margin: 0 calc((100% - 100vw) / 2);
+    position: relative;
+  }
+
+  .content {
+    background-color: var(--white);
+    padding: 1rem;
+  }
+
+  header {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.7) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    color: var(--white);
+    position: absolute;
+    bottom: 0;
+  }
+
+  h1 {
+    border-bottom: 1px solid var(--gold-vivid-300);
+    margin: 0;
+  }
+
+  h1,
+  .date {
+    padding: calc(1rem * var(--ms-5)) 1rem;
+  }
+</style>

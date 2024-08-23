@@ -1,6 +1,6 @@
 ---
 title: Clay Vases
-description: A shelf filled with clay vases, some of which have been broken at the neck or halfway up the body.
+imageDescription: A shelf filled with clay vases, some of which have been broken at the neck or halfway up the body.
 image: "@/assets/images/exhibits/containers/thomas-bormans-3WCq2NNZgRI-unsplash.jpg"
 ---
 

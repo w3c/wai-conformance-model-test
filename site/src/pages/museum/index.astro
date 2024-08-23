@@ -28,7 +28,7 @@ const expandedCategories = await Promise.all(
             <CoverImage
               src={data.topImageItem.image}
               alt={
-                data.topImageItem.skipAlt ? null : data.topImageItem.description
+                data.topImageItem.skipAlt ? null : data.topImageItem.imageDescription
               }
               objectPosition={data.topImageItem.imagePosition}
               height="200"

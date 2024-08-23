@@ -1,6 +1,6 @@
 ---
 title: White Ceramic Plate
-description: Thick shards of a broken ceramic plate on a wooden floor.
+imageDescription: Thick shards of a broken ceramic plate on a wooden floor.
 image: "@/assets/images/exhibits/dishes/pexels-cottonbro-6717606.jpg"
 skipAlt: true
 ---

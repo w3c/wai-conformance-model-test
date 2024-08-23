@@ -1,0 +1,44 @@
+---
+import { getImage } from "astro:assets";
+import backgroundImage from "@/assets/images/jack-gardner-nhGKXaKbbfs-unsplash.jpg";
+import Layout from "@/layouts/Layout.astro";
+
+const image = await getImage({
+  src: backgroundImage,
+  widths: [480, 960, 1920],
+});
+---
+
+<Layout title="404" withInsetMain={false}>
+  <div class="container">
+    <div class="scrim"></div>
+    <h1>Congratulations!</h1>
+    <p>You've found another broken thing... on our site!</p>
+  </div>
+</Layout>
+
+<style define:vars={{ backgroundUrl: `url(${image.src})` }}>
+  .container {
+    background: var(--backgroundUrl);
+    color: var(--white);
+    height: 60vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+  }
+
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  h1,
+  p {
+    z-index: 1;
+  }
+</style>

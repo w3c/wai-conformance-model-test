@@ -1,6 +1,6 @@
 ---
 title: Ceramic Blue Dishes
-description: Pieces of broken blue pottery
+imageDescription: Pieces of broken blue pottery
 image: "@/assets/images/exhibits/dishes/chuttersnap-u3ZDnIMCfIs-unsplash.jpg"
 skipAlt: true
 ---

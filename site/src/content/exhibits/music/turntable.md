@@ -1,6 +1,6 @@
 ---
 title: Turntable
-description: A record player with signs of wear, missing various components.
+imageDescription: A record player with signs of wear, missing various components.
 image: "@/assets/images/exhibits/music/giovanni-randisi-C-LtpT0au3I-unsplash.jpg"
 ---
 

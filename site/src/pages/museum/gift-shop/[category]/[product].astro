@@ -34,7 +34,7 @@ const { Content } = await product.render();
     <div class="image-container">
       <CoverImage
         src={product.data.image}
-        alt={product.data.skipAlt ? null : product.data.description}
+        alt={product.data.skipAlt ? null : product.data.imageDescription}
         objectPosition={product.data.imagePosition}
         widths={[960]}
       />

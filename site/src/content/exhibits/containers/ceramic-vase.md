@@ -1,6 +1,6 @@
 ---
 title: Ceramic Vase
-description: A brown ceramic vase with a chip out of the rim.
+imageDescription: A brown ceramic vase with a chip out of the rim.
 image: "@/assets/images/exhibits/containers/michael-walter-mhtl3k7OmKs-unsplash.jpg"
 ---
 

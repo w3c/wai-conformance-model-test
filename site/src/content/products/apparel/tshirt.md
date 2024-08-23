@@ -1,6 +1,6 @@
 ---
 title: T-Shirt
-description: White T-Shirt with the Museum logo centered on the front
+imageDescription: White T-Shirt with the Museum logo centered on the front
 image: "@/assets/images/products/apparel/anomaly-WWesmHEgXDs-unsplash-logo.jpg"
 imagePosition: 50% 25%
 price: 16.99

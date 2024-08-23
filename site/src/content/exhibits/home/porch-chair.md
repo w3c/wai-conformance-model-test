@@ -1,6 +1,6 @@
 ---
 title: Porch Chair
-description: A wooden chair missing the left half of its back and most of that arm. A couple of planks possibly meant for the back are leaning over the seat.
+imageDescription: A wooden chair missing the left half of its back and most of that arm. A couple of planks possibly meant for the back are leaning over the seat.
 image: "@/assets/images/exhibits/home/dan-meyers-m4FB7fzTr80-unsplash.jpg"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Old Clay Jug
-description: Old Clay Jug with cracks
+imageDescription: Old Clay Jug with cracks
 image: "@/assets/images/exhibits/containers/old-clay-jug-with-cracks-3596846137.jpg"
 ---
 

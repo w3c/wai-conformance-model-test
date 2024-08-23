@@ -1,6 +1,6 @@
 ---
 title: Football
-description: A deflated football that has been opened at one end.
+imageDescription: A deflated football that has been opened at one end.
 image: "@/assets/images/exhibits/sports/adam-cai-C-nzhi1JDvs-unsplash.jpg"
 ---
 

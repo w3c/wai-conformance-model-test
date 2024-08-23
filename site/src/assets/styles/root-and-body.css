@@ -58,3 +58,7 @@ body {
   font: 1rem/1.5 var(--body-font-family);
   margin: 0;
 }
+
+a {
+  color: var(--blue-600);
+}

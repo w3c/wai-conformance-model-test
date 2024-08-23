@@ -1,6 +1,6 @@
 ---
 title: Mirrors
-description: "Two mirrors are held in outstretched hands: in one hand, a mirror in one piece; in the other, a pile of overlapping shards."
+imageDescription: "Two mirrors are held in outstretched hands: in one hand, a mirror in one piece; in the other, a pile of overlapping shards."
 image: "@/assets/images/exhibits/glass/jeremy-yap-u7XEsPFkrkQ-unsplash.jpg"
 ---
 

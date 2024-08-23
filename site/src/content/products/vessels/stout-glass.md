@@ -1,6 +1,6 @@
 ---
 title: Stout Glass
-description: Stout glass with stem and bowl, with the Museum logo on one side
+imageDescription: Stout glass with stem and bowl, with the Museum logo on one side
 image: "@/assets/images/products/vessels/engin-akyurt-GpH7dZRZRRc-unsplash-logo.jpg"
 imagePosition: 0% 70%
 price: 21.99

@@ -82,6 +82,31 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
     </MetaFailureSection>
 
+    <MetaFailureSection href="museum/blog/" title="Blog">
+      <dl slot="wcag2">
+        <dt>1.4.3 and 1.4.6: Contrast</dt>
+        <dd>
+          The "Blog" heading is superimposed over an image with no overlay to guarantee minimum contrast.
+        </dd>
+        <dt>2.3.3: Animation from Interactions</dt>
+        <dd>
+          Images zoom in on hover and do not respect prefers-reduced-motion.
+        </dd>
+        <dt>2.4.4 and 2.4.9: Link Purpose</dt>
+        <dd>
+          Each post image, as well as the arrow on the topmost post, links to its post, but has no content to describe the link.
+        </dd>
+        <dt>2.5.5: Target Size (Enhanced)</dt>
+        <dd>
+          The link after the excerpt from the topmost post is smaller than 44 by 44 pixels.
+        </dd>
+        <dt>3.1.1: Error Identification</dt>
+        <dd>
+          The first post under "In the News" leads to a 404 page with no clear description of what went wrong.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/gift-shop/" title="Gift Shop">
       <dl slot="wcag2">
         <dt>1.4.3 and 1.4.6: Contrast</dt>

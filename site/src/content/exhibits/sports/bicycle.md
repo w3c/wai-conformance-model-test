@@ -1,6 +1,6 @@
 ---
 title: Bicycle
-description: A bicycle with rusted parts and a damaged and bent rear wheel.
+imageDescription: A bicycle with rusted parts and a damaged and bent rear wheel.
 image: "@/assets/images/exhibits/sports/dario-bronnimann-8cmkrUrSWxE-unsplash.jpg"
 ---
 

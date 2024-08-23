@@ -1,6 +1,6 @@
 ---
 title: Game Controller
-description: A game controller that has been broken open, with part of the left half missing and its contacts exposed.
+imageDescription: A game controller that has been broken open, with part of the left half missing and its contacts exposed.
 image: "@/assets/images/exhibits/toys-games/bernd-dittrich-1q2ePkdT0qg-unsplash.jpg"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Wine Glass with Rose
-description: A broken wine glass sits on a concrete block in the middle of a field, with a rose petal visible through the open gap in its bowl.
+imageDescription: A broken wine glass sits on a concrete block in the middle of a field, with a rose petal visible through the open gap in its bowl.
 image: "@/assets/images/exhibits/glass/pexels-ubeydullah-cosgun-1144244-12319927.jpg"
 ---
 

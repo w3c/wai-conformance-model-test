@@ -1,6 +1,6 @@
 ---
 title: Wide Bedroom
-description: A large dilapidated room whose focal point is a bare bed frame, with a wooden dresser and nightstands around the outskirts.
+imageDescription: A large dilapidated room whose focal point is a bare bed frame, with a wooden dresser and nightstands around the outskirts.
 image: "@/assets/images/exhibits/home/pexels-wendelinjacober-1853951.jpg"
 ---
 

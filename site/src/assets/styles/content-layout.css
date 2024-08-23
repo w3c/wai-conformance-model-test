@@ -12,8 +12,12 @@
   }
 }
 
-main {
-  max-width: 75rem;
+:root {
+  --content-width: 75rem;
+}
+
+main.inset {
+  max-width: var(--content-width);
   margin: 0 auto;
   padding: 1rem;
 }

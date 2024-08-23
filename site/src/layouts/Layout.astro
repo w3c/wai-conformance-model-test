@@ -9,15 +9,17 @@ import Navigation from "@/components/Navigation.astro";
 import type { ComponentProps } from "astro/types";
 import BaseLayout from "./BaseLayout.astro";
 
-type Props = ComponentProps<typeof BaseLayout>;
+type Props = ComponentProps<typeof BaseLayout> & {
+  withInsetMain?: boolean;
+};
 
-const { title } = Astro.props;
+const { title, withInsetMain = true } = Astro.props;
 ---
 
 <BaseLayout title={title}>
   <Header />
   <Navigation />
-  <main id="main">
+  <main id="main" class={withInsetMain ? "inset" : undefined}>
     <slot />
   </main>
   <Footer />

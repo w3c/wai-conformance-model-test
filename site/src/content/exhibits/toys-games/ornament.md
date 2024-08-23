@@ -1,6 +1,6 @@
 ---
 title: Ornament
-description: A shiny red ball ornament, part of which has shattered into many pieces across a wood surface.
+imageDescription: A shiny red ball ornament, part of which has shattered into many pieces across a wood surface.
 image: "@/assets/images/exhibits/toys-games/pexels-freestocks-717989.jpg"
 ---
 

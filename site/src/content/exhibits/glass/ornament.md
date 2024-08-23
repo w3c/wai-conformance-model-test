@@ -1,6 +1,6 @@
 ---
 title: Heart-shaped Ornament
-description: A clear glass heart-shaped ornament, whose center has broken into several pieces lying next to it.
+imageDescription: A clear glass heart-shaped ornament, whose center has broken into several pieces lying next to it.
 image: "@/assets/images/exhibits/glass/pexels-anastasia-shuraeva-4512789.jpg"
 ---
 

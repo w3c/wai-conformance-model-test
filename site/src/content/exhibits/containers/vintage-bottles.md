@@ -1,6 +1,6 @@
 ---
 title: Vintage Bottles
-description: A wooden box of vintage glass bottles; some are worn or chipped, while others are completely broken apart toward the neck.
+imageDescription: A wooden box of vintage glass bottles; some are worn or chipped, while others are completely broken apart toward the neck.
 image: "@/assets/images/exhibits/containers/pexels-emmanuel-codden-1502600-15352505.jpg"
 ---
 

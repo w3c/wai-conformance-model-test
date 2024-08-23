@@ -1,6 +1,6 @@
 ---
 title: Broken Record
-description: A 78 RPM vinyl record with a chunk cut out from one side.
+imageDescription: A 78 RPM vinyl record with a chunk cut out from one side.
 image: "@/assets/images/exhibits/music/mick-haupt-SvTyJZEsBQM-unsplash.jpg"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Compact Disc
-description: A broken half of a compact disc, its surface reflecting light in all directions.
+imageDescription: A broken half of a compact disc, its surface reflecting light in all directions.
 image: "@/assets/images/exhibits/technology/pexels-lukas-hartmann-304281-1127121.jpg"
 skipAlt: true
 ---

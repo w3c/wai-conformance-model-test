@@ -1,6 +1,6 @@
 ---
 title: Skateboard
-description: A skateboard which has split near one pair of wheels.
+imageDescription: A skateboard which has split near one pair of wheels.
 image: "@/assets/images/exhibits/sports/pexels-aleksandr-neplokhov-486399-1230684.jpg"
 ---
 

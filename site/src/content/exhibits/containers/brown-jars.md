@@ -1,6 +1,6 @@
 ---
 title: Vasai Pottery
-description: Two pottery jars
+imageDescription: Two pottery jars
 image: "@/assets/images/exhibits/containers/marshall-minzz-Eu4R4zjcg0M-unsplash.jpg"
 ---
 

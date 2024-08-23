@@ -1,6 +1,6 @@
 ---
 title: Television
-description: The front of a vintage television set, with part of its circuitry visible through the opening where its CRT would be.
+imageDescription: The front of a vintage television set, with part of its circuitry visible through the opening where its CRT would be.
 image: "@/assets/images/exhibits/technology/tina-rataj-berard-0Q33pyk-AXI-unsplash.jpg"
 ---
 

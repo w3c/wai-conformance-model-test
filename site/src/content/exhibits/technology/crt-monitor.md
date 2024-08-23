@@ -1,6 +1,6 @@
 ---
 title: CRT Monitor
-description: A CRT monitor on a floor facing upward, its glass thoroughly shattered.
+imageDescription: A CRT monitor on a floor facing upward, its glass thoroughly shattered.
 image: "@/assets/images/exhibits/technology/julia-joppien-XFUqd0u5U7w-unsplash.jpg"
 imagePosition: 50%
 ---

@@ -1,6 +1,6 @@
 ---
 title: Water Bottle
-description: Tall stainless steel water bottle with black cap, with the Museum logo on the side
+imageDescription: Tall stainless steel water bottle with black cap, with the Museum logo on the side
 image: "@/assets/images/products/vessels/personalgraphic-com-OUjR8lrGccs-unsplash-logo.jpg"
 price: 17.99
 ---

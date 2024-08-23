@@ -1,6 +1,6 @@
 ---
 title: Narrow Room
-description: A narrow room featuring broken furniture and a floor littered with indecipherable pieces. The room is all the more striking due to the stark light pouring in through a broken window that occupies most of the back wall.
+imageDescription: A narrow room featuring broken furniture and a floor littered with indecipherable pieces. The room is all the more striking due to the stark light pouring in through a broken window that occupies most of the back wall.
 image: "@/assets/images/exhibits/home/tobias-reich-o6YLuDsMA4c-unsplash.jpg"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Wine Glass
-description: A wine glass whose base and stem is intact, but most of the bowl has broken off.
+imageDescription: A wine glass whose base and stem is intact, but most of the bowl has broken off.
 image: "@/assets/images/exhibits/glass/pexels-pixabay-39589.jpg"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Grand Piano
-description: A black grand piano, missing a leg and reduced to a leaning husk.
+imageDescription: A black grand piano, missing a leg and reduced to a leaning husk.
 image: "@/assets/images/exhibits/music/adrian-swancar--1h4WjV_OY4-unsplash.jpg"
 ---
 

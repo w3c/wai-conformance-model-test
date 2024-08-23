@@ -1,6 +1,6 @@
 ---
 title: Portable Cassette Player
-description: A worn-out portable radio and cassette player with the cassette door open.
+imageDescription: A worn-out portable radio and cassette player with the cassette door open.
 image: "@/assets/images/exhibits/music/tamim-arafat-89bbAk7at4w-unsplash.jpg"
 ---
 

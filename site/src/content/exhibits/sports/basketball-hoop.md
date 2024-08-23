@@ -1,6 +1,6 @@
 ---
 title: Basketball Hoop
-description: A rusted, washed-out basketball hoop with a partially-detached net.
+imageDescription: A rusted, washed-out basketball hoop with a partially-detached net.
 image: "@/assets/images/exhibits/sports/jim-kalligas-NWm1hmjV9Po-unsplash.jpg"
 ---
 

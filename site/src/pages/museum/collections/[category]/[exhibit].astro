@@ -32,7 +32,7 @@ const { Content } = await exhibit.render();
     <div class="image-container">
       <CoverImage
         src={exhibit.data.image}
-        alt={exhibit.data.skipAlt ? null : exhibit.data.description}
+        alt={exhibit.data.skipAlt ? null : exhibit.data.imageDescription}
         objectPosition={exhibit.data.imagePosition}
         widths={[960]}
       />

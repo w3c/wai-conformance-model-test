@@ -1,6 +1,6 @@
 ---
 title: Smartphone
-description: An old smartphone with a cracked white faceplate and shattered screen.
+imageDescription: An old smartphone with a cracked white faceplate and shattered screen.
 image: "@/assets/images/exhibits/technology/laura-rivera-3a7SyW0h8vQ-unsplash.jpg"
 skipAlt: true
 ---

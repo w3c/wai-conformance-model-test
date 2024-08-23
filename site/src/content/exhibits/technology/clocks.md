@@ -1,6 +1,6 @@
 ---
 title: Clocks
-description: A pile of old clocks.
+imageDescription: A pile of old clocks.
 image: "@/assets/images/exhibits/technology/heather-zabriskie-yBzrPGLjMQw-unsplash.jpg"
 ---
 

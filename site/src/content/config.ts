@@ -33,6 +33,7 @@ export const collections = {
   "exhibit-categories": defineCollection({
     type: "content",
     schema: z.object({
+      dangerous: z.boolean().default(false),
       topDescription: z.string().optional(),
       topImageItem: reference("exhibits").optional(),
       title: z.string().min(1),

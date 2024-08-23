@@ -1,7 +1,5 @@
 ---
 title: Dishes
-topDescription: Did someone say dinner?
-topImageItem: dishes/blue-dish
 ---
 
 Lorem markdownum toris quoque tardos auxiliumque illa, pariterque o mortis. Obit

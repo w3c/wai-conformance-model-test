@@ -4,7 +4,7 @@ import Layout from "@/layouts/Layout.astro";
 import { sortBy } from "lodash-es";
 
 const categories = sortBy(
-  await getCollection("exhibit-categories"),
+  (await getCollection("exhibit-categories")).filter(({ data }) => !data.dangerous),
   ({ data }) => data.title
 );
 ---

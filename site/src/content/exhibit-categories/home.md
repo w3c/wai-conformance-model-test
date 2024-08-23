@@ -1,5 +1,8 @@
 ---
 title: Home
+dangerous: true
+topDescription: You rang?
+topImageItem: home/wide-bedroom
 ---
 
 Lorem markdownum retro risisse mixtam nigro precibus Aeaciden, sub albis legit

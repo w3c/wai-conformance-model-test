@@ -2,7 +2,9 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import { sortBy } from "lodash-es";
 import CoverImage from "@/components/CoverImage.astro";
+import Modal from "@/components/Modal.astro";
 import Layout from "@/layouts/Layout.astro";
+import { museumBaseUrl } from "@/lib/constants";
 
 interface Props {
   category: CollectionEntry<"exhibit-categories">;
@@ -32,7 +34,39 @@ const { Content } = await category.render();
 <Layout title={category.data.title}>
   <h2>{category.data.title}</h2>
   <Content />
-  <ul class="grid-wrapper">
+  {
+    category.data.dangerous && (
+      <Modal id="warning-modal" mode="fixed">
+        <div class="warning-content">
+          <h2>Warning!</h2>
+          <p>
+            This category page demonstrates content that fails 2.3.1 and 2.3.2
+            (related to flashes), and pages for its individual items demonstrate
+            failures of 2.3.3 (related to animation). visitors who are sensitive
+            to flashes or motion are advised to
+            <a href={museumBaseUrl}>return to the homepage</a> and navigate
+            elsewhere.
+          </p>
+          <p>
+            If you are sure you would like to proceed, select a failure option
+            below.
+          </p>
+          <div class="warning-buttons">
+            <button name="submit" value="none">
+              No failures
+            </button>
+            <button name="submit" value="AAA">
+              Level AAA failure
+            </button>
+            <button name="submit" value="A">
+              Level A failure
+            </button>
+          </div>
+        </div>
+      </Modal>
+    )
+  }
+  <ul class="grid-wrapper" id="list">
     {
       exhibits.map(({ data, slug }) => (
         <li>
@@ -54,7 +88,55 @@ const { Content } = await category.render();
   </ul>
 </Layout>
 
+<script>
+  import { showModal } from "@/lib/client/modal";
+
+  const modalId = "warning-modal";
+  const modalEl = document.getElementById(modalId);
+  if (modalEl) {
+    showModal(modalId);
+    const form = modalEl.querySelector("form") as HTMLFormElement;
+    form.addEventListener("submit", (event) => {
+      const value = (event.submitter as HTMLButtonElement).value;
+      const listEl = document.getElementById("list") as HTMLUListElement;
+      if (value.startsWith("A"))
+        listEl.classList.add("dangerous-list");
+      if (value === "A") listEl.classList.add("dangerous-list-A");
+      if (value === "none") listEl.classList.add("fading-list")
+    });
+  }
+</script>
+
 <style>
+  @keyframes fade {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes lightning {
+    0%,
+    12%,
+    30%,
+    50% {
+      opacity: 0.5;
+    }
+    10%,
+    11%,
+    22%,
+    29%,
+    40%,
+    49%,
+    60%,
+    99% {
+      opacity: 1;
+    }
+  }
+
   ul {
     list-style: none;
     margin: 0;
@@ -76,9 +158,37 @@ const { Content } = await category.render();
     }
   }
 
+  .dangerous-list img {
+    animation: linear 2s infinite lightning;
+  }
+
+  .dangerous-list-A .image-container {
+    background-color: red;
+  }
+
+  .fading-list img {
+    animation: linear 3s infinite fade;
+  }
+
   .content a {
     display: block;
     padding: 1rem;
     text-align: center;
+  }
+
+  .warning-content {
+    font-size: calc(1rem * var(--ms2));
+    max-width: 60ch;
+    padding: 1rem;
+
+    & h2 {
+      text-align: center;
+    }
+  }
+
+  .warning-buttons {
+    display: flex;
+    gap: calc(1rem * var(--ms8));
+    justify-content: center;
   }
 </style>

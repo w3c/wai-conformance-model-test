@@ -5,20 +5,19 @@
  * native can use a submit button, relying on form method="dialog".
  */
 
-import { getMode } from "@/lib/mode";
+import { getMode, type Mode } from "@/lib/mode";
 
 interface Props {
-  class?: string;
   /** Whether to close upon clicking the backdrop (affects both modes) */
   closeOnBackdrop?: boolean;
   /** Whether to close upon pressing escape (affects broken mode only) */
   closeOnKeyboard?: boolean;
   id: string;
+  /** Allows forcing mode, intended for cases where the fixed version is always desired */
+  mode?: Mode;
 }
 
-const { class: extraClass, closeOnBackdrop, closeOnKeyboard, id } = Astro.props;
-const contentClassList = ["content", extraClass];
-const mode = getMode();
+const { closeOnBackdrop, closeOnKeyboard, id, mode = getMode() } = Astro.props;
 ---
 
 {
@@ -30,14 +29,14 @@ const mode = getMode();
       data-modal-close-on-backdrop={closeOnBackdrop}
       data-modal-close-on-keyboard={closeOnKeyboard}
     >
-      <div class:list={contentClassList}>
+      <div class="content">
         <slot />
       </div>
     </div>
   ) : (
     <dialog
       id={id}
-      class:list={contentClassList}
+      class="content"
       data-modal-close-on-backdrop={closeOnBackdrop}
     >
       <form method="dialog">

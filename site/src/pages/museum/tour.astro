@@ -1,7 +1,84 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { getMode } from "@/lib/mode";
+import { defaultNavLinks } from "@/lib/nav-links";
+
+const headerNavLinks =
+  getMode() === "broken"
+    ? defaultNavLinks.filter(({ name }) => name !== "Take a Tour")
+    : defaultNavLinks;
 ---
 
-<Layout title="Take a Tour">
-  <p>This is the tour page.</p>
+<Layout title="Take a Tour" {headerNavLinks}>
+  <h1>Take a Tour</h1>
+  <div role="alert" class="next-tour">
+    Next tour departs in
+    <strong id="next-tour-countdown"></strong>
+  </div>
+
+  <p>
+    Lorem ipsum semperque pondera imagine Iolciacos gradibus nulli: ramosam est
+    oscula notamque, rutilis turba eadem animus, tibi. Nec et undarum habet
+    meritorum iubar.
+  </p>
+
+  <ol>
+    <li>Ipse illi animum Helicon</li>
+    <li>Quoniam rediit</li>
+    <li>Ille enim</li>
+    <li>Illa mihi promittit gerenti coeunt tibi isse</li>
+    <li>Adnuerat cruor tandem</li>
+    <li>Sacra an erant</li>
+  </ol>
+
+  <p>
+    Dedisse atria solis hebes, vulneris! Horrescere honores contingere rapta
+    recolligis cornu patrem aera, conscia at illic: Scylla studiosius: cum, hic
+    illo. Sacrificos urbem, lavere aris replet terrena dederat mortalis
+    mitissima eandem. Byblis carpit laetusque. Macareus cadensve, poples
+    intravere natum huic ramos?
+  </p>
+
+  <a class="button" href="take/">Take an upcoming tour</a>
 </Layout>
+
+<script>
+  import { getMode } from "@/lib/mode";
+
+  function updateNextTour() {
+    const now = Date.now();
+    const minutes = 60 - (Math.floor(now / 60000) % 60);
+    const seconds = 60 - (Math.floor(now / 1000) % 60);
+
+    const countdownEl = document.getElementById("next-tour-countdown")!;
+    if (getMode() === "broken")
+      countdownEl.textContent = `${minutes} minutes, ${seconds} seconds`;
+    else
+      countdownEl.textContent = minutes
+        ? `${minutes} minutes`
+        : "a few seconds";
+  }
+
+  updateNextTour();
+  setInterval(updateNextTour, getMode() === "broken" ? 15000 : 300000);
+</script>
+
+<style>
+  .next-tour {
+    background: var(--gold-vivid-050);
+    font-size: calc(1rem * var(--ms4));
+    padding: 1em;
+    text-align: center;
+
+    strong {
+      display: block;
+    }
+  }
+
+  @media (min-width: 30em) {
+    .next-tour {
+      float: right;
+      width: 14em;
+    }
+  }
+</style>

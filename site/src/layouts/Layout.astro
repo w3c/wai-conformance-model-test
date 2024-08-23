@@ -3,22 +3,24 @@
 
 import "@/assets/styles/styles.css";
 
+import type { ComponentProps } from "astro/types";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Navigation from "@/components/Navigation.astro";
-import type { ComponentProps } from "astro/types";
 import BaseLayout from "./BaseLayout.astro";
+import { defaultNavLinks } from "@/lib/nav-links";
 
 type Props = ComponentProps<typeof BaseLayout> & {
+  headerNavLinks?: ComponentProps<typeof Navigation>["navLinks"];
   withInsetMain?: boolean;
 };
 
-const { title, withInsetMain = true } = Astro.props;
+const { headerNavLinks = defaultNavLinks, title, withInsetMain = true } = Astro.props;
 ---
 
 <BaseLayout title={title}>
   <Header />
-  <Navigation />
+  <Navigation navLinks={headerNavLinks} />
   <main id="main" class={withInsetMain ? "inset" : undefined}>
     <slot />
   </main>

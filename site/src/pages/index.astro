@@ -272,6 +272,42 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         </dd>
       </dl>
     </MetaFailureSection>
+
+    <MetaFailureSection href="museum/about/" title="About">
+      <dl slot="wcag2">
+        <dt>1.1.1: Non-text Content</dt>
+        <dd>
+          Images with text are used for emphasis,
+          but their alt text is empty and there is no text equivalent.
+        </dd>
+        <dt>1.4.4: Resize Text</dt>
+        <dd>
+          Paragraphs overflow into each other beyond a set maximum height,
+          noticeable on mobile or when zoom is increased.
+        </dd>
+        <dt>2.4.6: Headings and Labels</dt>
+        <dd>
+          One of the images with text could be interpreted as a level-2 heading,
+          but it is not coded as such.
+        </dd>
+      </dl>
+      <dl slot="wcag3">
+        <dt>Images-of-text alternatives</dt>
+        <dd>
+          Images with text are used for emphasis,
+          but their alt text is empty and there is no text equivalent.
+        </dd>
+        <dt>Section headers</dt>
+        <dd>
+          One of the images with text could be interpreted as a level-2 heading,
+          but it is not coded as such.
+        </dd>
+        <dt>White spacing</dt>
+        <dd>
+          There is no margin between paragraphs.
+        </dd>
+      </dl>
+    </MetaFailureSection>
   </section>
 
   <section id="acknowledgment">

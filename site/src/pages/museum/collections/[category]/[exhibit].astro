@@ -1,47 +1,84 @@
 ---
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
+import CoverImage from "@/components/CoverImage.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const allExhibits = await getCollection("exhibits");
 
-  return allExhibits.map((exhibit) => {
-    const [category, exhibitSlug] = exhibit.slug.split("/");
-    return {
-      params: { category, exhibit: exhibitSlug },
-      props: { exhibit },
-    };
-  });
+  return Promise.all(
+    allExhibits.map(async (exhibit) => {
+      const [categorySlug, exhibitSlug] = exhibit.slug.split("/");
+      return {
+        params: { category: categorySlug, exhibit: exhibitSlug },
+        props: {
+          category: await getEntry("exhibit-categories", categorySlug),
+          exhibit,
+        },
+      };
+    })
+  );
 }
-
-import type { CollectionEntry } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
-import CoverImage from "@/components/CoverImage.astro";
 
 interface Props {
+  category: CollectionEntry<"exhibit-categories">;
   exhibit: CollectionEntry<"exhibits">;
-  title: string;
 }
 
-const { exhibit } = Astro.props;
+const { category, exhibit } = Astro.props;
 const { Content } = await exhibit.render();
 ---
 
-<Layout title={exhibit.data.title}>
-  <h1>{exhibit.data.title}</h1>
-  <div class="container">
-    <div class="image-container">
-      <CoverImage
-        src={exhibit.data.image}
-        alt={exhibit.data.skipAlt ? null : exhibit.data.imageDescription}
-        objectPosition={exhibit.data.imagePosition}
-        widths={[960]}
-      />
-    </div>
-    <div class="content">
-      <Content />
-    </div>
-  </div>
+<Layout title={exhibit.data.title} withInsetMain={!category.data.dangerous}>
+  {
+    category.data.dangerous ? (
+      <div
+        class="dangerous"
+        style={{ background: `url(${exhibit.data.image.src})` }}
+      >
+        <h1>{exhibit.data.title}</h1>
+        <Content />
+      </div>
+    ) : (
+      <>
+        <h1>{exhibit.data.title}</h1>
+        <div class="container">
+          <div class="image-container">
+            <CoverImage
+              src={exhibit.data.image}
+              alt={exhibit.data.skipAlt ? null : exhibit.data.imageDescription}
+              objectPosition={exhibit.data.imagePosition}
+              widths={[960]}
+            />
+          </div>
+          <div class="content">
+            <Content />
+          </div>
+        </div>
+      </>
+    )
+  }
 </Layout>
+
+<script>
+  import throttle from "lodash-es/throttle";
+  import { getMode } from "@/lib/mode";
+
+  const dangerousEl = document.querySelector(".dangerous");
+  if (dangerousEl && getMode() === "broken") {
+    const docEl = document.documentElement;
+    const updateScroll = throttle(() => {
+      const scrollPercentage =
+        docEl.scrollTop / (docEl.scrollHeight - window.innerHeight);
+      (dangerousEl as HTMLElement).style.backgroundPositionY =
+        `${scrollPercentage * 100}%`;
+    });
+
+    window.addEventListener("resize", updateScroll);
+    window.addEventListener("scroll", updateScroll);
+  }
+</script>
 
 <style>
   h1 {
@@ -71,6 +108,52 @@ const { Content } = await exhibit.render();
 
     & img {
       max-width: 100%;
+    }
+  }
+
+  .dangerous {
+    background: fixed center top / cover no-repeat;
+    color: var(--white);
+    padding: 1rem 10%;
+    position: relative;
+
+    &::before {
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.7) 12%,
+        rgba(0, 0, 0, 0.7) 88%,
+        rgba(0, 0, 0, 0.1) 100%
+      );
+      position: absolute;
+      inset: 0;
+      content: "";
+    }
+
+    & h1 {
+      margin: 0;
+      text-align: left;
+    }
+
+    /* Global selector required because <Content /> doesn't get scoped */
+    & :global(> *) {
+      position: relative; /* force stacking context for z order */
+    }
+  }
+
+  @media (min-width: 60em) {
+    .dangerous {
+      padding: 1rem 40% 1rem 10%;
+
+      &::before {
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.1) 0%,
+          rgba(0, 0, 0, 0.7) 8%,
+          rgba(0, 0, 0, 0.7) 52%,
+          rgba(0, 0, 0, 0.1) 75%
+        );
+      }
     }
   }
 </style>

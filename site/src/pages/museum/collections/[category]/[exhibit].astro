@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import CoverImage from "@/components/CoverImage.astro";
+import Favorite from "@/components/Favorite.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getEntry } from "astro:content";
 
@@ -39,6 +40,9 @@ const { Content } = await exhibit.render();
       >
         <h1>{exhibit.data.title}</h1>
         <Content />
+        <div class="favorite-container">
+          <Favorite id={exhibit.slug} />
+        </div>
       </div>
     ) : (
       <>
@@ -51,6 +55,9 @@ const { Content } = await exhibit.render();
               objectPosition={exhibit.data.imagePosition}
               widths={[960]}
             />
+            <div class="favorite-container">
+              <Favorite id={exhibit.slug} />
+            </div>
           </div>
           <div class="content">
             <Content />
@@ -105,6 +112,7 @@ const { Content } = await exhibit.render();
   .image-container {
     display: flex;
     align-items: flex-start;
+    position: relative;
 
     & img {
       max-width: 100%;
@@ -155,5 +163,11 @@ const { Content } = await exhibit.render();
         );
       }
     }
+  }
+
+  .favorite-container {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
   }
 </style>

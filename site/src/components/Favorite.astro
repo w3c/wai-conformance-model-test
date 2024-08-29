@@ -1,0 +1,86 @@
+---
+import { Icon } from "astro-icon/components";
+import FixableRegion from "./FixableRegion.astro";
+
+interface Props {
+  id: string;
+  size?: number;
+}
+
+const { id, size = 48 } = Astro.props;
+---
+
+<FixableRegion>
+  <div class="favorite broken" id={`favorite-${id}`}>
+    <Icon name="ri:heart-line" class="off" {size} />
+    <Icon name="ri:heart-fill" class="on" {size} />
+  </div>
+  <button
+    slot="fixed"
+    class="favorite"
+    id={`favorite-${id}`}
+    role="checkbox"
+    aria-checked="false"
+  >
+    <Icon name="ri:heart-line" {size} />
+    <Icon name="ri:heart-fill" {size} />
+    <span class="visually-hidden">Favorite</span>
+  </button>
+</FixableRegion>
+
+<script>
+  import { onStoreChange, persist, recall } from "@/lib/client/store";
+
+  onStoreChange("favorites", (favorites, oldFavorites) => {
+    for (const [key, value] of Object.entries(favorites)) {
+      if (oldFavorites && oldFavorites?.[key] === favorites[key]) continue;
+
+      const el = document.getElementById(`favorite-${key}`) as HTMLElement | null;
+      if (!el) continue;
+      if (el.tagName === "BUTTON") el.setAttribute("aria-checked", "" + value);
+      else el.classList.toggle("added", value);
+    }
+  });
+
+  document.body.addEventListener("click", (event) => {
+    const el = (event.target as HTMLElement).closest(
+      ".favorite[id^='favorite-']"
+    );
+    if (!el) return;
+
+    const key = el.id.slice(9);
+    const oldFavorites = recall("favorites");
+    persist("favorites", {
+      ...oldFavorites,
+      [key]: !oldFavorites[key],
+    });
+  });
+</script>
+
+<style>
+  .favorite {
+    color: var(--gold-vivid-200);
+
+    &:hover {
+      color: var(--gold-vivid-100);
+    }
+
+    &.broken {
+      &:not(.added) svg:last-of-type,
+      &.added svg:first-of-type {
+        display: none;
+      }
+    }
+
+    &[role="checkbox"] {
+      background: none;
+      border: none;
+      padding: 0;
+
+      &[aria-checked="false"] svg:last-of-type,
+      &[aria-checked="true"] svg:first-of-type {
+        display: none;
+      }
+    }
+  }
+</style>

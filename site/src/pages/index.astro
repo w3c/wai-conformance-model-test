@@ -123,6 +123,24 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
     </MetaFailureSection>
 
+    <MetaFailureSection href="museum/collections/containers/clay-jug/" title="Exhibit Pages">
+      <dl slot="wcag2">
+        <dt>1.3.6: Identify Purpose</dt>
+        <dd>
+          The favorite toggle does not programmatically indicate that it accepts input.
+        </dd>
+        <dt>1.4.11: Non-text Contrast</dt>
+        <dd>
+          The favorite icon uses a color that does not always maintain sufficient contrast with the background
+          (the particular exhibit linked above is one such example).
+        </dd>
+        <dt>2.1.1 and 2.1.3: Keyboard</dt>
+        <dd>
+          The Favorite toggle is not accessible via keyboard.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/tour/" title="Take a Tour">
       <dl slot="wcag2">
         <dt>2.2.4: Interruptions</dt>

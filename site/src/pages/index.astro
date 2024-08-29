@@ -68,6 +68,29 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
     </MetaFailureSection>
 
+    <MetaFailureSection href="museum/collections/" title="Collections">
+      <dl slot="wcag2">
+        <dt>1.4.13: Content on Hover or Focus</dt>
+        <dd>
+          The text label on each collection's link only becomes visible on hover (not focus).
+        </dd>
+        <dt>2.4.3: Focus Order</dt>
+        <dd>
+          The collection links have explicit tabindex attributes, causing them to come before
+          anything else in the page. The links in the "See More" section are
+          not included in this explicit order, meaning focus tabs to each collection link,
+          then header items, then the "See More" links, then the footer.
+          Moreover, the explicit tab order is optimized specifically for the widest
+          layout, making it incorrect even within the collections list on narrower viewports.
+        </dd>
+        <dt>3.2.3: Consistent Navigation</dt>
+        <dd>
+          The links that appear within the "See More" section within the main content
+          are removed from the header navigation where they otherwise typically appear.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/collections/dishes/" title="Dishes Collection">
       <dl slot="wcag2">
         <dt>1.1.1: Non-text Content</dt>

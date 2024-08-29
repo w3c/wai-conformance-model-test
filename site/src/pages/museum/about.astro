@@ -18,15 +18,20 @@ const headerNavLinks =
   <h1 class="masked about"><span>About The Museum</span></h1>
   <div class={getMode() === "broken" ? "broken" : undefined}>
     <p>
-      Thank you for wanting to find out more about The Museum Of Broken Things. On this page, you'll find out about our mission, our opening times, and travel directions to come visit us in person.
+      Thank you for wanting to find out more about The Museum Of Broken Things.
+      On this page, you'll find out about our mission, our opening times, and
+      travel directions to come visit us in person.
     </p>
 
     <aside class="mission-statement">
-      The Museum Of Broken Things aims to engage and provoke WCAG-y discussions through smart discussions to uncover the intricate stories behind broken technology pieces.
+      The Museum Of Broken Things aims to engage and provoke
+      <abbr title="Web Content Accessibility Guidelines">WCAG-y</abbr>
+      discussions through smart discussions to uncover the intricate stories
+      behind broken technology pieces.
     </aside>
 
     <h2 class="masked hours"><span>Opening Hours</span></h2>
-    
+
     <div class="table">
       <div class="row heading">
         <div class="cell">Mon</div>
@@ -47,100 +52,120 @@ const headerNavLinks =
         <div class="cell">9-8</div>
       </div>
     </div>
-    
+
     <div class="header-gradient-backer">
-      <svg class="travel-directions" width="219px" height="35px" viewBox="0 0 219 35">
-          <defs>
-            <mask id="text-mask" x="0" y="0" height="100%" width="100%">
-              <rect fill="#fff" x="0" y="0" height="100%" width="100%" />
-              <text x="50%" y="50%" fill="#000" alignment-baseline="middle" text-anchor="middle" font-family="PatuaOne-Regular, Patua One" font-size="29" font-weight="normal">Travel Directions</text>
-            </mask>
-          </defs>
-          <rect fill="#fff" x="0" y="0" height="100%" width="100%" />
+      <svg
+        class="travel-directions"
+        width="219px"
+        height="35px"
+        viewBox="0 0 219 35"
+      >
+        <defs>
+          <mask id="text-mask" x="0" y="0" height="100%" width="100%">
+            <rect fill="#fff" x="0" y="0" height="100%" width="100%"></rect>
+            <text
+              x="50%"
+              y="50%"
+              fill="#000"
+              alignment-baseline="middle"
+              text-anchor="middle"
+              font-family="PatuaOne-Regular, Patua One"
+              font-size="29"
+              font-weight="normal">Travel Directions</text
+            >
+          </mask>
+        </defs>
+        <rect fill="#fff" x="0" y="0" height="100%" width="100%"></rect>
       </svg>
     </div>
     <p>
       You can come visit us at:
-      <address>
-        Kerbela Street, Shrewsbury, England, SY1 1DG
-      </address>
+      <address>Kerbela Street, Shrewsbury, England, SY1 1DG</address>
     </p>
   </div>
 </Layout>
 
 <style>
-
-  :is(h1, h2){
-    background: linear-gradient(to right, #112f4e 0%,#58b4ff 100%);
-    display:inline-block;
-    padding:0 calc(1em * var(--ms-4));
-    & span{
+  :is(h1, h2) {
+    background: linear-gradient(to right, #112f4e 0%, #58b4ff 100%);
+    display: inline-block;
+    padding: 0 calc(1em * var(--ms-2));
+    & span {
       visibility: hidden;
     }
   }
-  
-  .masked{
-    mask-repeat:no-repeat;
+
+  .masked {
+    mask-repeat: no-repeat;
   }
 
-  .about{
-      mask-image:url(../../assets/images/about/about-the-museum.svg);
+  .about {
+    mask-image: url(../../assets/images/about/about-the-museum.svg);
   }
 
-  .hours{
-      mask-image:url(../../assets/images/about/opening-hours.svg);
+  .hours {
+    mask-image: url(../../assets/images/about/opening-hours.svg);
   }
-  
-  .header-gradient-backer{
-    background: linear-gradient(to right, #112f4e 0%,#58b4ff 100%);
-    display:inline-block;
+
+  .header-gradient-backer {
+    background: linear-gradient(to right, #112f4e 0%, #58b4ff 100%);
+    display: inline-block;
     line-height: 0;
-    margin:calc(1rem * var(--ms4)) 0 0;
+    margin: calc(1rem * var(--ms4)) 0 0;
   }
 
-    rect{
-      mask:url(#text-mask);
-    }
+  rect {
+    mask: url(#text-mask);
+  }
 
-    .mission-statement{
-      background: var(--gold-200);
-      font-family: corinthia, serif;
-      font-size:calc(var(--ms10) * 1rem);
-      font-weight: bold;
-      line-height: var(--ms0);
-      margin-block-start:calc(1rem * var(--ms2));
-      text-align: center;
-      padding:calc(var(--ms-3)  * 1em);
-    }
+  .mission-statement {
+    background: var(--gold-200);
+    color: var(--gold-vivid-600);
+    font-family: Corinthia, cursive;
+    font-size: calc(1rem * var(--ms10));
+    font-weight: bold;
+    line-height: var(--ms0);
+    margin-block-start: calc(1rem * var(--ms2));
+    text-align: center;
+    padding: calc(1em * var(--ms-3));
+  }
 
-    p {
-      margin: 0;
-      text-indent: 64px;
-    }
+  .broken .mission-statement {
+    max-height: 4em;
+    overflow: hidden;
+  }
+
+  p {
+    margin: 0;
+    text-indent: 64px;
+  }
 
   .table {
-  display: flex;
-  flex-flow: column nowrap;
-  border: 1px solid #000;
-}
-
-.row {
-  display: flex;
-  &:not(:last-of-type){
-    border-bottom: 1px solid #777;
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px solid #000;
   }
-}
 
-.heading {
-  font-weight: bold;
-}
-
-.cell {
-  display: flex;
-  flex: 1;
-  place-content: center;
-  &:not(:last-of-type){
-    border-inline-end:1px solid;
+  .row {
+    display: flex;
+    &:not(:last-of-type) {
+      border-bottom: 1px solid var(--gray-500);
+    }
   }
-}
+
+  .heading {
+    color: var(--gray-400);
+    font-family: Corinthia, cursive;
+    font-size: 14pt;
+    font-weight: bold;
+  }
+
+  .cell {
+    display: flex;
+    flex: 1;
+    place-content: center;
+    &:not(:last-of-type) {
+      border-inline-end: 1px solid var(--black);
+    }
+  }
 </style>

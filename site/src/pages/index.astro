@@ -331,13 +331,15 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         </dd>
         <dt>1.4.4: Resize Text</dt>
         <dd>
-          Paragraphs overflow into each other beyond a set maximum height,
+          The mission statement cuts off beyond a set maximum height,
           noticeable on mobile or when zoom is increased.
         </dd>
         <dt>2.4.6: Headings and Labels</dt>
         <dd>
-          One of the images with text could be interpreted as a level-2 heading,
-          but it is not coded as such.
+          The headings are not discoverable by assistive technology
+          due to their content being hidden. Moreover, they are not
+          fully visible in some user agents, with the topmost or
+          rightmost part being cut off.
         </dd>
       </dl>
       <dl slot="wcag3">

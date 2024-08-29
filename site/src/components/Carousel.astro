@@ -1,0 +1,203 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { museumBaseUrl } from "@/lib/constants";
+import { getMode } from "@/lib/mode";
+import FixableRegion from "./FixableRegion.astro";
+
+interface Props {
+  entries: ImageEntry[];
+}
+
+type ImageEntry =
+  | CollectionEntry<"blog">
+  | CollectionEntry<"exhibits">
+  | CollectionEntry<"products">;
+
+const { entries } = Astro.props;
+
+const collectionLabels = {
+  blog: "Post",
+  exhibits: "Exhibit",
+  products: "Merch",
+};
+---
+
+<div class:list={["carousel", getMode()]}>
+  {
+    entries.map((entry, i) => (
+      <div
+        class:list={["entry", !i && "in"]}
+        style={{ backgroundImage: `url(${entry.data.image.src})` }}
+        {...(i && getMode() === "fixed" && { inert: true })}
+      >
+        <FixableRegion>
+          <div class="overline">L A T E S T &nbsp; {
+            collectionLabels[entry.collection].toUpperCase().split("").join(" ")
+          }</div>
+          <div slot="fixed" class="overline">Latest {collectionLabels[entry.collection]}</div>
+        </FixableRegion>
+        <div class="title">{entry.data.title}</div>
+        <a
+          class="button"
+          href={`${museumBaseUrl}${entry.collection}/${entry.slug}/`}
+        >
+          Read more
+        </a>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  import { getMode } from "@/lib/mode";
+
+  const carousels = document.querySelectorAll(".carousel");
+
+  // TODO: fixed mode will need to be able to cancel/restart this
+  setInterval(() => {
+    carousels.forEach((el) => {
+      el.querySelector(".out")?.classList.toggle("out");
+      
+      const previousEl = el.querySelector(".in")!;
+      previousEl.classList.toggle("in");
+      previousEl.classList.toggle("out");
+      
+      const nextEl = previousEl.nextElementSibling || el.firstElementChild;
+      nextEl?.classList.toggle("in");
+      
+      if (getMode() === "fixed") {
+        (previousEl as HTMLElement).inert = true;
+        (nextEl as HTMLElement).inert = false;
+      }
+    });
+  }, 10000);
+</script>
+
+<style>
+  .carousel {
+    height: 80vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .entry {
+    background: center / cover no-repeat;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(1rem * var(--ms5));
+    position: absolute;
+    inset: 0;
+    text-align: center;
+
+    &.in {
+      z-index: 2;
+    }
+
+    &.out {
+      z-index: 1;
+    }
+
+    &::before {
+      background-color: rgba(0, 0, 0, 0.4);
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  .overline {
+    font-size: calc(1rem * var(--ms3));
+  }
+
+  .title {
+    font-family: var(--title-font-family);
+    font-size: calc(1rem * var(--ms10));
+  }
+
+  a {
+    border-radius: 9999px;
+    padding: 1rem 2rem;
+    letter-spacing: calc(1rem * var(--ms3))
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .broken {
+    .entry {
+      transition: transform 1s ease-in;
+      transform: translateX(100%);
+
+      & > * {
+        opacity: 0;
+      }
+
+      &::before {
+        transition: opacity 300ms ease-in 1.5s;
+      }
+    }
+
+    & .overline {
+      transform: translateY(-100%);
+      transition: all 300ms ease-in 2s;
+    }
+
+    & .title {
+      transform: scale(0.4);
+      transition: all 300ms ease-in 1.5s;
+    }
+
+    & a {
+      transform: translateY(100%);
+      transition: all 300ms ease-in 2.5s;
+    }
+
+    & .entry.in > * {
+      opacity: 1;
+    }
+
+    & .entry.out > * {
+      transition: opacity 300ms ease-in;
+    }
+
+    & .entry.in,
+    & .entry.out {
+      transform: translateX(0);
+
+      & .overline,
+      & a {
+        transform: translateY(0);
+      }
+
+      & .title {
+        transform: scale(1);
+      }
+    }
+  }
+
+  .fixed {
+    .entry {
+      transition: opacity 1s ease-in;
+      opacity: 0;
+
+      &.in {
+        opacity: 1;
+      }
+
+      &.out {
+        transition-delay: 1s;
+      }
+
+      &::before {
+        z-index: -1;
+      }
+    }
+
+    .overline {
+      letter-spacing: calc(1rem * var(--ms4));
+      text-transform: uppercase;
+    }
+  }
+</style>

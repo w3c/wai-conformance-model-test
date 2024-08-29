@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from "astro:content";
 import CoverImage from "@/components/CoverImage.astro";
 import Layout from "@/layouts/Layout.astro";
+import Carousel from "@/components/Carousel.astro";
 
 const featuredCategories = (await getCollection("exhibit-categories")).filter(
   ({ data }) => !!data.topDescription && !!data.topImageItem
@@ -16,9 +17,18 @@ const expandedCategories = await Promise.all(
     },
   }))
 );
+
+const carouselEntries = [
+  await getEntry("blog", "events/live-event"),
+  await getEntry("exhibits", "technology/crt-monitor"),
+  await getEntry("products", "vessels/water-bottle"),
+]
 ---
 
 <Layout title="Home">
+  <div class="outset">
+    <Carousel entries={carouselEntries} />
+  </div>
   <h2>Explore our Collections</h2>
   <div class="cards">
     {
@@ -96,5 +106,9 @@ const expandedCategories = await Promise.all(
     background: rgb(27, 27, 27, 0.03);
     border-top: 1px solid var(--hairline);
     padding: 0.5rem;
+  }
+
+  .outset {
+    margin-top: -1rem;
   }
 </style>

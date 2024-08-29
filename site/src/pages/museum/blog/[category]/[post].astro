@@ -28,7 +28,7 @@ const dateFormat = new Intl.DateTimeFormat(["en-GB"], { dateStyle: "medium" });
 <Layout title={post.data.title} withInsetMain={false}>
   <article>
     <div
-      class="background"
+      class="background outset"
       style={{ backgroundImage: `url(${post.data.image.src})`, backgroundPosition: post.data.imagePosition }}
     >
       <header>
@@ -57,7 +57,6 @@ const dateFormat = new Intl.DateTimeFormat(["en-GB"], { dateStyle: "medium" });
   .background {
     background: fixed center / cover no-repeat;
     height: 50vh;
-    margin: 0 calc((100% - 100vw) / 2);
     position: relative;
   }
 

@@ -52,10 +52,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
 
     <MetaFailureSection href="museum/" title="Home">
       <dl slot="wcag2">
-        <dt>1.4.3: Contrast (Minimum)</dt>
+        <dt>1.3.2: Meaningful Sequence</dt>
         <dd>
-          Text overlaying images in the carousel does not include a background
-          to guarantee contrast.
+          The overline text over each title in the carousel uses space characters instead of letter-spacing,
+          changing their interpretation.
+        </dd>
+        <dt>1.4.6: Contrast (Enhanced)</dt>
+        <dd>
+          The scrim on the carousel is not always enough to guarantee sufficient contrast.
         </dd>
         <dt>2.2.2: Pause, Stop, Hide</dt>
         <dd>

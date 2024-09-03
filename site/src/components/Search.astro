@@ -33,9 +33,9 @@ import { museumBaseUrl } from "@/lib/constants";
       title.toLowerCase().includes(query.toLowerCase())
     );
     const resultsHtml = query
-      ? `<ul>${filteredResults.map(
-          ({ title, url }) => `<li><a href="${url}">${title}</a></li>`
-        )}</ul>`
+      ? `<ul>${filteredResults
+          .map(({ title, url }) => `<li><a href="${url}">${title}</a></li>`)
+          .join(" ")}</ul>`
       : "<p>No query specified.</p>";
 
     const mainEl = document.querySelector("main") as HTMLElement;
@@ -87,10 +87,14 @@ import { museumBaseUrl } from "@/lib/constants";
   form {
     display: flex;
     align-items: stretch;
-    button {
+    & button {
       padding: 0 calc(1rem * var(--ms-6));
       position: relative;
       inset-inline-start: -1px;
     }
+  }
+
+  input {
+    padding: 0.45em;
   }
 </style>

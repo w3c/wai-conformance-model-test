@@ -32,24 +32,55 @@ const headerNavLinks =
 
     <h2 class="masked hours"><span>Opening Hours</span></h2>
 
-    <div class="table">
-      <div class="row heading">
-        <div class="cell">Mon</div>
-        <div class="cell">Tue</div>
-        <div class="cell">Wed</div>
-        <div class="cell">Thu</div>
-        <div class="cell">Fri</div>
-        <div class="cell">Sat</div>
-        <div class="cell">Sun</div>
+    <div class="table__desktop" role="grid">
+      <div class="row" role="row">
+        <div class="cell" role="columnheader">Mon</div>
+        <div class="cell" role="columnheader">Tue</div>
+        <div class="cell" role="columnheader">Wed</div>
+        <div class="cell" role="columnheader">Thu</div>
+        <div class="cell" role="columnheader">Fri</div>
+        <div class="cell" role="columnheader">Sat</div>
+        <div class="cell" role="columnheader">Sun</div>
       </div>
-      <div class="row">
-        <div class="cell">9-5</div>
-        <div class="cell">9-5</div>
-        <div class="cell">9-5</div>
-        <div class="cell">9-5</div>
-        <div class="cell">9-5</div>
-        <div class="cell">8-8</div>
-        <div class="cell">9-8</div>
+      <div class="row" role="row">
+        <div class="cell" role="cell">9-5</div>
+        <div class="cell" role="cell">9-5</div>
+        <div class="cell" role="cell">9-5</div>
+        <div class="cell" role="cell">9-5</div>
+        <div class="cell" role="cell">9-5</div>
+        <div class="cell" role="cell">8-8</div>
+        <div class="cell" role="cell">9-8</div>
+      </div>
+    </div>
+
+    <div class="table__responsive" role="grid">
+      <div class="row" role="row">
+        <div class="cell" role="columnheader">Mon</div>
+        <div class="cell" role="cell">9-5</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cell" role="columnheader">Tue</div>
+        <div class="cell" role="cell">9-5</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cell" role="columnheader">Wed</div>
+        <div class="cell" role="cell">9-5</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cell" role="columnheader">Thu</div>
+        <div class="cell" role="cell">9-5</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cell" role="columnheader">Fri</div>
+        <div class="cell" role="cell">9-5</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cell" role="columnheader">Sat</div>
+        <div class="cell" role="cell">9-5</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cell" role="columnheader">Sun</div>
+        <div class="cell" role="cell">9-5</div>
       </div>
     </div>
 
@@ -140,10 +171,24 @@ const headerNavLinks =
     text-indent: 64px;
   }
 
-  .table {
+  [class^="table__"] {
     display: flex;
     flex-flow: column nowrap;
     border: 1px solid #000;
+  }
+
+  .table__desktop {
+    display: none;
+  }
+
+  @media (min-width: 30em) {
+    .table__responsive {
+      display: none;
+    }
+
+    .table__desktop {
+      display: block;
+    }
   }
 
   .row {
@@ -153,7 +198,7 @@ const headerNavLinks =
     }
   }
 
-  .heading {
+  [role="columnheader"] {
     color: var(--gray-400);
     font-family: Corinthia, cursive;
     font-size: 14pt;
@@ -161,6 +206,7 @@ const headerNavLinks =
   }
 
   .cell {
+    align-items: center;
     display: flex;
     flex: 1;
     place-content: center;

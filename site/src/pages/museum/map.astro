@@ -1,7 +1,315 @@
 ---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import mapImage from "@/assets/images/map/map.png";
 import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout title="Museum Map">
-  <p>This is the map.</p>
+  <div class="container">
+    <div>
+      <h1>Location</h1>
+      <p>You can come visit us at:</p>
+      <address>Kerbela Street, Shrewsbury, England, SY1 1DG</address>
+      <h2>Map Usage Instructions</h2>
+      <ul>
+        <li>
+          Use the red arrow buttons to pan and the green arrow buttons to zoom
+        </li>
+        <li>
+          On mouse or touchscreen: Press and drag to move the map; pinch to zoom
+        </li>
+        <li>
+          On keyboard: use <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd
+          > to pan up, left, down, and right respectively; use <kbd>Q</kbd> and <kbd
+            >E</kbd
+          > to zoom out and in respectively
+        </li>
+      </ul>
+    </div>
+    <div class="map-container">
+      <div class="image-wrapper">
+        <Image
+          src={mapImage}
+          alt="Draggable Image"
+          class="draggable-image"
+          id="draggable-image"
+        />
+      </div>
+      <div class="controls hidden-below-md">
+        <button id="in"><Icon name="ri:arrow-up-s-fill" /></button>
+        <button id="up"><Icon name="ri:arrow-up-s-fill" /></button>
+        <button id="left"><Icon name="ri:arrow-left-s-fill" /></button>
+        <button id="right"><Icon name="ri:arrow-right-s-fill" /></button>
+        <button id="down"><Icon name="ri:arrow-down-s-fill" /></button>
+        <button id="out"><Icon name="ri:arrow-down-s-fill" /></button>
+      </div>
+    </div>
+  </div>
 </Layout>
+
+<script>
+  interface Pointer {
+    id: number;
+    x: number;
+    y: number;
+  }
+
+  const container = document.querySelector(".image-wrapper") as HTMLElement;
+  const img = document.getElementById("draggable-image") as HTMLImageElement;
+  const increment = 16;
+  const originalHeight = img.height;
+  const originalWidth = img.width;
+  let primaryPointer: Pointer | null = null;
+  let secondaryPointer: Pointer | null = null; // For pinch-zoom only
+  let initialPointerDistance = 0;
+  let initialScale = 1;
+  let scale = 1;
+
+  // Initially center the pin on the map
+  if (!container.scrollLeft)
+    container.scrollLeft = 3490 - container.offsetWidth / 2;
+
+  /** Updates map size, within acceptable boundaries */
+  function maybeUpdateScale(newScale: number) {
+    if (newScale > 4 || newScale < 0.25) return;
+    scale = newScale;
+
+    // Compute current percentage at visible center point
+    const percentX =
+      (container.scrollLeft + container.offsetWidth / 2) /
+      container.scrollWidth;
+    const percentY =
+      (container.scrollTop + container.offsetHeight / 2) /
+      container.scrollHeight;
+
+    // Use height/width rather than trasnform for automatic bounding box updating
+    img.style.height = scale === 1 ? "" : originalHeight * scale + "px";
+    img.style.width = scale === 1 ? "" : originalWidth * scale + "px";
+
+    // Re-center by reversing percentX/Y formula
+    container.scrollLeft =
+      percentX * container.scrollWidth - container.offsetWidth / 2;
+    container.scrollTop =
+      percentY * container.scrollHeight - container.offsetHeight / 2;
+  }
+
+  /** Convenience wrapper around maybeUpdateScale for discrete zoom in/out steps */
+  function maybeZoom(direction: "in" | "out") {
+    maybeUpdateScale(direction === "in" ? scale * 1.5 : scale / 1.5);
+  }
+
+  function computePointerDistance() {
+    if (!primaryPointer || !secondaryPointer)
+      throw new Error("computePointerDistance called in invalid state");
+    const diffX = primaryPointer.x - secondaryPointer.x;
+    const diffY = primaryPointer.y - secondaryPointer.y;
+    return Math.sqrt(diffX * diffX + diffY * diffY);
+  }
+
+  container.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 || (primaryPointer && secondaryPointer)) return;
+    event.preventDefault();
+    container.setPointerCapture(event.pointerId);
+    img.style.cursor = "grabbing";
+
+    if (event.isPrimary) {
+      primaryPointer = {
+        id: event.pointerId,
+        x: event.clientX,
+        y: event.clientY,
+      };
+    } else {
+      secondaryPointer = {
+        id: event.pointerId,
+        x: event.clientX,
+        y: event.clientY,
+      };
+      initialScale = scale;
+    }
+
+    if (primaryPointer && secondaryPointer)
+      initialPointerDistance = computePointerDistance();
+  });
+
+  container.addEventListener("pointermove", (event) => {
+    if (!primaryPointer) return;
+    if (secondaryPointer) {
+      // Pinch-zoom
+      if (event.pointerId === primaryPointer.id) {
+        primaryPointer.x = event.clientX;
+        primaryPointer.y = event.clientY;
+      } else {
+        secondaryPointer.x = event.clientX;
+        secondaryPointer.y = event.clientY;
+      }
+      const diff = computePointerDistance() / initialPointerDistance;
+      maybeUpdateScale(initialScale * diff);
+    } else {
+      // Panning
+      container.scrollTop -= event.movementY;
+      container.scrollLeft -= event.movementX;
+    }
+  });
+
+  function cancelDragging(event: PointerEvent) {
+    if (event.isPrimary) {
+      primaryPointer = null;
+      img.style.cursor = "";
+    } else secondaryPointer = null;
+  }
+  container.addEventListener("pointerup", cancelDragging);
+  container.addEventListener("pointercancel", cancelDragging);
+
+  // Keyboard handler
+
+  document.body.addEventListener("keydown", (event) => {
+    if (event.key === "w") container.scrollTop -= increment;
+    if (event.key === "s") container.scrollTop += increment;
+    if (event.key === "a") container.scrollLeft -= increment;
+    if (event.key === "d") container.scrollLeft += increment;
+
+    if (event.key === "q" || event.key === "e") {
+      maybeZoom(event.key === "q" ? "out" : "in");
+    }
+  });
+
+  // Button handlers
+
+  document.getElementById("up")!.addEventListener("click", () => {
+    container.scrollTop -= increment;
+  });
+
+  document.getElementById("down")!.addEventListener("click", () => {
+    container.scrollTop += increment;
+  });
+
+  document.getElementById("left")!.addEventListener("click", () => {
+    container.scrollLeft -= increment;
+  });
+
+  document.getElementById("right")!.addEventListener("click", () => {
+    container.scrollLeft += increment;
+  });
+
+  document.getElementById("in")!.addEventListener("click", () => {
+    maybeZoom("in");
+  });
+
+  document.getElementById("out")!.addEventListener("click", () => {
+    maybeZoom("out");
+  });
+</script>
+
+<style>
+  h1 {
+    margin-top: 0;
+  }
+
+  address {
+    margin-bottom: calc(1rem * var(--ms10));
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 30em) {
+    .container {
+      align-items: center;
+      flex-direction: row;
+      text-align: center;
+
+      & > * {
+        width: 50%;
+      }
+    }
+
+    ul {
+      text-align: left;
+    }
+  }
+
+  .image-wrapper {
+    border: 2px solid #ccc;
+    cursor: grab;
+    width: 100%;
+    height: 75vh;
+    overflow: hidden;
+    position: relative;
+    touch-action: none; /* Avoid interference with pointer event handlers on mobile */
+  }
+
+  .image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .map-container {
+    position: relative;
+  }
+
+  .controls {
+    --button-size: calc(1rem * var(--ms8));
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    & button {
+      background-color: var(--gray-020);
+      border: 2px solid var(--black);
+      color: var(--green-500);
+      cursor: pointer;
+      padding: 0;
+      position: absolute;
+      right: 0;
+
+      & svg {
+        height: var(--button-size);
+        width: var(--button-size);
+      }
+
+      &#in,
+      &#out {
+        color: var(--red-warm-500);
+      }
+      &:hover {
+        background-color: var(--gray-050);
+      }
+      &:active {
+        background-color: var(--gray-200);
+      }
+    }
+  }
+
+  /* Map button positioning; listed top to bottom */
+  #in {
+    right: calc(var(--button-size) / 2);
+  }
+  #up {
+    right: calc(var(--button-size) / 2);
+    top: var(--button-size);
+    z-index: 1;
+  }
+  #left {
+    right: var(--button-size);
+    top: calc(var(--button-size) * 2);
+    z-index: 4;
+  }
+  #right {
+    top: calc(var(--button-size) * 2);
+    z-index: 4;
+  }
+  #down {
+    right: calc(var(--button-size) / 2);
+    top: calc(var(--button-size) * 3);
+    z-index: 2;
+  }
+  #out {
+    right: calc(var(--button-size) / 2);
+    top: calc(var(--button-size) * 4);
+    z-index: 3;
+  }
+</style>

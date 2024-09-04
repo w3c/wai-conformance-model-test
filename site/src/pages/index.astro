@@ -290,6 +290,31 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
     </MetaFailureSection>
 
+    <MetaFailureSection href="museum/map/" title="Museum Map">
+      <dl slot="wcag2">
+        <dt>1.3.3: Sensory Characteristics</dt>
+        <dd>
+          Instructions allude only to color when describing visible map controls,
+          which is insufficient to disambiguate for colorblind users, as some
+          controls feature the same icons distinguished only by color.
+        </dd>
+        <dt>1.4.11: Non-text Contrast</dt>
+        <dd>
+          The pin on the map uses a color that has extremely poor contrast against
+          the map's colors.
+        </dd>
+        <dt>2.1.4: Character Key Shortcuts</dt>
+        <dd>
+          Single-character key bindings are implemented across the entire page
+          for map movement, and cannot be turned off or customized.
+        </dd>
+        <dt>2.5.1: Pointer Gestures</dt>
+        <dd>
+          On mobile viewports, the only way to zoom the map is via a pinch gesture.
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/register/" title="Register">
       <dl slot="wcag2">
         <dt>1.1.1: Non-text Content</dt>

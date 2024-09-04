@@ -13,15 +13,24 @@ import { defaultNavLinks } from "@/lib/nav-links";
 type Props = ComponentProps<typeof BaseLayout> & {
   headerNavLinks?: ComponentProps<typeof Navigation>["navLinks"];
   withInsetMain?: boolean;
+  withMainId?: boolean;
 };
 
-const { headerNavLinks = defaultNavLinks, title, withInsetMain = true } = Astro.props;
+const {
+  headerNavLinks = defaultNavLinks,
+  title,
+  withInsetMain = true,
+  withMainId = true,
+} = Astro.props;
 ---
 
 <BaseLayout title={title}>
   <Header />
   <Navigation navLinks={headerNavLinks} />
-  <main id="main" class={withInsetMain ? "inset" : undefined}>
+  <main
+    id={withMainId ? "main" : undefined}
+    class={withInsetMain ? "inset" : undefined}
+  >
     <slot />
   </main>
   <Footer />

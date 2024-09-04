@@ -33,7 +33,7 @@ const postsByCategory = posts.reduce(
 );
 ---
 
-<Layout title="Blog">
+<Layout title="Blog" withMainId={false}>
   {
     livePost && (
       <div class="featured">

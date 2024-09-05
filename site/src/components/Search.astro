@@ -53,11 +53,15 @@ import { museumBaseUrl } from "@/lib/constants";
   }
 
   if (getMode() === "broken") {
+    let currentUrl = new URL(location.href);
     window.addEventListener("popstate", () => {
       const url = new URL(location.href);
       const query = url.searchParams.get("query") || "";
+
       if (url.pathname === `${museumBaseUrl}search/`) search(query);
-      else location.reload(); // Perform full navigation when leaving search page
+      // Perform full navigation when leaving search page, but ignore hash changes
+      else if (url.pathname !== currentUrl.pathname) location.reload();
+      currentUrl = url;
     });
 
     searchInput.addEventListener(

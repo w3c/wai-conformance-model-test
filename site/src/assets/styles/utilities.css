@@ -15,7 +15,7 @@
   }
 }
 
-.visually-hidden {
+.visually-hidden:not(:focus):not(:active) {
   border: 0;
   clip: rect(0, 0, 0, 0);
   height: 1px;
@@ -25,9 +25,4 @@
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-/* Specialization of .visually-hidden for skip navigation link */
-.skip-link:focus-visible {
-  all: revert;
 }

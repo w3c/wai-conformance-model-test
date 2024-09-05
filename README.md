@@ -9,8 +9,6 @@
 
 ## Setting up a Development Environment
 
-On almost every project, getting your development environment established is the first task and it can take a day or two to do so. This is a high-level overview so that you can be productive quickly.
-
 If you don't have one, we recommend installing an IDE that supports multiple languages (Python, Javascript, HTML/CSS, etc). The recommendations are [VS Code](https://code.visualstudio.com/) or [Sublime Text](https://www.sublimetext.com/), but this is a developer choice.
 
 The next step is to determine which development environment you would like to use. You can choose between a couple of options:
@@ -33,6 +31,16 @@ Other useful npm commands within the `site` directory:
 - `npm run check` to check for TypeScript errors
 - `npm run build` to create a production build
 - `npm run preview` to preview the production build created by `npm run build`
+
+This repository includes components designed to allow implementing both "broken" and "fixed" versions side-by-side.
+
+To run the "fixed" version:
+
+- `npm run dev:fixed` to run the dev server
+- `npm run build:fixed` to run a build (previewable as before via `npm run preview`)
+
+Note that the default "broken" version has been the initial focus of development,
+so the "fixed" version is even more work-in-progress.
 
 ### Setting up a Development Environment using Docker
 

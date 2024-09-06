@@ -14,7 +14,7 @@ import Layout from "@/layouts/Layout.astro";
       <h2>Map Usage Instructions</h2>
       <ul>
         <li>
-          Use the red arrow buttons to pan and the green arrow buttons to zoom
+          Use the green arrow buttons to pan and the red arrow buttons to zoom
         </li>
         <li>
           On mouse or touchscreen: Press and drag to move the map; pinch to zoom
@@ -139,16 +139,23 @@ import Layout from "@/layouts/Layout.astro";
       if (event.pointerId === primaryPointer.id) {
         primaryPointer.x = event.clientX;
         primaryPointer.y = event.clientY;
-      } else {
+      } else if (event.pointerId === secondaryPointer.id) {
         secondaryPointer.x = event.clientX;
         secondaryPointer.y = event.clientY;
       }
       const diff = computePointerDistance() / initialPointerDistance;
       maybeUpdateScale(initialScale * diff);
-    } else {
-      // Panning
-      container.scrollTop -= event.movementY;
-      container.scrollLeft -= event.movementX;
+    } else if (event.isPrimary) {
+      // Calculate panning manually instead of using event.movementX/Y for 2 reasons:
+      // 1. Firefox on Android seems to always report 0 for movementX/Y
+      // 2. keeping primaryPointer.x/y up to date makes delayed pinch more consistent
+      const movementX = event.clientX - primaryPointer.x;
+      const movementY = event.clientY - primaryPointer.y;
+      container.scrollTop -= movementY;
+      container.scrollLeft -= movementX;
+
+      primaryPointer.x = event.clientX;
+      primaryPointer.y = event.clientY;
     }
   });
 

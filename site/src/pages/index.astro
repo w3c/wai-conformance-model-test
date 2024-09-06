@@ -114,6 +114,23 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
     </MetaFailureSection>
 
+    <MetaFailureSection href="museum/collections/music/" title="Music Collection">
+      <dl slot="wcag2">
+        <dt>2.4.4 and 2.4.9: Link Purpose</dt>
+        <dd>
+          The purpose of each entry's link is unclear because its image (with alt text)
+          is also included within the link, preceding its title.
+        </dd>
+      </dl>
+      <dl slot="wcag3">
+        <dt>Interface Verbosity</dt>
+        <dd>
+          The link for each entry is overly verbose, due to the inclusion of
+          each entry's image (with alt text).
+        </dd>
+      </dl>
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/collections/technology/" title="Technology Collection">
       <dl slot="wcag2">
         <dt>1.1.1: Non-text Content</dt>

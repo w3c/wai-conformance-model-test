@@ -5,32 +5,21 @@
  * property; props common to both states can be specified top-level as usual.
  */
 
-import type { ComponentProps, HTMLTag, Polymorphic } from "astro/types";
 import { getMode } from "@/lib/mode";
+import type { PolymorphicProps, TagOrComponent } from "./types";
 
 const mode = getMode();
 
-// NOTE: Props _needs_ to be the first declared type for Astro to process correctly
+// Note(ken): & { as: never } below is designed to prevent setting `as`
+// within broken/fixed, which the component does not support.
+// Using Omit would be ideal, but causes TS complexity errors in this case.
 
-type Props<Tag extends HTMLTag | AstroComponent> = Tag extends HTMLTag
-  ? Polymorphic<{ as: Tag }> &
-      SpecialCaseProps<Partial<Omit<Polymorphic<{ as: Tag }>, "as">>>
-  : Tag extends AstroComponent
-    ? // This second ternary is required to pass type checking but the `never` will never occur
-      ComponentProps<Tag> &
-        SpecialCaseProps<Partial<ComponentProps<Tag>>> & {
-          as: Tag;
-        }
-    : never;
-
-type AstroComponent = (args: any) => any;
-
-type SpecialCaseProps<T> = {
+type Props<Tag extends TagOrComponent> = PolymorphicProps<Tag> & {
   /** Any attributes that should only be set on the broken version */
-  broken?: T;
+  broken?: Partial<PolymorphicProps<Tag> & { as: never }>;
   /** Any attributes that should only be set on the fixed version */
-  fixed?: T;
-};
+  fixed?: Partial<PolymorphicProps<Tag> & { as: never }>;
+}
 
 const { as: Tag, broken, fixed, ...props } = Astro.props;
 ---

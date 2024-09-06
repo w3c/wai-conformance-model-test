@@ -1,10 +1,12 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import { sortBy } from "lodash-es";
+import ConditionalParent from "@/components/ConditionalParent.astro";
 import CoverImage from "@/components/CoverImage.astro";
 import Modal from "@/components/Modal.astro";
 import Layout from "@/layouts/Layout.astro";
 import { museumBaseUrl } from "@/lib/constants";
+import { getMode } from "@/lib/mode";
 
 interface Props {
   category: CollectionEntry<"exhibit-categories">;
@@ -29,6 +31,8 @@ export async function getStaticPaths() {
 
 const { category, exhibits } = Astro.props;
 const { Content } = await category.render();
+
+const shouldWrapImageInLink = getMode() === "broken" && category.slug === "music";
 ---
 
 <Layout title={category.data.title}>
@@ -70,18 +74,30 @@ const { Content } = await category.render();
     {
       exhibits.map(({ data, slug }) => (
         <li>
-          <div class="image-container">
-            <CoverImage
-              src={data.image}
-              alt={data.skipAlt ? null : data.imageDescription}
-              objectPosition={data.imagePosition}
-              height="200"
-              widths={[960]}
-            />
-          </div>
-          <div class="content">
-            <a href={`../${slug}/`}>{data.title}</a>
-          </div>
+          <ConditionalParent
+            as="a"
+            if={shouldWrapImageInLink}
+            href={`../${slug}/`}
+          >
+            <div class="image-container">
+              <CoverImage
+                src={data.image}
+                alt={data.skipAlt ? null : data.imageDescription}
+                objectPosition={data.imagePosition}
+                height="200"
+                widths={[960]}
+              />
+            </div>
+            <div class="content">
+              <ConditionalParent
+                as="a"
+                if={!shouldWrapImageInLink}
+                href={`../${slug}/`}
+              >
+                {data.title}
+              </ConditionalParent>
+            </div>
+          </ConditionalParent>
         </li>
       ))
     }
@@ -99,10 +115,9 @@ const { Content } = await category.render();
     form.addEventListener("submit", (event) => {
       const value = (event.submitter as HTMLButtonElement).value;
       const listEl = document.getElementById("list") as HTMLUListElement;
-      if (value.startsWith("A"))
-        listEl.classList.add("dangerous-list");
+      if (value.startsWith("A")) listEl.classList.add("dangerous-list");
       if (value === "A") listEl.classList.add("dangerous-list-A");
-      if (value === "none") listEl.classList.add("fading-list")
+      if (value === "none") listEl.classList.add("fading-list");
     });
   }
 </script>
@@ -170,7 +185,8 @@ const { Content } = await category.render();
     animation: linear 3s infinite fade;
   }
 
-  .content a {
+  .content a,
+  .content:not(:has(a)) {
     display: block;
     padding: 1rem;
     text-align: center;

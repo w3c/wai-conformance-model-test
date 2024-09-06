@@ -1,0 +1,23 @@
+---
+/**
+ * @fileoverview
+ * Component that allows conditionally rendering a parent without repeating children.
+ */
+import type { PolymorphicProps, TagOrComponent } from "./types";
+
+type Props<Tag extends TagOrComponent> = PolymorphicProps<Tag> & {
+  if: boolean;
+};
+
+const { as: Tag, if: condition, ...props } = Astro.props;
+---
+
+{
+  condition ? (
+    <Tag {...props}>
+      <slot />
+    </Tag>
+  ) : (
+    <slot />
+  )
+}

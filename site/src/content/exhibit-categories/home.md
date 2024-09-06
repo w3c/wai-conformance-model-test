@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Homes
 dangerous: true
 topDescription: You rang?
 topImageItem: home/wide-bedroom

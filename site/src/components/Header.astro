@@ -1,10 +1,17 @@
 ---
 import { Image } from "astro:assets";
+import type { ComponentProps } from "astro/types";
 import { museumBaseUrl } from "@/lib/constants";
 import Search from "./Search.astro";
 import UserControls from "./UserControls.astro";
 
 import logo from "@/assets/images/mbt-logo.webp";
+
+interface Props {
+  searchMode?: ComponentProps<typeof Search>["mode"];
+}
+
+const { searchMode } = Astro.props;
 ---
 
 <header>
@@ -19,7 +26,7 @@ import logo from "@/assets/images/mbt-logo.webp";
     <div>Museum of Broken Things</div>
   </div>
   <div>
-    <Search />
+    <Search mode={searchMode} />
     <UserControls />
   </div>
 </header>

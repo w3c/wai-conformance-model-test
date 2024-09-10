@@ -1,25 +1,36 @@
 ---
 import { Icon } from "astro-icon/components";
-import FixableRegion from "./FixableRegion.astro";
 import { museumBaseUrl } from "@/lib/constants";
+import { getMode } from "@/lib/mode";
+
+interface Props {
+  mode?: "fixed";
+}
+
+const { mode = getMode() } = Astro.props;
 ---
 
-<FixableRegion>
-  <input id="search" placeholder="Search" />
-  <form slot="fixed" role="search" action={`${museumBaseUrl}search/`}>
-    <label
-      >Search
-      <input id="search" type="search" name="query" />
-    </label>
-    <button class="outline"><Icon name="ri:search-line" /></button>
-  </form>
-</FixableRegion>
+{
+  mode === "broken" ? (
+    <input id="search" placeholder="Search" />
+  ) : (
+    <form slot="fixed" role="search" action={`${museumBaseUrl}search/`}>
+      <label>
+        Search
+        <input id="search" type="search" name="query" />
+      </label>
+      <button class="outline">
+        <Icon name="ri:search-line" />
+        <span class="visually-hidden">Search</span>
+      </button>
+    </form>
+  )
+}
 
 <script>
   import debounce from "lodash-es/debounce";
   import type { SearchResult } from "@/pages/museum/api/search";
   import { museumBaseUrl } from "@/lib/constants";
-  import { getMode } from "@/lib/mode";
   import { fetchApi } from "@/lib/client/fetch";
 
   const response = await fetchApi(`${museumBaseUrl}api/search/`);
@@ -52,7 +63,9 @@ import { museumBaseUrl } from "@/lib/constants";
     search(query);
   }
 
-  if (getMode() === "broken") {
+  // Feature-detect broken state, since it's parameterized at build time
+  const isBroken = !document.querySelector("form[role='search']");
+  if (isBroken) {
     let currentUrl = new URL(location.href);
     window.addEventListener("popstate", () => {
       const url = new URL(location.href);
@@ -99,6 +112,7 @@ import { museumBaseUrl } from "@/lib/constants";
   }
 
   input {
-    padding: 0.45em;
+    padding: 0.45rem;
+    width: 10rem;
   }
 </style>

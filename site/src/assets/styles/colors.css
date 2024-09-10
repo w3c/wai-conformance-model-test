@@ -1,9 +1,4 @@
 :root {
-  --white: #fff;
-  --black: #000;
-
-  --hairline: rgb(0, 0, 0, 0.175);
-
   --gold-050:	#f5f0e6;
   --gold-100:	#f1e5cd;
   --gold-200:	#dec69a;
@@ -81,59 +76,8 @@
   --green-700:	#3c4a29;
   --green-800:	#293021;
   --green-900:	#161814;
+
+  --white: #fff;
+  --black: var(--gray-800);
+  --hairline: rgb(0, 0, 0, 0.175);
 }
-
-/*****************
-//* Primary Theme
-//****************
-$primary:                           $blue-500;
-// Note: No dark mode on primary
-
-// Primary Subtle Theme
-$primary-text-emphasis:             $blue-700;
-$primary-bg-subtle:                 $blue-050;
-$primary-border-subtle:             $blue-100;
-
-$primary-text-emphasis-dark:        $blue-100;
-$primary-bg-subtle-dark:            $blue-800;
-$primary-border-subtle-dark:        $blue-600;
-
-
-//*****************
-//* Secondary Theme
-//*****************
-$secondary:                         $gold-500;
-// Note: No dark mode on secondary
-
-// Secondary Subtle Theme
-$secondary-text-emphasis:           $gold-700;
-$secondary-bg-subtle:               $gold-050;
-$secondary-border-subtle:           $gold-100;
-
-$secondary-text-emphasis-dark:      $gold-200;
-$secondary-bg-subtle-dark:          $gold-800;
-$secondary-border-subtle-dark:      $gold-600;
-
-//****************
-//* Tertiary Theme
-//****************
-$tertiary:                         $gold-vivid-400;
-
-// Tertiary Subtle Theme
-$tertiary-text-emphasis:           $gold-vivid-700;
-$tertiary-bg-subtle:               $gold-vivid-050;
-$tertiary-border-subtle:           $gold-vivid-100;
-
-$tertiary-text-emphasis-dark:      $gold-vivid-200;
-$tertiary-bg-subtle-dark:          $gold-vivid-800;
-$tertiary-border-subtle-dark:      $gold-vivid-600;
-
-
-// Headings
-$headings-color:                    #000000;
-// $headings-color-dark:               #7EB0E4; // blue-20
-
-// Links
-// $link-color:                        #253E92; // blue-80
-// $link-color-dark:                   #7EB0E4; // blue-20
-*/

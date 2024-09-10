@@ -1,4 +1,6 @@
 ---
+import { slugifyPath } from '@/lib/meta';
+
 /** @fileoverview Component that handles some boilerplate for each failure section in the top page. */
 
 interface Props {
@@ -10,7 +12,7 @@ interface Props {
 const { href, title } = Astro.props;
 ---
 
-<section id={href.replace(/\//g, "-").replace(/-$/, "")}>
+<section id={slugifyPath(href)}>
   <h3><a href={`${import.meta.env.BASE_URL}${href}`}>{title}</a></h3>
   <slot />
   {

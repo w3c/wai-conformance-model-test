@@ -2,7 +2,6 @@
 import Fixable from "@/components/Fixable.astro";
 import FixableRegion from "@/components/FixableRegion.astro";
 import FormLayout from "@/components/FormLayout.astro";
-import Timeout from "@/components/Timeout.astro";
 import ShopLayout from "@/layouts/ShopLayout.astro";
 ---
 
@@ -25,18 +24,15 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
     <input name="code" placeholder="CVC" />
     <input name="zip" placeholder="ZIP Code" />
     <button>Continue</button>
-    <Timeout>
-      The form has expired; please <a href="../">return to checkout</a> to start
-      over.
-    </Timeout>
   </Fixable>
 </ShopLayout>
 
 <script>
   import { z } from "astro/zod";
   import { computeTotals } from "@/lib/client/cart";
-  import { validateInputs } from "@/lib/client/form";
+  import { disableInputs, validateInputs } from "@/lib/client/form";
   import { recall } from "@/lib/client/store";
+  import { showToast } from "@/lib/client/toast";
   import { getMode } from "@/lib/mode";
 
   const cart = recall("cart");
@@ -72,6 +68,16 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
       errorEl.hidden = false;
     }
   });
+
+  setTimeout(() => {
+    showToast(`The form has expired; you will need to start over.`, {
+      type: "error",
+      actionHref: "../",
+      actionLabel: "Return to checkout",
+      withDismiss: false,
+    });
+    disableInputs(document.querySelector("main form") as HTMLFormElement);
+  }, 30000);
 </script>
 
 <style>

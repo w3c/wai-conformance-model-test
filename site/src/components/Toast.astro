@@ -1,0 +1,120 @@
+---
+/**
+ * @fileoverview Markup and styles for Toast component.
+ * See @/lib/client/toast.ts for most of the JavaScript logic.
+ * NOTE: This should be imported in layouts, not pages or other components.
+ * It is effectively a singleton, configured via JS API.
+ */
+
+import { getMode } from "@/lib/mode";
+import { Icon } from "astro-icon/components";
+
+const iconMap = {
+  error: "ri:error-warning-fill",
+  info: "ri:information-2-fill",
+} as const;
+// Expose ToastType from here for use by API in toast.ts
+export type ToastType = keyof typeof iconMap;
+---
+
+<div class="toast-container">
+  {
+    getMode() === "broken" ? (
+      <div id="toast" hidden>
+        <div id="toast-content" />
+        <button id="toast-dismiss">Dismiss</button>
+      </div>
+    ) : (
+      <dialog id="toast">
+        <form method="dialog">
+          <div id="toast-content" />
+          <button id="toast-dismiss">Dismiss</button>
+        </form>
+      </dialog>
+    )
+  }
+</div>
+{
+  // Set up icons as templates for use by API in toast.ts
+  Object.entries(iconMap).map(([type, name]) => (
+    <template id={`toast-icon-${type}`}>
+      <Icon name={name} />
+    </template>
+  ))
+}
+
+<script>
+  import { hideToast } from "@/lib/client/toast";
+  import { getMode } from "@/lib/mode";
+
+  // Dismiss needs to be explicitly handled in non-dialog case
+  const dismissEl = document.getElementById("toast-dismiss")!;
+  if (getMode() === "broken") dismissEl.addEventListener("click", hideToast);
+</script>
+
+<style>
+  .toast-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+  }
+
+  #toast {
+    background-color: var(--gray-900);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    color: var(--gray-050);
+    max-width: 90vw;
+    opacity: 0;
+    transition: opacity 250ms, transform 250ms;
+    transform: translateY(50%);
+
+    & :global(a) {
+      color: var(--blue-300);
+    }
+
+    &:global(.showing) {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  svg {
+    height: 2rem;
+    width: 2rem;
+  }
+  svg[data-icon="ri:error-warning-fill"] {
+    color: var(--red-warm-400);
+  }
+  svg[data-icon="ri:information-2-fill"] {
+    color: var(--blue-400);
+  }
+
+  div#toast,
+  #toast form {
+    display: flex;
+    gap: calc(1rem * var(--ms5)); /* Between content and dismiss button */
+    padding: 1rem;
+
+    & button {
+      border-radius: 4px;
+      padding-block: 0.25rem;
+    }
+  }
+
+  dialog#toast {
+    padding: 0;
+  }
+
+  #toast-content {
+    display: flex;
+    gap: 1rem; /* Between message and icon and/or action button (if any) */
+    align-items: center;
+    justify-content: center;
+  }
+</style>

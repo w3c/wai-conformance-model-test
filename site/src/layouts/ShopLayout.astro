@@ -1,13 +1,14 @@
 ---
 /** @fileoverview Layout for Gift Shop pages. */
 
+import { Icon } from "astro-icon/components";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Navigation from "@/components/Navigation.astro";
-import BaseLayout from "./BaseLayout.astro";
+import Toast from "@/components/Toast.astro";
 import { museumBaseUrl } from "@/lib/constants";
-import { Icon } from "astro-icon/components";
 import { defaultNavLinks } from "@/lib/nav-links";
+import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
   title: string;
@@ -34,6 +35,7 @@ const headerNavLinks = [
     <slot />
   </main>
   <Footer />
+  <Toast />
 </BaseLayout>
 
 <script>

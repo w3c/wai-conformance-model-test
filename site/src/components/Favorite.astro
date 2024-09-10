@@ -30,15 +30,36 @@ const { id, size = 48 } = Astro.props;
 
 <script>
   import { onStoreChange, persist, recall } from "@/lib/client/store";
+  import { showToast } from "@/lib/client/toast";
 
   onStoreChange("favorites", (favorites, oldFavorites) => {
     for (const [key, value] of Object.entries(favorites)) {
       if (oldFavorites && oldFavorites?.[key] === favorites[key]) continue;
 
-      const el = document.getElementById(`favorite-${key}`) as HTMLElement | null;
+      const el = document.getElementById(
+        `favorite-${key}`
+      ) as HTMLElement | null;
       if (!el) continue;
+
       if (el.tagName === "BUTTON") el.setAttribute("aria-checked", "" + value);
       else el.classList.toggle("added", value);
+
+      // Show toast, but only in response to user-initiated changes on current page
+      // (either via favorite button or undo in confirmation toast)
+      if (oldFavorites) {
+        showToast(`${value ? "Added to" : "Removed from"} favorites`, {
+          role: "alert",
+          type: "info",
+          actionCallback() {
+            persist("favorites", {
+              ...recall("favorites"),
+              [key]: !value,
+            });
+          },
+          actionLabel: "Undo",
+          duration: 3000,
+        });
+      }
     }
   });
 

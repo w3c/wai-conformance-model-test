@@ -1,7 +1,6 @@
 ---
 import Fixable from "@/components/Fixable.astro";
 import FormLayout from "@/components/FormLayout.astro";
-import Timeout from "@/components/Timeout.astro";
 import Layout from "@/layouts/Layout.astro";
 ---
 
@@ -27,9 +26,20 @@ import Layout from "@/layouts/Layout.astro";
       >Phone number
       <Fixable as="input" fixed={{ type: "tel" }} name="phone" />
     </label>
-    <Timeout>
-      The form has expired; please refresh the page to start over.
-    </Timeout>
     <button type="submit">Submit</button>
   </FormLayout>
 </Layout>
+
+<script>
+  import { disableInputs } from "@/lib/client/form";
+  import { showToast } from "@/lib/client/toast";
+
+  setTimeout(() => {
+    showToast("The form has expired; please refresh the page to start over.", {
+      duration: 3000,
+      type: "error",
+      withDismiss: false,
+    });
+    disableInputs(document.querySelector("main form") as HTMLFormElement);
+  }, 30000);
+</script>

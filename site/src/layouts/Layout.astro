@@ -7,8 +7,9 @@ import type { ComponentProps } from "astro/types";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Navigation from "@/components/Navigation.astro";
-import BaseLayout from "./BaseLayout.astro";
+import Toast from "@/components/Toast.astro";
 import { defaultNavLinks } from "@/lib/nav-links";
+import BaseLayout from "./BaseLayout.astro";
 
 type Props = ComponentProps<typeof BaseLayout> & {
   headerNavLinks?: ComponentProps<typeof Navigation>["navLinks"];
@@ -33,5 +34,6 @@ const {
   >
     <slot />
   </main>
+  <Toast />
   <Footer />
 </BaseLayout>

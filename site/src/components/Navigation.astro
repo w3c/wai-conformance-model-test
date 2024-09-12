@@ -1,50 +1,177 @@
 ---
-import { defaultNavLinks, type NavLink } from "@/lib/nav-links";
+import { Icon } from "astro-icon/components";
+import { getMode } from "@/lib/mode";
+import { defaultNavLinks, type NavTree } from "@/lib/nav-links";
+import ConditionalParent from "./ConditionalParent.astro";
 
 interface Props {
-  navLinks?: NavLink[]
+  /**
+   * Indicates behavior in broken mode: open-on-focus or open-on-hover.
+   * If unspecified, uses expand/collapse behavior.
+   */
+  failureMode?: "focus" | "hover";
+  /** Links to display in nav. Supports one level of nesting. */
+  navLinks?: NavTree;
 }
 
-const { navLinks = defaultNavLinks } = Astro.props;
+const { failureMode, navLinks = defaultNavLinks } = Astro.props;
+const actualFailureMode = getMode() === "broken" ? failureMode : undefined;
 ---
 
-<nav aria-label="Site">
+<nav aria-label="Site" data-failure-mode={actualFailureMode}>
   <ul>
     {
-      navLinks.map(({ name, href, headerClass }) => (
-        <li class={headerClass}>
-          <a {href}>{name}</a>
-        </li>
-      ))
+      navLinks.map(({ name, ...rest }) =>
+        "children" in rest ? (
+          <li tabindex={actualFailureMode === "focus" ? 0 : undefined}>
+            <ConditionalParent
+              as="button"
+              if={!actualFailureMode}
+              aria-controls={`nav-${name.toLowerCase()}`}
+              aria-expanded="false"
+            >
+              {name}
+              {!actualFailureMode && <Icon name="ri:arrow-down-s-line" />}
+            </ConditionalParent>
+            <ul
+              id={actualFailureMode ? undefined : `nav-${name.toLowerCase()}`}
+            >
+              {rest.children.map(({ headerClass, href, name }) => (
+                <li class={headerClass}>
+                  <a {href}>{name}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : (
+          <li class={rest.headerClass}>
+            <a href={rest.href}>{name}</a>
+          </li>
+        )
+      )
     }
   </ul>
   <slot />
 </nav>
 
+<script>
+  const navEl = document.querySelector("nav[aria-label='Site']") as HTMLElement;
+  const failureMode = navEl.dataset.failureMode;
+  if (!failureMode) {
+    navEl.addEventListener("click", (event) => {
+      const el = event.target as HTMLElement;
+      if (!el.hasAttribute("aria-expanded")) return;
+      const isExpanded = el.getAttribute("aria-expanded") === "true";
+
+      if (!isExpanded) {
+        // Close any other expanded submenus before opening a new one
+        navEl.querySelectorAll("[aria-expanded='true']").forEach((el) => {
+          el.setAttribute("aria-expanded", "false");
+        });
+      }
+      el.setAttribute("aria-expanded", "" + !isExpanded);
+      event.preventDefault();
+    });
+
+    navEl.addEventListener("keydown", (event) => {
+      const el = event.target as HTMLElement;
+      if (event.key === "Escape") {
+        const buttonEl = el.closest("nav > ul > li")?.querySelector("button");
+        if (!buttonEl?.hasAttribute("aria-expanded")) return;
+        buttonEl.setAttribute("aria-expanded", "false");
+        (buttonEl as HTMLElement).focus();
+        event.preventDefault();
+      }
+      // Enter/space are already handled by click handler (for buttons)
+    });
+
+    navEl.addEventListener("focusout", (event) => {
+      const el = event.target as HTMLElement;
+      const relatedEl = event.relatedTarget as HTMLElement | null;
+      const parentItemEl = el.closest("nav > ul > li");
+      // Collapse submenu if user tabs out of it
+      if (parentItemEl && parentItemEl !== relatedEl?.closest("nav > ul > li"))
+        parentItemEl.querySelector("button")?.setAttribute("aria-expanded", "false");
+    });
+  }
+</script>
+
 <style is:global>
   /* Apply styles globally to also encompass any links in the end slot */
-  nav[aria-label='Site'] {
+  nav[aria-label="Site"] {
     background: var(--black);
     display: flex;
     justify-content: space-between;
     padding: 0 1rem;
+    position: relative;
 
     & ul {
       display: flex;
-      gap: 1em;
       list-style: none;
       margin: 0;
       padding: 0;
     }
-    & a {
+
+    /* Top-level-specific */
+    & > ul {
+      gap: 1em;
+      z-index: 1; /* Prevent any stacking context below nav from covering focus outlines */
+
+      & > li {
+        position: relative;
+
+        /* Submenu-specific */
+        & > ul {
+          background: var(--black);
+          flex-direction: column;
+          position: absolute;
+          left: 0;
+          top: 100%;
+          z-index: 1;
+        }
+
+        & button {
+          background: none !important; /* Override all states */
+          position: relative; /* Force context for z-index */
+          z-index: 2; /* Avoid submenu obscuring parent item's focus outline */
+        }
+
+        & svg {
+          /* Make icons ignore clicks for easier handler logic */
+          pointer-events: none;
+        }
+      }
+    }
+
+    & a,
+    & button,
+    &[data-failure-mode] li:not(:has(> a, button)) {
       color: var(--gray-050);
+      cursor: pointer; /* For consistency across all modes */
       display: block;
       padding: 0.5em;
-      text-decoration: none;
       white-space: nowrap;
+    }
+
+    & a {
+      text-decoration: none;
       &:hover {
         text-decoration: underline;
       }
+    }
+
+    /* Collapsed/expanded styles */
+
+    &[data-failure-mode="hover"] > ul > li:not(:hover) > ul,
+    &[data-failure-mode="focus"] > ul > li:not(:focus-within) > ul,
+    &:not([data-failure-mode]) > ul > li:has([aria-expanded="false"]) > ul {
+      display: none;
+    }
+
+    &[data-failure-mode="hover"] li:hover svg,
+    &[data-failure-mode="focus"] li:focus-within svg,
+    &:not([data-failure-mode]) li:has([aria-expanded="true"]) svg {
+      transform: rotate(180deg);
     }
   }
 </style>

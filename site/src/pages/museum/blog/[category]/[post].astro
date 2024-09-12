@@ -25,7 +25,7 @@ const { Content } = await post.render();
 const dateFormat = new Intl.DateTimeFormat(["en-GB"], { dateStyle: "medium" });
 ---
 
-<Layout title={post.data.title} withInsetMain={false}>
+<Layout headerNavFailureMode="focus" title={post.data.title} withInsetMain={false}>
   <article>
     <div
       class="background outset"

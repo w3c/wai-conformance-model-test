@@ -377,6 +377,10 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           The "Blog" heading is superimposed over an image with no overlay to guarantee minimum contrast.
         </dd>
+        <dt>1.4.13: Content on Hover or Focus</dt>
+        <dd>
+          In the top navigation bar, nested items open on keyboard focus and can only be dismissed by moving focus.
+        </dd>
         <dt>2.3.3: Animation from Interactions</dt>
         <dd>
           Images zoom in on hover and do not respect prefers-reduced-motion.
@@ -397,6 +401,10 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           The first post under "In the News" leads to a 404 page with no clear description of what went wrong.
         </dd>
+        <dt>4.1.2: Name, Role, Value</dt>
+        <dd>
+          In the top navigation bar, there is no programmatic indication of expandable items.
+        </dd>
       </dl>
     </MetaFailureSection>
 
@@ -410,6 +418,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       <dl slot="wcag2">
         <dt>1.4.3 and 1.4.6: Contrast</dt>
         <dd>Text is superimposed over images with no overlay to guarantee minimum contrast.</dd>
+        <dt>1.4.13: Content on Hover or Focus</dt>
+        <dd>
+          In the top navigation bar, nested items open on hover and can only be dismissed by moving the pointer.
+        </dd>
+        <dt>2.1.1: Keyboard</dt>
+        <dd>
+          In the top navigation bar, parent items are not focusable (and therefore not openable) via keyboard.
+        </dd>
         <dt>2.2.3: No Timing</dt>
         <dd>
           Forms in the checkout process time out after an undisclosed period of time.
@@ -439,7 +455,11 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           The quantity field uses <code>type="tel"</code>, which allows non-numeric input,
           rather than the more appropriate <code>type="number"</code>.
-        </dd> 
+        </dd>
+        <dt>4.1.2: Name, Role, Value</dt>
+        <dd>
+          In the top navigation bar, there is no programmatic indication of expandable items.
+        </dd>
       </dl>
 
       <dl slot="wcag3">
@@ -493,6 +513,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dt>Inform at start</dt>
         <dd>
           Nothing is disclosed up-front about the information that will be required to complete checkout.
+        </dd>
+        <dt>Keyboard Only</dt>
+        <dd>
+          In the top navigation bar, parent items are not focusable (and therefore not openable) via keyboard.
+        </dd>
+        <dt>Name, Role, Value, State</dt>
+        <dd>
+          In the top navigation bar, there is no programmatic indication of expandable items.
         </dd>
         <dt>Numbered steps</dt>
         <dd>

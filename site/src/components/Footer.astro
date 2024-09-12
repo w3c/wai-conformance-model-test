@@ -1,20 +1,31 @@
 ---
 import { Image } from "astro:assets";
 import logo from "@/assets/images/mbt-logo.webp";
+
 import { getMode } from "@/lib/mode";
-import { defaultNavLinks } from "@/lib/nav-links";
+import { defaultNavLinks, type NavLink } from "@/lib/nav-links";
 
 interface Props {
   mode?: "fixed";
 }
 
 const { mode = getMode() } = Astro.props;
+
+const flattenedNavLinks = defaultNavLinks.reduce((links, parentOrLink) => {
+  if ("children" in parentOrLink)
+    parentOrLink.children.forEach((link) => {
+      // Flatten children, but skip individual collection pages
+      if (!/collections\/.+/.test(link.href)) links.push(link);
+    })
+  else links.push(parentOrLink);
+  return links;
+}, [] as NavLink[]);
 ---
 
 <footer class={mode}>
   <div class="links">
     {
-      defaultNavLinks.map(({ name, href, footerClass }) => (
+      flattenedNavLinks.map(({ name, href, footerClass }) => (
         <a class={footerClass} {href}>
           {name}
         </a>

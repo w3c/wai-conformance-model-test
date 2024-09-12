@@ -91,13 +91,15 @@ const collectionLabels = {
     position: absolute;
     inset: 0;
     text-align: center;
+    /* Use negative z-index to avoid interfering with e.g. nav menu */
+    z-index: -2;
 
     &.in {
-      z-index: 2;
+      z-index: 0;
     }
 
     &.out {
-      z-index: 1;
+      z-index: -1;
     }
 
     &::before {

@@ -12,6 +12,7 @@ import { defaultNavLinks } from "@/lib/nav-links";
 import BaseLayout from "./BaseLayout.astro";
 
 type Props = ComponentProps<typeof BaseLayout> & {
+  headerNavFailureMode?: ComponentProps<typeof Navigation>["failureMode"];
   headerNavLinks?: ComponentProps<typeof Navigation>["navLinks"];
   withFixedSearch?: boolean;
   withInsetMain?: boolean;
@@ -19,6 +20,7 @@ type Props = ComponentProps<typeof BaseLayout> & {
 };
 
 const {
+  headerNavFailureMode,
   headerNavLinks = defaultNavLinks,
   title,
   withFixedSearch = true,
@@ -29,7 +31,7 @@ const {
 
 <BaseLayout title={title}>
   <Header searchMode={withFixedSearch ? "fixed" : undefined} />
-  <Navigation navLinks={headerNavLinks} />
+  <Navigation failureMode={headerNavFailureMode} navLinks={headerNavLinks} />
   <main
     id={withMainId ? "main" : undefined}
     class={withInsetMain ? "inset" : undefined}

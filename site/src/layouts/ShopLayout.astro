@@ -24,7 +24,7 @@ const headerNavLinks = [
 
 <BaseLayout title={title}>
   <Header />
-  <Navigation navLinks={headerNavLinks}>
+  <Navigation failureMode="hover" navLinks={headerNavLinks}>
     <a href={`${museumBaseUrl}gift-shop/checkout/`}>
       <span id="cart-empty"><Icon name="ri:shopping-cart-line" /></span>
       <span id="cart-filled" hidden><Icon name="ri:shopping-cart-fill" /></span>

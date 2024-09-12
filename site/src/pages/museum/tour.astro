@@ -1,11 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { getMode } from "@/lib/mode";
-import { defaultNavLinks } from "@/lib/nav-links";
+import { defaultNavLinks, filterNavTreeLinks } from "@/lib/nav-links";
 
 const headerNavLinks =
   getMode() === "broken"
-    ? defaultNavLinks.filter(({ name }) => name !== "Take a Tour")
+    ? filterNavTreeLinks(defaultNavLinks, ({ name }) => name !== "Take a Tour")
     : defaultNavLinks;
 ---
 

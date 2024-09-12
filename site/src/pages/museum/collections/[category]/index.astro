@@ -32,7 +32,10 @@ export async function getStaticPaths() {
 const { category, exhibits } = Astro.props;
 const { Content } = await category.render();
 
-const shouldWrapImageInLink = getMode() === "broken" && category.slug === "music";
+const shouldWrapImageInLink =
+  getMode() === "broken" && category.slug === "music";
+const shouldDuplicateLink =
+  getMode() === "broken" && category.slug === "sports";
 ---
 
 <Layout title={category.data.title}>
@@ -80,13 +83,23 @@ const shouldWrapImageInLink = getMode() === "broken" && category.slug === "music
             href={`../${slug}/`}
           >
             <div class="image-container">
-              <CoverImage
-                src={data.image}
-                alt={data.skipAlt ? null : data.imageDescription}
-                objectPosition={data.imagePosition}
-                height="200"
-                widths={[960]}
-              />
+              <ConditionalParent
+                as="a"
+                if={shouldDuplicateLink}
+                href={`../${slug}/`}
+              >
+                <CoverImage
+                  src={data.image}
+                  alt={
+                    data.skipAlt
+                      ? null
+                      : data[shouldDuplicateLink ? "title" : "imageDescription"]
+                  }
+                  objectPosition={data.imagePosition}
+                  height="200"
+                  widths={[960]}
+                />
+              </ConditionalParent>
             </div>
             <div class="content">
               <ConditionalParent

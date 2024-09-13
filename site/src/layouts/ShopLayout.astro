@@ -2,13 +2,14 @@
 /** @fileoverview Layout for Gift Shop pages. */
 
 import { Icon } from "astro-icon/components";
+import FixableRegion from "@/components/FixableRegion.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Navigation from "@/components/Navigation.astro";
 import Toast from "@/components/Toast.astro";
 import { museumBaseUrl } from "@/lib/constants";
 import { getMode } from "@/lib/mode";
-import { defaultNavLinks } from "@/lib/nav-links";
+import { checkIsNavLink, defaultNavLinks } from "@/lib/nav-links";
 import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
@@ -17,12 +18,21 @@ interface Props {
 
 const { title } = Astro.props;
 
-const headerNavLinks = [
-  ...defaultNavLinks.filter(({ name }) => name === "Gift Shop"),
-  ...defaultNavLinks.filter(({ name }) => name !== "Gift Shop"),
-];
-
 const mode = getMode();
+const headerNavLinks =
+  mode === "broken"
+    ? [
+        ...defaultNavLinks
+          .filter((entry) => entry.name === "Gift Shop")
+          .filter(checkIsNavLink)
+          // Remove mobile breakpoint classes
+          .map(({ href, name }) => ({
+            href,
+            name,
+          })),
+        ...defaultNavLinks.filter(({ name }) => name !== "Gift Shop"),
+      ]
+    : defaultNavLinks;
 ---
 
 <BaseLayout title={title}>
@@ -31,6 +41,9 @@ const mode = getMode();
     <a href={`${museumBaseUrl}gift-shop/checkout/`}>
       <span id="cart-empty"><Icon name="ri:shopping-cart-line" /></span>
       <span id="cart-filled" hidden><Icon name="ri:shopping-cart-fill" /></span>
+      <FixableRegion
+        ><span slot="fixed" class="visually-hidden">Cart</span></FixableRegion
+      >
       <span id="cart-stats"></span>
     </a>
   </Navigation>

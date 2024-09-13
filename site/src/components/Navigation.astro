@@ -131,6 +131,8 @@ const actualFailureMode = getMode() === "broken" ? failureMode : undefined;
         }
 
         & button {
+          display: flex;
+          align-items: center;
           background: none !important; /* Override all states */
           position: relative; /* Force context for z-index */
           z-index: 2; /* Avoid submenu obscuring parent item's focus outline */

@@ -438,7 +438,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
 
       <dl slot="wcag2">
         <dt>1.4.3 and 1.4.6: Contrast</dt>
-        <dd>Text is superimposed over images with no overlay to guarantee minimum contrast.</dd>
+        <dd>
+          On the category listing page,
+          text is superimposed over images with no overlay to guarantee minimum contrast.
+        </dd>
+        <dd>
+          The navigation bar content overflows its background on mobile viewports,
+          making the cart link nearly invisible.
+        </dd>
         <dt>1.4.13: Content on Hover or Focus</dt>
         <dd>
           In the top navigation bar, nested items open on hover and can only be dismissed by moving the pointer.
@@ -450,6 +457,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dt>2.2.3: No Timing</dt>
         <dd>
           Forms in the checkout process time out after an undisclosed period of time.
+        </dd>
+        <dt>2.4.6 and 2.4.9: Link Purpose</dt>
+        <dd>The cart link contains only an icon, with no text label explaining its purpose.</dd>
+        <dt>3.2.3: Consistent Navigation</dt>
+        <dd>
+          The Gift Shop link appears in the header on mobile viewports within gift shop pages,
+          but does not appear there outside of the gift shop.
+          It also does not appear in the footer on mobile.
         </dd>
         <dt>3.2.6: Consistent Help</dt>
         <dd>
@@ -490,7 +505,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
 
       <dl slot="wcag3">
         <dt>Contrast Minimum</dt>
-        <dd>Text is superimposed over images with no overlay to guarantee minimum contrast.</dd>
+        <dd>
+          On the category listing page,
+          text is superimposed over images with no overlay to guarantee minimum contrast.
+        </dd>
+        <dd>
+          The navigation bar content overflows its background on mobile viewports,
+          making the cart link nearly invisible.
+        </dd>
         <dt>Allow automated entry</dt>
         <dd>
           The input fields on the payment step disallow paste.
@@ -545,8 +567,13 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
           In the top navigation bar, parent items are not focusable (and therefore not openable) via keyboard.
         </dd>
         <dt>Name, Role, Value, State</dt>
+        <dd>In the top navigation bar, there is no programmatic indication of expandable items.</dd>
+        <dd>The cart link contains only an icon, with no text label explaining its purpose.</dd>
+        <dt>Consistent Navigation</dt>
         <dd>
-          In the top navigation bar, there is no programmatic indication of expandable items.
+          The Gift Shop link appears in the header on mobile viewports within gift shop pages,
+          but does not appear there outside of the gift shop.
+          It also does not appear in the footer on mobile.
         </dd>
         <dt>Ambiguous numerical formatting</dt>
         <dd>

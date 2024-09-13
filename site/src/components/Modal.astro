@@ -5,7 +5,7 @@
  * native can use a submit button, relying on form method="dialog".
  */
 
-import { getMode, type Mode } from "@/lib/mode";
+import { getMode } from "@/lib/mode";
 
 interface Props {
   /** Whether to close upon clicking the backdrop (affects both modes) */
@@ -14,7 +14,7 @@ interface Props {
   closeOnKeyboard?: boolean;
   id: string;
   /** Allows forcing mode, intended for cases where the fixed version is always desired */
-  mode?: Mode;
+  mode?: "fixed";
 }
 
 const { closeOnBackdrop, closeOnKeyboard, id, mode = getMode() } = Astro.props;

@@ -9,6 +9,7 @@ a.button-outline {
   padding: 0.5rem;
   text-align: center;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 button:not([class]),

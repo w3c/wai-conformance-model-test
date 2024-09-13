@@ -15,10 +15,8 @@ const { mode = getMode() } = Astro.props;
     <input id="search" placeholder="Search" />
   ) : (
     <form slot="fixed" role="search" action={`${museumBaseUrl}search/`}>
-      <label>
-        Search
-        <input id="search" type="search" name="query" />
-      </label>
+      <label for="search">Search</label>
+      <input id="search" type="search" name="query" />
       <button class="outline">
         <Icon name="ri:search-line" />
         <span class="visually-hidden">Search</span>
@@ -114,5 +112,10 @@ const { mode = getMode() } = Astro.props;
   input {
     padding: 0.45rem;
     width: 10rem;
+  }
+
+  label {
+    align-self: center;
+    margin-right: 1rem;
   }
 </style>

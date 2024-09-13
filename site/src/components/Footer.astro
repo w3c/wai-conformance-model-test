@@ -7,16 +7,17 @@ import { defaultNavLinks, type NavLink } from "@/lib/nav-links";
 
 interface Props {
   mode?: "fixed";
+  withPhoneNumber?: boolean;
 }
 
-const { mode = getMode() } = Astro.props;
+const { mode = getMode(), withPhoneNumber = true } = Astro.props;
 
 const flattenedNavLinks = defaultNavLinks.reduce((links, parentOrLink) => {
   if ("children" in parentOrLink)
     parentOrLink.children.forEach((link) => {
       // Flatten children, but skip individual collection pages
       if (!/collections\/.+/.test(link.href)) links.push(link);
-    })
+    });
   else links.push(parentOrLink);
   return links;
 }, [] as NavLink[]);
@@ -34,10 +35,18 @@ const flattenedNavLinks = defaultNavLinks.reduce((links, parentOrLink) => {
   </div>
   <div class="about">
     <Image src={logo} alt="Museum of Broken Things" width="256" height="256" />
+    {
+      mode === "broken" ? (
+        <p lang="la">MMXXIV</p>
+      ) : (
+        <p slot="fixed">Established in 2024</p>
+      )
+    }
     <p class="attribution">
-      The Museum of Broken Things is brought to you by Accessible Community and
-      W3C, with help from Unsplash and various AI chatbots.
+      Brought to you by W3C and Accessible Community, with help from Unsplash
+      and various AI chatbots.
     </p>
+    {withPhoneNumber && <p>Questions? Call us: (939) 555-0113</p>}
   </div>
 </footer>
 

@@ -7,6 +7,7 @@ import Header from "@/components/Header.astro";
 import Navigation from "@/components/Navigation.astro";
 import Toast from "@/components/Toast.astro";
 import { museumBaseUrl } from "@/lib/constants";
+import { getMode } from "@/lib/mode";
 import { defaultNavLinks } from "@/lib/nav-links";
 import BaseLayout from "./BaseLayout.astro";
 
@@ -18,8 +19,10 @@ const { title } = Astro.props;
 
 const headerNavLinks = [
   ...defaultNavLinks.filter(({ name }) => name === "Gift Shop"),
-  ...defaultNavLinks.filter(({ name }) => name !== "Gift Shop")
+  ...defaultNavLinks.filter(({ name }) => name !== "Gift Shop"),
 ];
+
+const mode = getMode();
 ---
 
 <BaseLayout title={title}>
@@ -33,8 +36,15 @@ const headerNavLinks = [
   </Navigation>
   <main id="main" class="inset">
     <slot />
+    {
+      mode === "broken" && (
+        <p class="assistance">
+          <em>For assistance, call (939) 555-0113.</em>
+        </p>
+      )
+    }
   </main>
-  <Footer />
+  <Footer withPhoneNumber={mode === "fixed"} />
   <Toast />
 </BaseLayout>
 
@@ -46,8 +56,9 @@ const headerNavLinks = [
     const { totalCost, totalItems } = computeTotals(cart);
     document.getElementById("cart-empty")!.hidden = !!totalItems;
     document.getElementById("cart-filled")!.hidden = !totalItems;
-    document.getElementById("cart-stats")!.textContent =
-      totalItems ? `${totalItems} ($${totalCost.toFixed(2)})` : "";
+    document.getElementById("cart-stats")!.textContent = totalItems
+      ? `${totalItems} ($${totalCost.toFixed(2)})`
+      : "";
   });
 </script>
 
@@ -63,5 +74,9 @@ const headerNavLinks = [
     &:not([disabled]):active {
       background-color: var(--gray-900);
     }
+  }
+
+  .assistance {
+    margin-top: calc(1rem * var(--ms5));
   }
 </style>

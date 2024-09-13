@@ -160,6 +160,14 @@ const actualFailureMode = getMode() === "broken" ? failureMode : undefined;
       }
     }
 
+    &[data-failure-mode="focus"] ul ul a {
+      border-bottom: 1px solid transparent;
+      &:focus {
+        border-color: var(--gray-100);
+        outline: none;
+      }
+    }
+
     /* Collapsed/expanded styles */
 
     &[data-failure-mode="hover"] > ul > li:not(:hover) > ul,

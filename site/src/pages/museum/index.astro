@@ -23,46 +23,45 @@ const carouselEntries = [
   await getEntry("blog", "events/live-event"),
   await getEntry("exhibits", "technology/crt-monitor"),
   await getEntry("products", "vessels/water-bottle"),
-]
+];
 ---
 
-<Layout title="Home" withFixedSearch={false}>
-  <div class="outset">
-    <Carousel entries={carouselEntries} />
-  </div>
-  <h2>Explore our Collections</h2>
-  <div class="cards">
-    {
-      expandedCategories.map(({ data, slug }) => (
-        <div class="card">
-          <div class="card-image-container">
-            <CoverImage
-              src={data.topImageItem.image}
-              alt={
-                data.topImageItem.skipAlt ? null : data.topImageItem.imageDescription
-              }
-              objectPosition={data.topImageItem.imagePosition}
-              height="200"
-            />
+<Layout title="Home" withFixedSearch={false} withInsetMain={false}>
+  <Carousel entries={carouselEntries} />
+  <div class="inset">
+    <h2>Explore our Collections</h2>
+    <div class="cards">
+      {
+        expandedCategories.map(({ data, slug }) => (
+          <div class="card">
+            <div class="card-image-container">
+              <CoverImage
+                src={data.topImageItem.image}
+                alt={
+                  data.topImageItem.skipAlt
+                    ? null
+                    : data.topImageItem.imageDescription
+                }
+                objectPosition={data.topImageItem.imagePosition}
+                height="200"
+              />
+            </div>
+            <div class="card-content">
+              <h3 set:text={data.title} />
+              <div>{data.topDescription}</div>
+            </div>
+            <div class="card-footer">
+              <a class="btn btn-primary w-100" href={`collections/${slug}/`}>
+                Explore
+              </a>
+            </div>
           </div>
-          <div class="card-content">
-            <h3 set:text={data.title} />
-            <div>{data.topDescription}</div>
-          </div>
-          <div class="card-footer">
-            <a
-              class="btn btn-primary w-100"
-              href={`collections/${slug}/`}
-            >
-              Explore
-            </a>
-          </div>
-        </div>
-      ))
-    }
-  </div>
-  <div class="cards-footer">
-    <a href="collections/">Our collections &rArr;</a>
+        ))
+      }
+    </div>
+    <div class="cards-footer">
+      <a href="collections/">Our collections &rArr;</a>
+    </div>
   </div>
   <CookieBanner slot="end" />
 </Layout>
@@ -108,10 +107,6 @@ const carouselEntries = [
     background: rgb(27, 27, 27, 0.03);
     border-top: 1px solid var(--hairline);
     padding: 0.5rem;
-  }
-
-  .outset {
-    margin-top: -1rem;
   }
 </style>
 

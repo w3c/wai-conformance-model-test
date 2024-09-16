@@ -28,7 +28,7 @@ const dateFormat = new Intl.DateTimeFormat(["en-GB"], { dateStyle: "medium" });
 <Layout headerNavFailureMode="focus" title={post.data.title} withInsetMain={false}>
   <article>
     <div
-      class="background outset"
+      class="background"
       style={{ backgroundImage: `url(${post.data.image.src})`, backgroundPosition: post.data.imagePosition }}
     >
       <header>
@@ -42,18 +42,13 @@ const dateFormat = new Intl.DateTimeFormat(["en-GB"], { dateStyle: "medium" });
         </div>
       </header>
     </div>
-    <div class="content">
+    <div class="content inset">
       <Content />
     </div>
   </article>
 </Layout>
 
 <style>
-  article {
-    max-width: var(--content-width);
-    margin: 0 auto;
-  }
-
   .background {
     background: fixed center / cover no-repeat;
     height: 50vh;

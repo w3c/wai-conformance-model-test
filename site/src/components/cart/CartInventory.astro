@@ -42,19 +42,19 @@ const { includeRemove } = Astro.props;
 </script>
 
 <style>
-  /* Nesting is required for styles to reach programmatically-added elements */
+  /* Nest unscoped selectors to reach programmatically-added elements */
   table {
-    th,
-    td {
+    & th,
+    & :global(td) {
       padding: calc(1rem * var(--ms-5));
     }
 
-    td {
+    & :global(td) {
       border-top: 1px solid var(--hairline);
     }
 
-    th:not(:first-child),
-    td:not(:first-child) {
+    & :global(th:not(:first-child)),
+    & :global(td:not(:first-child)) {
       border-left: 1px solid var(--hairline);
       text-align: center;
     }

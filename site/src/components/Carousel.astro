@@ -128,7 +128,7 @@ const collectionLabels = {
   }
 
   .broken {
-    .entry {
+    & :global(.entry) {
       transition: transform 1s ease-in;
       transform: translateX(100%);
 
@@ -180,7 +180,7 @@ const collectionLabels = {
   }
 
   .fixed {
-    .entry {
+    & :global(.entry) {
       transition: opacity 1s ease-in;
       opacity: 0;
 
@@ -197,7 +197,7 @@ const collectionLabels = {
       }
     }
 
-    .overline {
+    & .overline {
       letter-spacing: calc(1rem * var(--ms4));
       text-transform: uppercase;
     }

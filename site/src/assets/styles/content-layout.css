@@ -16,14 +16,11 @@
   --content-width: 75rem;
 }
 
-main.inset {
+.inset {
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 1rem;
 }
 
-/* Can be used to break out of .inset */
-.outset {
-  display: block;
-  margin: 0 calc((100% - 100vw) / 2);
+main.inset {
+  padding: 1rem;
 }

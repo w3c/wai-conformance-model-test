@@ -41,6 +41,7 @@ export const defaultNavLinks: NavTree = [
   },
   { href: "volunteer/", name: "Volunteer" },
   { href: "about/", name: "About" },
+  { href: "help/", name: "Help" }, 
 ];
 
 function prependHref(navLink: NavLink) {

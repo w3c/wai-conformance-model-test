@@ -15,14 +15,16 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     <p>
       <strong>Reminder:</strong> This site is an example only.
       The contents are made up and it does not perform real sign-in or payment processing.
-      Do not enter real information!
+      Do not enter real information! These flows do work, but operate locally in the browser with no
+      server-side component.
     </p>
     <p>
       (The site also does not actually store cookies, despite what the home page might suggest.)
     </p>
   </section>
 
-  <section id="summary-of-failures">
+  { /* Hide summary for built version at the moment; show in dev for confirming content */ }
+  <section id="summary-of-failures" hidden={import.meta.env.PROD || undefined}>
     <h2>Summary of failures</h2>
     <p>
       This section provides a breakdown of failures, organized by sections of the site.
@@ -40,30 +42,29 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     <MetaFailureSection href="museum/" title="Home & Search">
       <p>This section includes the home page and the search results page.</p>
 
-      <p>This section demonstrates content that has a moderate number of accessibilty failures. The failures present a mix of those that can be found through automated testing and those that require manual testing.</p>
+      <p>This section demonstrates content that has a moderate number of accessibility failures. The failures present a mix of those that can be found through automated testing and those that require manual testing.</p>
 
       <dl slot="wcag2">
        <dt>1.3.2: Meaningful Sequence</dt>
         <dd>
           The overline text over each title in the carousel uses space characters between each letter. 
         </dd>
-        <dt>1.3.5 Identify Input Purpose</dt>
+        <dt>1.3.5: Identify Input Purpose</dt>
         <dd>The search field has no label.</dd>       
         <dt>1.4.6: Contrast (Enhanced)</dt>
         <dd>
           The scrim on the carousel is not always enough to guarantee sufficient contrast.
         </dd>
         <dt>1.4.10: Reflow</dt>
-        <dd>
-          At 400% zoom, the cookie notice occupies more than the full screen and cannot be scrolled.
-        </dd>
+        <dd>When zoomed, the header text moves off the background.</dd>
+        <dd>At 400% zoom, the cookie notice occupies more than the full screen and cannot be scrolled.</dd>
         <dt>2.2.2: Pause, Stop, Hide</dt>
         <dd>
           The carousel does not include controls to stop moving and updating.
         </dd>
         <dt>2.4.2: Page Titled<dt>
         <dd>The search result page title is not accurate.</dd>
-        <dt>2.4.9 Link Purpose (Link Only)</dt>
+        <dt>2.4.9: Link Purpose (Link Only)</dt>
         <dd>
           The Read More and Explore link text does not provide enough information to know which links go where.
         </dd>
@@ -77,14 +78,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
           The search box automatically performs the search and changes to
           the search page on a delay after input stops. No warning or instructions are provided.
         </dd>
+        <dt>3.3.1: Error Identification</dt>
+        <dd>
+          Empty search results and misspellings do not throw an error.(**Do others agree?)
+        </dd>   
         <dt>4.1.2: Name, Role, Value</dt>
         <dd>
           There is no search landmark or label indicating the presence or purpose of the search box.
         </dd>
-        <dt>3.3.1 Error Identification</dt>
-        <dd>
-          Empty search results and misspellings do not throw an error.(**Do others agree?)
-        </dd>   
       </dl>
 
       <dl slot="wcag3">
@@ -96,21 +97,25 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>The search result page title is not accurate</dd>
         <dt>Input labels</dt>
         <dd>The search field has no label</dd>
-        <dt>Notification of Change</dt>
+        <dt>Notification of change</dt>
         <dd>No programmatic notification occurs when the content changes</dd>
-        <dt>Name, Role, Value, State</dt>
+        <dt>Name, role, value, state</dt>
         <dd>
           There is no search landmark indicating the presence or purpose of the search box and no label on the search field.
         </dd>
-        <dt>Error Identification</dt>
+        <dt>Control labels</dt>
+        <dt>Name, role, value, state (needs discussion)</dt>
+        <dd>
+          The Read More and Explore link text does not provide enough information to know which links go where.
+        </dd>
+        <dt>Error identification</dt>
         <dd>
           Empty search results and misspellings do not throw an error.(**Do others agree?)
         </dd> 
-        <dt>Text size</dt>
-        <dd>The text size in the footer is lower contrast and tiny</dd>    
+        <dt>Text minimum</dt>
+        <dd>The text in the footer is lower contrast and smaller size.</dd>
         <dt>Maximum text contrast</dt>
-        <dd>
-        The title in the header is 21:1 - is this above the contrast maximum?</dd>
+        <dd>The title in the header is 21:1 - is this above the contrast maximum?</dd>
         <dt>Minimum text contrast</dt>
         <dd>
           The scrim on the carousel is not always enough to guarantee sufficient contrast.
@@ -119,21 +124,23 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           The carousel does not include controls to stop moving and updating.
         </dd>
-        <dt>Name, role, value, state (Needs Discussion)</dt>
+        <dt>Keyboard focus location</dt>
         <dd>
-          The Read More and Explore link text does not provide enough information to know which links go where.
-        </dd> 
-        <dt>Text size</dt>
-        <dd>The text size in the footer is a lower contrast and smaller size.</dd>                   
+          The cookie notice at the bottom-left of the page fully obscures some of the footer links,
+          which occur before it in the document's focus order.
+        </dd>
         <dt>Pointer location</dt>
         <dd>The carousel uses a custom cursor graphic which can be very hard to see.</dd>
+        <dt>Reflow</dt>
+        <dd>When zoomed, the header text moves off the background.</dd>
+        <dd>At 400% zoom, the cookie notice occupies more than the full screen and cannot be scrolled.</dd>
       </dl>
     </MetaFailureSection>
 
     <MetaFailureSection href="museum/collections/" title="Collections Page">
       <p>This section includes only the collection page.</p>
 
-      <p>This section demonstrates content that has a moderate-to-high number of accessibilty failures, some of which would be very diffcult to work around. The failures present a mix of those that can be found through automated testing and those that require manual testing.</p>
+      <p>This section demonstrates content that has a moderate-to-high number of accessibility failures, some of which would be very difficult to work around. The failures present a mix of those that can be found through automated testing and those that require manual testing.</p>
 
       <p>Discussion items:</p>
       <ul>
@@ -142,61 +149,61 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </ul>
 
       <dl slot="wcag2">
-        <dt>1.1.1: Non-text Content</dt>
-        <dd>
-          The alt text on some images is not accurate
-        </dd>
         <dt>1.4.13: Content on Hover or Focus</dt>
         <dd>
-          The hover can't be dismissed.
+          The text displayed over collection images upon hover can't be dismissed without moving the pointer.
         </dd>
-        <dt>2.1.1 Keyboard</dt>
+        <dt>2.1.1: Keyboard</dt>
         <dd>
           The text label on each collection's link only becomes visible on hover (not focus).
         </dd>
         <dt>2.2.2: Pause, Stop, Hide</dt>
         <dd>The scrolling banner for the PC event lasts for eight seconds. Note: the scrolling content is only visible for four seconds, so does this fail or not?</dd>
         <dt>2.4.3: Focus Order</dt>
+        <dd>The collection links have explicit tabindex attributes, causing them to come before anything else in the page.</dd>
         <dd>
-          <ul><li>The collection links have explicit tabindex attributes, causing them to come before anything else in the page.</li> 
-          <li>The links in the "See More" section are not included in the explicit order, meaning focus tabs to each collection link,
-          then header items, then the "See More" links, then the footer.</li>
-          <li>The explicit tab order is optimized specifically for the widest
-          layout, making it incorrect even within the collections list on narrower viewports.</li></ul>
+          The links in the "See More" section are not included in the explicit order, meaning focus tabs to each collection link,
+          then header items, then the "See More" links, then the footer.
         </dd>
-        <dt>3.2.3: Consistent Navigation</dt>
         <dd>
-          The links that appear within the "See More" section within the main content are removed from the header navigation where they otherwise typically appear.
+          The explicit tab order is optimized specifically for the widest
+          layout, making it incorrect even within the collections list on narrower viewports.
         </dd>
         <dt>2.4.10: Section Headings </dt>
         <dd>
           The page doesn't have an H1. 
         </dd>  
+        <dt>3.2.3: Consistent Navigation</dt>
+        <dd>
+          The links that appear within the "See More" section within the main content are removed from the header navigation where they otherwise typically appear.
+        </dd>
       </dl>
 
       <dl slot="wcag3">
-        <dt>Image alternatives</dt>
+        <dt>Hover information</dt>
         <dd>
-          The alt text on some images is not accurate
+          The text displayed over collection images upon hover can't be dismissed without moving the pointer.
         </dd>
         <dt>Keyboard only</dt>
         <dd>
           The text label on each collection's link only becomes visible on hover (not focus).
         </dd>
         <dt>Order of content</dt>
+        <dd>The collection links have explicit tabindex attributes, causing them to come before anything else in the page.</dd>
         <dd>
-          <ul><li>The collection links have explicit tabindex attributes, causing them to come before anything else in the page.</li> 
-          <li>The links in the "See More" section are not included in the explicit order, meaning focus tabs to each collection link,
-          then header items, then the "See More" links, then the footer.</li>
-          <li>The explicit tab order is optimized specifically for the widest
-          layout, making it incorrect even within the collections list on narrower viewports.</li></ul>
+          The links in the "See More" section are not included in the explicit order, meaning focus tabs to each collection link,
+          then header items, then the "See More" links, then the footer.
+        </dd>
+        <dd>
+          The explicit tab order is optimized specifically for the widest
+          layout, making it incorrect even within the collections list on narrower viewports.
         </dd>
         <dt>Consistent navigation</dt>
         <dd>
           The links that appear within the "See More" section within the main content
           are removed from the header navigation where they otherwise typically appear.
         </dd>
-        <dt>Section Headings </dt>
+        <dt>Section headings </dt>
         <dd>
           The page doesn't have an H1. 
         </dd> 
@@ -206,7 +213,11 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     <MetaFailureSection href="museum/collections/dishes/" title="Dishes Collection">
       <p>This section includes the dishes collection page and related item subpages.</p>
 
-      <p>This section demonstrates content that has very few accessibilty failures and the failures that exist can be worked around or are in less important features. The failures present a mix of those that can be found through automated testing and those that require manual testing.</p>
+      <p>
+        This section demonstrates content that has very few accessibility failures
+        and the failures that exist can be worked around or are in less important features.
+        The failures present a mix of those that can be found through automated testing and those that require manual testing.
+      </p>
 
       <dl slot="wcag2">
         <dt>1.1.1: Non-text Content</dt>
@@ -217,6 +228,11 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           The favorites marker is not accessible via keyboard.
         </dd>
+        <dt>2.2.3: No Timing</dt>
+        <dd>
+          The toast displayed when the favorite state is toggled contains an undo button,
+          but the toast disappears in a few seconds, giving the user limited time to interact.
+        </dd>
         <dt>3.1.5: Reading Level</dt>
         <dd>
           The Dishes collection has a reading level of upper secondary education with no alternative version.
@@ -224,6 +240,11 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
 
       <dl slot="wcag3">
+        <dt>Adequate time</dt>
+        <dd>
+          The toast displayed when the favorite state is toggled contains an undo button,
+          but the toast disappears in a few seconds, giving the user limited time to interact.
+        </dd>
         <dt>Image alternatives</dt>
         <dd>
           The exhibit images do not have alt text.
@@ -231,6 +252,11 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dt>Keyboard only</dt>
         <dd>
           The favorites marker is not accessible via keyboard.
+        </dd>
+        <dt>Control interruptions</dt>
+        <dd>
+          The confirmation toasts in response to toggling favorites
+          cannot be customized or disabled.
         </dd>
       </dl>
     </MetaFailureSection>
@@ -252,7 +278,7 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
 
       <p>This section includes the home collection page and related item subpages.</p>
 
-      <p>This section demonstrates content that has few accessibilty failures, BUT the failures that exist could cause individuals with disabiliites physical or psychological harm.</p>
+      <p>This section demonstrates content that has few accessibility failures, BUT the failures that exist could cause individuals with disabilities physical or psychological harm.</p>
 
       <dl slot="wcag2">
         <dt>2.3.1 or 2.3.2: Three Flashes</dt>
@@ -295,7 +321,8 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
 
       <dl slot="wcag3">
-        <dt>Interface Verbosity</dt>
+        <dt>Control labels</dt>
+        <dt>Interface verbosity</dt>
         <dd>
           The link for each entry is overly verbose, due to the inclusion of
           each entry's image (with alt text).
@@ -310,12 +337,21 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
           The alt text on each entry's image repeats the entry's title, rather than
           describing the image.
         </dd>
+        <dt>2.4.7: Focus Visible</dt>
+        <dd>
+          There is no visible focus outline when a collection's image is focused.
+        </dd>
       </dl>
 
       <dl slot="wcag3">
-        <dt>Interface Verbosity</dt>
+        <dt>Relevant focus</dt>
         <dd>
-          Each entry effectively has two separate links with identical labels.
+          Each collection's image and title are independently linked,
+          requiring focus to be advanced twice to reach the next unique link.
+        </dd>
+        <dt>Keyboard focus location</dt>
+        <dd>
+          There is no visible focus outline when a collection's image is focused.
         </dd>
       </dl>
     </MetaFailureSection>
@@ -341,7 +377,7 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           Some of the exhibit images lack alt text.
         </dd>
-        <dt>Section Headings</dt>
+        <dt>Section headings</dt>
         <dd>
           The page doesn't have an H1. 
         </dd>         
@@ -402,7 +438,7 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     <MetaFailureSection href="museum/collections/containers/" title="Containers">
       <p>This section includes the containers collection page and related item subpages.</p>
 
-      <p>This section demonstrates content that a lare number of small accessibility failures.</p>
+      <p>This section demonstrates content that a number of small accessibility failures.</p>
 
       <dl slot="wcag2">
         <dt>1.3.6: Identify Purpose</dt>
@@ -421,7 +457,7 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
 
       <dl slot="wcag3">
-        <dt>Name, Role, Value, State</dt>
+        <dt>Name, role, value, state</dt>
         <dd>
           The favorite toggle does not programmatically indicate that it accepts input.
         </dd>
@@ -454,13 +490,13 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
 
       <dl slot="wcag3">
-        <dt>2.2.4: Interruptions</dt>
-        <dd>
-          The time to next departure is called out every 15 seconds and cannot be turned off.
-        </dd>
-        <dt>3.2.3: Consistent Navigation</dt>
+        <dt>Consistent navigation</dt>
         <dd>
           The "Take a Tour" item is missing from the top nav on this page.
+        </dd>
+        <dt>Control interruptions</dt>
+        <dd>
+          The time to next departure is called out every 15 seconds and cannot be turned off.
         </dd>
       </dl>
     </MetaFailureSection>
@@ -468,7 +504,13 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     <MetaFailureSection href="museum/blog/" title="Blog">
       <p>This section includes the Blog page and related article subpages.</p>
 
-      <p>This section demonstrates a moderate level of content, interactioon and multimedia failures.</p>
+      <p>This section demonstrates a moderate level of content, interaction and multimedia failures.</p>
+
+      <p>
+        Point for discussion: In the post titled "Announcing the Addition of a New Wing", there is
+        a pull quote from the subsequent paragraph, which appears two sentences later in the article.
+        Should the pull quote be hidden from screen readers?
+      </p>
 
       <dl slot="wcag2">
         <dt>1.4.3 and 1.4.6: Contrast</dt>
@@ -511,6 +553,46 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
           In the top navigation bar, there is no programmatic indication of expandable items.
         </dd>
       </dl>
+
+      <dl slot="wcag3">
+        <dt>Motion</dt>
+        <dd>
+          Images zoom in on hover and do not respect prefers-reduced-motion.
+        </dd>
+        <dt>???</dt>
+        <dd>
+          The "Skip to content" link does not work properly on the blog listing page.
+        </dd>
+        <dt>Error identification</dt>
+        <dd>
+          The first post under "In the News" leads to a 404 page with no clear description of what went wrong.
+        </dd>
+        <dt>Hover information</dt>
+        <dd>
+          In the top navigation bar, nested items open on keyboard focus and can only be dismissed by moving focus.
+        </dd>
+        <dt>Name, role, value, state</dt>
+        <dd>In the top navigation bar, there is no programmatic indication of expandable items.</dd>
+        <dt>Control labels</dt>
+        <dt>Name, role, value, state (needs discussion)</dt>
+        <dd>Each post image, as well as the arrow on the topmost post, links to its post, but has no content to describe the link.</dd>
+        <dt>Target size</dt>
+        <dd>
+          The link after the excerpt from the topmost post is smaller than 44 by 44 pixels.
+        </dd>
+        <dt>Keyboard focus location</dt>
+        <dd>
+          In the top nav, links within submenus indicate focus by only a single border
+          located equidistant from the text above and below it, making it ambiguous
+          which item is focused. When the last item in a submenu is focused,
+          the indicator has low contrast against the page background.
+        </dd>
+        <dt>Minimum text contrast</dt>
+        <dd>
+          The "Blog" heading is superimposed over an image with no overlay to guarantee minimum contrast.
+        </dd>
+      </dl>
+
     </MetaFailureSection>
 
     <MetaFailureSection href="museum/gift-shop/" title="Gift Shop">
@@ -536,7 +618,7 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         </dd>
         <dt>2.1.1: Keyboard</dt>
         <dd>
-          In the top navigation bar, parent items are not focusable (and therefore not openable) via keyboard.
+          In the top navigation bar, parent items are not focusable (and therefore cannot be opened) via keyboard.
         </dd>
         <dt>2.2.3: No Timing</dt>
         <dd>
@@ -544,6 +626,8 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         </dd>
         <dt>2.4.6 and 2.4.9: Link Purpose</dt>
         <dd>The cart link contains only an icon, with no text label explaining its purpose.</dd>
+        <dt>2.4.7: Focus Visible</dt>
+        <dd>The focus is not visible on the increment/decrement buttons that adjust the number of items.</dd>
         <dt>3.2.3: Consistent Navigation</dt>
         <dd>
           The Gift Shop link appears in the header on mobile viewports within gift shop pages,
@@ -585,10 +669,15 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           In the top navigation bar, there is no programmatic indication of expandable items.
         </dd>
+        <dt>4.1.3: Status Messages</dt>
+        <dd>
+          When the payment form becomes disabled, the toast that appears
+          does not grab focus and is not announced.
+        </dd>
       </dl>
 
       <dl slot="wcag3">
-        <dt>Contrast Minimum</dt>
+        <dt>Contrast minimum</dt>
         <dd>
           On the category listing page,
           text is superimposed over images with no overlay to guarantee minimum contrast.
@@ -646,13 +735,45 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           Nothing is disclosed up-front about the information that will be required to complete checkout.
         </dd>
-        <dt>Keyboard Only</dt>
+        <dt>Behavior of controls</dt>
         <dd>
-          In the top navigation bar, parent items are not focusable (and therefore not openable) via keyboard.
+          The toasts displayed for form timeouts on the shipping and payment steps are inconsistent
+          with each other (one has role="alert", the other does not).
         </dd>
-        <dt>Name, Role, Value, State</dt>
-        <dd>In the top navigation bar, there is no programmatic indication of expandable items.</dd>
+        <dt>Name, role, value, state</dt>
+        <dd>
+          In the top navigation bar, there is no programmatic indication of expandable items.
+        </dd>
+        <dt>Control labels</dt>
+        <dt>Name, role, value, state (needs discussion)</dt>
         <dd>The cart link contains only an icon, with no text label explaining its purpose.</dd>
+        <dt>Hover information</dt>
+        <dd>
+          In the top navigation bar, nested items open on hover and can only be dismissed by moving the pointer.
+        </dd>
+        <dt>Restore focus</dt>
+        <dd>
+          Upon entering an invalid quantity (e.g. 0), pressing add to cart, then dismissing the modal,
+          focus is not restored to the add to cart button.
+        </dd>
+        <dt>Keyboard focus location</dt>
+        <dd>The focus is not visible on the increment/decrement buttons that adjust the number of items.</dd>
+        <dt>Keyboard only</dt>
+        <dd>
+          In the top navigation bar, parent items are not focusable (and therefore cannot be opened) via keyboard.
+        </dd>
+        <dt>Focus retention</dt>
+        <dd>
+          Upon entering an invalid quantity (e.g. 0), the modal that appears does not
+          grab, trap, and restore focus.
+        </dd>
+        <dt>Multistep process</dt>
+        <dd>No context is given with regard to progress through the checkout process.</dd>
+        <dt>Notification of change</dt>
+        <dd>
+          When the payment form becomes disabled, the toast that appears
+          does not grab focus and is not announced.
+        </dd>
         <dt>Consistent Navigation</dt>
         <dd>
           The Gift Shop link appears in the header on mobile viewports within gift shop pages,
@@ -681,12 +802,23 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
 
     <MetaFailureSection href="museum/map/" title="Museum Map">
       <dl slot="wcag2">
+        <dt>1.1.1: Non-text Content</dt>
+        <dd>
+          The arrow buttons over the map do not contain text labels.
+        </dd>
         <dt>1.3.3: Sensory Characteristics</dt>
         <dd>
           Instructions allude only to color when describing visible map controls,
           which is insufficient to disambiguate for colorblind users, as some
           controls feature the same icons distinguished only by color.
         </dd>
+        <dt>1.4.1: Use of Color</dt>
+        <dd>
+          The map controls for zooming and panning vertically are distinguished only by color,
+          and the instructions are dependent on this distinction.
+        </dd>
+        <dt>1.4.10: Reflow</dt>
+        <dd>The controls disappear when magnified.</dd>
         <dt>1.4.11: Non-text Contrast</dt>
         <dd>
           The pin on the map uses a color that has extremely poor contrast against
@@ -707,6 +839,50 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
           On mobile viewports, the only way to zoom the map is via a pinch gesture.
         </dd>
       </dl>
+
+      <dl slot="wcag3">
+        <dt>Image alternatives</dt>
+        <dd>
+          The arrow buttons over the map do not contain text labels.
+        </dd>
+        <dt>Use of color</dt>
+        <dd>
+          Instructions allude only to color when describing visible map controls,
+          which is insufficient to disambiguate for colorblind users, as some
+          controls feature the same icons distinguished only by color.
+        </dd>
+        <dt>Reflow</dt>
+        <dd>The controls disappear when magnified.</dd>
+        <dt>Non-text contrast</dt>
+        <dd>
+          The pin on the map uses a color that has extremely poor contrast against
+          the map's colors.
+        </dd>
+        <dt>Comparable keyboard effort</dt>
+        <dd>Panning the map can require many more keypresses compared to dragging a pointer device.</dd>
+        <dt>Gestures &amp; dragging</dt>
+        <dd>
+          On mobile viewports, the only way to control the map is via dragging and pinch-to-zoom.
+        </dd>
+        <dt>Keyboard commands</dt>
+        <dd>
+          Single-character key bindings are implemented across the entire page
+          for map movement, and cannot be turned off or customized.
+        </dd>
+        <dt>Keyboard focus location</dt>
+        <dd>
+          The map controls use a dotted focus outline with a color that falls well below
+          3:1 contrast against the underlying map.
+        </dd>
+        <dt>Sensory characteristics</dt>
+        <dd>
+          Instructions allude only to color when describing visible map controls,
+          which is insufficient to disambiguate for colorblind users, as some
+          controls feature the same icons distinguished only by color.
+        </dd>
+      </dl>
+
+
     </MetaFailureSection>
 
     <MetaFailureSection href="museum/login/" title="Register & Sign In">
@@ -732,7 +908,7 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dt>3.3.2: Labels or Instructions</dt>
         <dd>Form inputs have no labels.</dd>
         <dt>3.3.8 and 3.3.9: Accessible Authentication</dt>
-        <dd>The input fields disallow paste. Cognitive test is present.</dd>
+        <dd>The input fields disallow paste. Cognitive test is present on Register page.</dd>
       </dl>
 
       <dl slot="wcag3">
@@ -742,6 +918,8 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>The input fields disallow paste.</dd>
         <dt>Input labels</dt>
         <dd>Form inputs have no labels.</dd>
+        <dt>No cognitive tests</dt>
+        <dd>Cognitive test is present on Register page.</dd>
         <dt>Interaction indicators contrast</dt>
         <dd>
           The CAPTCHA field has an invisible text cursor/caret.
@@ -765,16 +943,38 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       <p>This section includes task completion and form based failures. This includes a small number of errors.</p>
 
       <dl slot="wcag2">
+        <dt>2.2.3: No Timing</dt>
+        <dd>
+          The volunteer form becomes unsubmittable after a short time,
+          and the toast informing of this change disappears after a few seconds.
+        </dd>
         <dt>2.2.6: Timeouts</dt>
         <dd>
           The form becomes unsubmittable after a short time period which is not disclosed in advance.
         </dd>
+        <dt>4.1.3: Status Messages</dt>
+        <dd>
+          When the form becomes disabled, the toast that appears
+          does not grab focus and is not announced.
+        </dd>
       </dl>
 
       <dl slot="wcag3">
-       <dt>Adequate time</dt>
+        <dt>Persistent error notification</dt>
         <dd>
-          There is a timeout that may be too short to enter required information. The user is not notified.
+          The timeout notification toast dismisses itself automatically
+          without waiting for the user.
+        </dd>
+        <dt>Adequate time</dt>
+        <dd>
+          There is a timeout that may be too short to enter required information,
+          which the user is not notified about.
+          The toast that appears when the timeout lapses disappears after a few seconds.
+        </dd>
+        <dt>Notification of change</dt>
+        <dd>
+          When the form becomes disabled, the toast that appears
+          does not grab focus and is not announced.
         </dd>
       </dl>
     </MetaFailureSection>
@@ -788,11 +988,19 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
           Images with text are used for emphasis,
           but their alt text is empty and there is no text equivalent.
         </dd>
+        <dt>1.3.1: Info and Relationships</dt>
+        <dd>
+          The headings and other structural elements are not reflected in code.  
+        </dd>
         <dt>1.4.4: Resize Text</dt>
         <dd>
           The mission statement cuts off beyond a set maximum height,
           noticeable on mobile or when zoom is increased.
         </dd>
+        <dt>1.4.5 and 1.4.9: Images of Text<dt>
+        <dd>Some images on the page include text that could be styled.</dd> 
+        <dt>1.4.12: Text Spacing</dt>
+        <dd>Not all text can be successfully adjusted</dd>
         <dt>2.4.6: Headings and Labels</dt>
         <dd>
           The headings are not discoverable by assistive technology
@@ -825,6 +1033,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           There is no margin between paragraphs.
         </dd>
+        <dt>Clear relationships</dt>
+        <dd>
+          The headings and other structural elements are not reflected in code.  
+        </dd>
+        <dt>Text style</dt>
+        <dd>
+          The mission statement and the days of the week in the schedule are rendered in a cursive handwriting font.
+        </dd>
       </dl>
     </MetaFailureSection>
 
@@ -854,11 +1070,7 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
   <section id="acknowledgment">
     <h2>Acknowledgment</h2>
     <p>
-      The Museum of Broken Things is brought to you by
-      <a href="https://accessiblecommunity.org/">Accessible Community</a> and the
-      <a href="https://www.w3.org/WAI/about/groups/agwg/"
-        >W3C Accessibility Guidelines Working Group</a
-      >.
+      The Museum of Broken Things was created by the <a href="https://www.w3.org/WAI/about/groups/agwg/">W3C Accessibility Guidelines Working Group</a> and <a href="https://accessiblecommunity.org/">Accessible Community</a>.
     </p>
 
     <h2>Individual Contributors</h2>
@@ -874,6 +1086,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       <li>Kevin White</li>
     </ul>
   </section>
+
+  <section>
+    <h2>License</h2>
+    <p>
+      This repository is licensed under the
+      <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, version 2.0</a>.
+    </p>
+  </section>
 </MetaLayout>
 
 <script>
@@ -887,6 +1107,14 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
 </script>
 
 <style>
+  dt {
+    font-weight: bold;
+  }
+
+  dd + dt {
+    margin-top: calc(1rem * var(--ms-3));
+  }
+
   .photosensitivity {
     background-color: #EB0000;
     color:white;

@@ -3,18 +3,12 @@ title: CRT Monitor
 imageDescription: A CRT monitor on a floor facing upward, its glass thoroughly shattered.
 image: "@/assets/images/exhibits/technology/julia-joppien-XFUqd0u5U7w-unsplash.jpg"
 imagePosition: 50%
+
+level of education: "upper secondary education"
 ---
 
-Lorem markdownum cultum amor ceciderunt aestu hoc in precibusque sentiet,
-superesse novum depulerant, comites, quae, quaerit. Tibi visae in alvum, ante
-acuta in risit saxo manus licet Saturnus. Funera Herculeis numquamque Echo
-Avernae Echion, vetitae dentes columbae curam convertit loquendi: muneris.
+Welcome to the Broken CRT Monitor exhibit.
 
-Quod vellem, si tepere posuit altera. Omni tamen, nobiliumque contulit vilibus
-saxum, quod quae tu erat aquis. Aequora isdem, mihi opus, insistere mediis,
-ipsosque et templa miseranda crimina terram contermina genas non. Sagitta
-placuit dixit nobis, temptavit, fera saevitiae, sine abesse venti.
+This once-functional monitor, with its bulky frame and curved glass screen, is now cracked and shattered. The front glass is splintered in several places, and the screen no longer lights up. The plastic casing is yellowed with age, showing signs of wear from years of use. Though it can no longer display images, this broken CRT monitor reminds us of a time when technology was heavier, slower, and more tangible than the sleek screens we use today.
 
-Contempsere spes: melius deorum et iuva lacertos conticuit magna Ophias vis
-umida pererrant ascendere levavit, sola, pia. Porrexit queri pulvere natura. Et
-esse vobis separat sic. Demoleon nec animo?
+CRT (Cathode Ray Tube) monitors were a staple of early computing and television, using an electron beam to create images on the screen. The large, boxy shape was necessary to house the complex inner workings, including the vacuum tubes that powered the display. Over time, these monitors became outdated, replaced by slimmer, more efficient models. This particular CRT monitor, with its broken glass and faded casing, stands as a symbol of how quickly technology evolves. Even in its broken state, it represents a crucial part of the history of screens and the way people once interacted with digital media.

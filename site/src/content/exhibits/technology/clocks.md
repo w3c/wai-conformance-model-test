@@ -2,14 +2,14 @@
 title: Clocks
 imageDescription: A pile of old clocks.
 image: "@/assets/images/exhibits/technology/heather-zabriskie-yBzrPGLjMQw-unsplash.jpg"
+
+level of education: "upper secondary education"
 ---
 
-As I gaze upon the heap of twisted metal and shattered glass, I'm struck by the sheer number of once-functioning mechanisms now silenced and still. Each clock, once a trusted keeper of time, now lies in pieces, its intricate workings exposed and broken.
+Welcome to the Broken Clocks exhibit.
 
-Some of the clocks are old and ornate, their faces cracked and faded, like ancient wisdom. Others are newer, with sleek digital displays now dark and lifeless. A few have lost their hands, their faces frozen in mid-strike, as if caught in a perpetual moment of time.
+Here, the mechanisms of time have come to a standstill. These clocks, once precision instruments meant to measure the steady flow of hours and minutes, are now fractured relics of their former selves. Cracked faces, motionless hands, and shattered glass tell the story of the passage of time itself—how even the devices meant to mark it are not immune to the effects of age and wear. Some clocks have missing hands, while others show warped gears or pendulums frozen in mid-swing. Though they can no longer tick, their broken forms still speak to the intricate craftsmanship that once kept them in motion.
 
-Notice the various types of damage. It's a fascinating yet melancholic sight, like a graveyard for time itself. Some clocks have been crushed or dented, their cases bent and twisted beyond recognition. Others have been ravaged by water or fire, their delicate mechanisms scorched and corroded. A few appear to have been torn apart deliberately, their components scattered across the ground like a puzzle abandoned.
+The internal workings of these clocks—delicate gears, springs, and levers—were carefully engineered to maintain accuracy and reliability. Clocks rely on precise mechanical movements, like the rhythmic swing of a pendulum or the steady ticking of a gear, to mark each second. Now, those finely tuned parts have worn down, become misaligned, or broken completely. In some clocks, the intricate network of tiny gears is exposed, revealing the once-hidden complexity that allowed time to be measured so exactly. These clocks, though silent now, offer a glimpse into the history of timekeeping, from grand pendulum clocks to small pocket watches.
 
-Despite their brokenness, each clock still holds a certain beauty. The intricate gears and springs that once kept them ticking are now exposed, like a glimpse into the intricate machinery of the universe. The way the light reflects off the broken glass faces creates a mesmerizing dance of shadows and highlights.
-
-As I ponder the fate of these broken clocks, I'm reminded that even the most reliable and trustworthy entities can fall prey to the whims of chance and fate. It's a poignant reminder that nothing lasts forever, not even time itself. There is also a strange sense of beauty and peace. It's as if time itself has been distilled into its purest form – fragments of moments past, present, and future all mixed together in a beautiful tapestry of impermanence.
+Even in their broken state, these clocks symbolize humanity’s long-standing relationship with time—our desire to measure it, control it, and understand its passage. The broken faces and jammed mechanisms suggest a struggle against the inevitable: that time, despite our best efforts, continues to march forward, indifferent to the tools we create to mark its passing. These clocks, frozen in time, serve as metaphors for the fragility of our creations and the limits of our ability to manage time.

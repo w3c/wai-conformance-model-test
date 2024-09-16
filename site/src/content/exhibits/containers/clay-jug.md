@@ -2,12 +2,12 @@
 title: Old Clay Jug
 imageDescription: Old Clay Jug with cracks
 image: "@/assets/images/exhibits/containers/old-clay-jug-with-cracks-3596846137.jpg"
+
+level of education: "lower secondary education"
 ---
 
-In a corner of the quaint countryside cottage, nestled amidst a collection of weathered antiques, sat an old clay jug. Its presence was unassuming yet captivating, for it bore the marks of time with grace and dignity. The jug, once a vibrant earthen hue, had mellowed into a soft, dusty ochre, its surface adorned with intricate patterns of tiny fissures snaking across its form.
+This old clay jug was discovered in a farmer’s field in England, and it might be as old as Roman times. The jug is made from a rough, reddish-brown clay and was probably used to hold water or wine. Over time, the jug has developed cracks and chips, showing its long history of use and age. Even though it’s broken now, it gives us a glimpse into what life was like when the Romans were living in Britain.
 
-Each crack told a story, a testament to the passage of years and the life it had witnessed. Some were fine and delicate, like spiderwebs delicately etched by gentle fingers of time. Others were deeper, tracing through the body of the jug with a rugged honesty that spoke of hardships weathered and resilience found.
+The jug was likely made using a method called wheel-throwing, where the clay is shaped on a spinning wheel. This was a common technique in Roman times and allowed the potter to make the jug quickly and evenly. The jug would have been fired in a hot oven called a kiln, which made the clay hard and strong. While some of the jug has crumbled away, you can still see the curved shape of its body and the handle where someone would have held it to pour.
 
-The jug had been a part of the household for generations, handed down from great-grandparents to grandparents, and then to the current custodians of the cottage. It had seen countless summers and winters, nestled on the same wooden shelf by the window where sunlight filtered through dusty panes, casting gentle shadows upon its weathered surface.
-
-Despite its age and the network of cracks that adorned it, the jug retained a quiet beauty that transcended its material form. It held a rustic charm, evoking memories of bygone days when it might have held fresh milk or cool water drawn from the well. Now, its purpose was more ornamental than functional, yet it still seemed to radiate a quiet dignity, as if proud of its scars earned through a lifetime of service.
+Finding objects like this in fields is a way to learn about the past. The jug might have been used by a Roman family living in the countryside or left behind when a village was abandoned. It’s amazing to think that something made so long ago can still be found today, even if it’s broken. This jug helps us understand how people lived, worked, and survived during Roman times in Britain.

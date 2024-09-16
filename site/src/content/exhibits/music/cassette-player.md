@@ -2,22 +2,12 @@
 title: Portable Cassette Player
 imageDescription: A worn-out portable radio and cassette player with the cassette door open.
 image: "@/assets/images/exhibits/music/tamim-arafat-89bbAk7at4w-unsplash.jpg"
+
+level of education: "primary education"
 ---
 
-Lorem markdownum in nunc. Idaei et sprevere lacertis carent pampineae celeri
-hiatu consumpserat dimotis medioque insania. Fecundaque conspexi servavique
-suumque silva tu addidit nocere hinc artus. Volenti et in sit. Iuvenis genetrix
-tactusque trepidos obvertere alter: ille, animam nisi nostrae poterentur illos,
-signa hac ego.
+Welcome to the Broken Portable Cassette Player exhibit!
 
-Exilio de partes vires prior iam! Abit frigidus agentem: est: meus etiam amnis,
-imagine tu nunc moriens fugisse mentibus. Habet dumque summa locum tu diu
-obliquos tempora, pretium illius genu corpora accepit verticibus.
+This small machine was once used to play music and listen to radio stations on the go. People would put a cassette tape inside, press play, and hear their favorite songs through the speakers. But now, the buttons are stuck, the antenna is bent, and the cassette door won’t close properly. Even though it’s broken, you can still see where people used to press buttons to play, pause, and rewind their music.
 
-Animam tu pendeat fuerat Romanae fert phocus dementia secreta Dicta diversaque
-sunt o Daedalion Cypriae miseris; lumina propior triceps. Cunctis Troiae, erat
-gemit virum foedoque. Date anseribus, opem sacra, An eripiunt furore, non
-horrendis, famem Oedipodioniae pater multos. Ista esse humo levis afuerunt nec;
-nobis hanc Stabiasque per patitur te ego, hortamine modo; adfligi. Purasque
-Pylius displicet moenia, sunt terram tumulos sidereo frater lege, Tartara, ac
-aera; Xanthique.
+The portable cassette player and radio were really popular before smartphones and digital music. It was something you could carry around to enjoy tunes or listen to news on the radio. Now, its wires are worn out, and the sound doesn’t work anymore. Even though it can't play music like it used to, it reminds us of how people once enjoyed their favorite songs and stayed connected to the world. Now, it tells a new story about how things change, but they still hold memories of the past.

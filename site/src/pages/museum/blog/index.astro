@@ -50,7 +50,7 @@ const postsByCategory = posts.reduce(
           <h1>Blog</h1>
         </div>
         <div>
-          <h2>{livePost.data.title}</h2>
+          <h2 class="top">{livePost.data.title}</h2>
           <Fragment set:html={livePost.excerpt} />
           <a class="read-more" href={`${livePost.slug}/`}>
             <FixableRegion>
@@ -159,6 +159,10 @@ const postsByCategory = posts.reduce(
     &:last-child {
       align-items: flex-end;
     }
+  }
+
+  .top {
+    margin-block-start: 0;
   }
 
   .category h2 {

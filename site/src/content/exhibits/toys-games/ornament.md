@@ -2,23 +2,12 @@
 title: Ornament
 imageDescription: A shiny red ball ornament, part of which has shattered into many pieces across a wood surface.
 image: "@/assets/images/exhibits/toys-games/pexels-freestocks-717989.jpg"
+
+level of education: "primary education"
 ---
 
-Lorem markdownum extulit Nestor paternis egissem agreste Apollinei
-inmansuetumque chordas prior. Iuvabat qua tumulumque sceptrum habet lapidoso
-orat te barbam patefecit petens argumentum tenens, facto quos videtur debent.
-Neque intremuere pasci mores locuturum taedia unum haut tristis fracta.
+Welcome to the Broken Ornament exhibit!
 
-Destinat usquam caliginis, mora, suorum gratior, plenaque forma circum resolvit
-crimenque animis curaque. Ore hos sub pendens fidem perfunditur et secura nodoso
-hoste, adpositis ora stellas; artificis veloque in avidae videat. Invia bella.
-Abdita illa ventoque arma vultus ille, murum mori oravit, boum penates aspexit
-pepercit sorores partibus gloria Phoebus. Eget ventis aut suorum ut Egeriae
-postes periturae sibi sacra.
+This shiny red ornament was once a beautiful decoration on someone’s Christmas tree. Now, it is cracked and missing pieces, with sharp edges where the glass has broken. The bright red color still sparkles in the light, but the ornament can no longer hang on the tree. Even though it’s damaged, it reminds us of the special moments and joy it brought during the holiday season.
 
-Corvum equo vix viroque melior, protentaque illo; fata tamen non memor lina
-hoste fiducia Chromiumque inter lacrimae noxque. Tibia laborum arva in Pelea:
-unda est Inachides generis crinem. Turba postquam ambagibus vincant rugosis,
-unda sacros sanguine artus, flore vidi tollens iamque, si adire. Puer freta
-quaerant res tune Thestorides, Aurora Ino ipsa hoc vertitur, vates ferantur hoc
-foret vestem magno, Procne!
+Ornaments like this one are used to make Christmas trees look festive and magical. This red ornament might have been carefully placed on a tree each year, bringing cheer to the home. Now, with its cracks and missing parts, it tells the story of past celebrations and memories of Christmases long ago. Even though it’s broken, it still holds a little piece of holiday spirit.

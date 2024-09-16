@@ -2,18 +2,12 @@
 title: Game Controller
 imageDescription: A game controller that has been broken open, with part of the left half missing and its contacts exposed.
 image: "@/assets/images/exhibits/toys-games/bernd-dittrich-1q2ePkdT0qg-unsplash.jpg"
+
+level of education: "primary education"
 ---
 
-Lorem markdownum poterant manes multis et illa tecum reddere, male diem antemnas
-nulli sententia coniunx tempus caelatus levavit. Hanc fontes; nec uni anxia cara
-mihi mugitus murmure. Arvis usum notus sibi coacti rerumque Dardaniam Aurora
-caro madefient mitior praestantior. Sive volucrumque facit nostra. In hunc
-auraeque, cunctis pinu dextera, tigres ad hosti; mihi hostem, tum!
+Welcome to the Broken Game Controller exhibit!
 
-Echo pondus diffamatamque Amnis madefactaque sentis cruris data! Repulsa
-signorum in mediis propinquas virgo. Redeunt et rostro simul his, illis, iacent
-arma. Cecropidae illuc planxerunt fecisti ut rogarem tibi enim parentur semimari
-formidatis potestis dominae.
+This controller, once used for playing exciting video games, is now cracked and missing a few buttons. The colorful buttons that used to make the characters move are scratched and worn out. The cord is frayed, showing signs of being twisted and pulled too many times during fun and challenging games. Even though it’s broken, you can still imagine how much fun it brought to someone who played with it for hours.
 
-Poplite redeuntem cruentum, victus nunc forte genitas iniectam amor illius
-quoque. Eris ibat laudata, nec Atreus partu.
+The game controller was an important tool for exploring different worlds in video games, helping the player jump, race, and battle through levels. Now, with its buttons stuck and pieces missing, it can’t be used anymore. But looking at it reminds us of the excitement and joy that came with each game. Even though this controller is broken, it tells the story of the fun and adventure it once helped create.

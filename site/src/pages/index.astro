@@ -207,6 +207,10 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           The favorites marker is not accessible via keyboard.
         </dd>
+        <dt>3.1.5: Reading Level</dt>
+        <dd>
+          The Dishes collection has a reading level of upper secondary education with no alternative version.
+        </dd>
       </dl>
 
       <dl slot="wcag3">
@@ -221,8 +225,20 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       </dl>
     </MetaFailureSection>
 
+    <MetaFailureSection href="museum/collections/glass/" title="Glass Collection">
+      <p>This section includes the glass collection page and related item subpages.</p>
+
+      <dl slot="wcag2">
+        <dt>3.1.5: Reading Level</dt>
+        <dd>
+          The Glass collection has a reading level of advanced education with no alternative version.
+        </dd>
+      </dl>
+
+    </MetaFailureSection>
+
     <MetaFailureSection href="museum/collections/home/" title="Home Collection">
-      <p><strong>Photosensitivity Warning!</strong> Do not visit this section if you experience reactions to flashing lights or motion.</p>
+      <p><strong class="photosensitivity">Photosensitivity Warning!</strong> Do not visit this section if you experience reactions to flashing lights or motion.</p>
 
       <p>This section includes the home collection page and related item subpages.</p>
 
@@ -237,9 +253,17 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>
           Each individual exhibit page under the Home collection includes a parallax effect on the background image.
         </dd>
+        <dt>3.1.2: Language Of Parts</dt>
+        <dd>
+          The Narrow Room exhibit has non-English words that are not part of the vernacular marked up with an incorrect language code. It also includes non-English words that are part of the vernacular marked up as being in a foreign language.
+        </dd>
       </dl>
 
       <dl slot="wcag3">
+        <dt>Appropriate Tone</dt>
+        <dd>The language and tone of the Wide Bedroom page is disrespectful to the past owners of the property and the reader.</dd>
+        <dt>Figurative Language</dt>
+        <dd>The Porch Chair page makes use of idioms, synonyms, and metaphors.</dd>
         <dt>Flashing and strobing</dt>
         <dd>
           The image thumbnails in the exhibit list on this page flash 4 times within a one-second period.
@@ -727,7 +751,7 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       <li>Ken Franqueiro</li>
       <li>Francis Storr</li>
       <li>Rachael Bradley Montgomery</li>
-      <li>Alastair Campbell<li>
+      <li>Alastair Campbell</li>
       <li>Asher Kolieboi</li>
       <li>Ellen Liebert</li>
       <li>Brian Montgomery</li> 
@@ -746,3 +770,11 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     document.getElementById("dev-error")!.hidden = false;
   }
 </script>
+
+<style>
+  .photosensitivity {
+    background-color: #EB0000;
+    color:white;
+    padding:0.25em;
+  }
+</style>

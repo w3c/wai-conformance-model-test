@@ -3,14 +3,14 @@ title: Blue Teddy Bear
 imageDescription: An old blue bear
 image: "@/assets/images/exhibits/toys-games/trym-nilsen-eXV-LsWfCOo-unsplash.jpg"
 imagePosition: 33%
+
+level of education: "primary education"
 ---
 
-This beloved plush toy was once a symbol of cuddles and snuggles, a comforting companion for children and adults alike. But now, it lies in tatters, its once-smooth blue fur torn and frayed, its stuffing spilling out like a tiny, fluffy cloud.
+Welcome to the Blue Teddy Bear exhibit!
 
-The bear's once-bright blue color has faded to a dull greyish hue, like the sky on a rainy day. Its eyes, once bright and shiny, now stare blankly into space, their glassy surface reflecting the tears and heartbreak that have been shed upon its ratty remains.
+This teddy bear, once soft and fluffy, is now faded and worn, but it clearly was loved by a child. Its bright blue color has turned lighter in some spots, and the fur is thin from being hugged so many times. One of its ears is a little crooked, and the stuffing inside seems to have shifted, making the bear a bit lumpy. Even though it's old and worn, you can tell this bear was someone’s special friend.
 
-The bear's limbs are twisted and contorted, as if it had been subjected to some sort of plush toy torture. Its ears are torn off, its nose is askew, and its once-cute little face is now a sad, mangy mess.
+This teddy bear was probably a comforting companion during bedtime, storytime, or even when the child felt scared or sad. The eyes are scratched, and the nose is a little flattened, but that just shows how much it was cuddled. The bear’s arms look stretched, maybe from being carried around everywhere. Its worn-out look tells the story of countless adventures and naps shared with the child who loved it.
 
-Despite its sorry state, the ripped blue teddy bear still exudes a certain charm. Its tattered edges seem to hold a story, a tale of love and loss, of hugs and heartaches. It's as if the bear has seen better days, but still manages to convey a sense of resilience and determination.
-
-Perhaps the bear was left behind at a campground, forgotten in the chaos of packing up and leaving. Maybe it was lost in a move, or left behind at a hotel. Whatever its story may be, one thing is clear: this ripped blue teddy bear has been through the wringer, and yet it still holds on to its stuffing.
+Even though this blue teddy bear is no longer in perfect shape, it holds the memory of all the love and joy it brought to its owner. It may be worn out, but that just shows how important it was. This bear reminds us that even when things get old or worn, they can still have special meaning because of the memories they carry.

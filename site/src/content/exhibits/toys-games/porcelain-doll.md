@@ -3,7 +3,11 @@ title: Porcelain Doll
 imageDescription: A porcelain ballerina
 image: "@/assets/images/exhibits/toys-games/viktor-forgacs-gRujUd2CtTk-unsplash.jpg"
 imagePosition: 20%
+
+level of education: "primary education"
 ---
+
+Welcome to the Broken Porcelain Doll exhibit!
 
 The poor, delicate ballerina. She was once a beautiful, exquisite figure, a masterpiece of porcelain craftsmanship. Her slender neck and arms were adorned with intricate details, her skirt flowing out like a cloud of silk. But now, she sits broken on the dusty shelf, a tragic reminder of the fragility of life.
 

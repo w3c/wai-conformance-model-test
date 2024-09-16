@@ -3,14 +3,14 @@ title: Ceramic Blue Dishes
 imageDescription: Pieces of broken blue pottery
 image: "@/assets/images/exhibits/dishes/chuttersnap-u3ZDnIMCfIs-unsplash.jpg"
 skipAlt: true
+
+level of education: "upper secondary education"
 ---
 
-These pieces of broken blue pottery are a hauntingly beautiful relic of a once-whole vessel. The dark-blue glaze that once covered its surface has faded to a soft, powdery blue, with intricate swirls of darker blue and white swirling beneath. A delicate, lace-like pattern of cracks runs along the rim, as if the very fabric of the pottery had been rent asunder by some unseen force.
+Welcome to the Broken Ceramic Dishes exhibit.
 
-One side of the piece is cracked and chipped, the edges worn smooth by the gentle touch of countless fingers. A small shard has broken off, leaving a jagged edge that seems to be reaching out like a tiny, ceramic claw.
+ Fragments of blue and earthen pottery offer glimpses into the past. These dishes, once part of everyday life, are now cracked and chipped, yet they retain their charm and beauty. The blue ceramic plates are adorned with delicate patterns, likely created through underglazing, a process where the designs are painted onto the surface before the final firing. The pottery dishes, with their warm brown and red tones, reflect the natural colors of the clay from which they were made. Though incomplete, these broken pieces still speak to the artistry and functionality they once possessed.
 
-Despite its brokenness, there is a strange allure to this piece. The worn, weathered appearance seems to hold a quiet wisdom, as if it has seen things that no one else has. The blue glaze still shines with a faint, otherworldly glow, as if it were imbued with the essence of the sky itself.
+The blue ceramic dishes were likely crafted using a method called slipcasting, where liquid clay, or slip, is poured into a mold to form the shape of the dish. Afterward, they were fired in a kiln at high temperatures, making them durable and vibrant. The intricate blue designs are made with cobalt oxide, giving them their striking color. Many of the pottery dishes, in contrast, were made using wheel-throwing, a technique that allowed the potter to shape the clay by hand on a spinning wheel. The fractures in these dishes reveal the fine craftsmanship that went into creating them, even if time and use have taken their toll.
 
-In the center of the piece, a small, delicate pattern of white flowers is visible, their petals curled and twisted in a way that seems almost... deliberate. It's as if the flowers are trying to tell a story, or convey some hidden message to anyone who dares to listen.
-
-Overall, this broken blue pottery is a testament to the impermanence of beauty, and the ways in which even the most fragile things can hold a strange and wondrous power.
+Though broken, these ceramic and pottery dishes provide valuable insight into the lives of the people who used them. They were likely used for serving meals or storing food, playing an essential role in the daily routines of past societies. The cracks, chips, and missing pieces hint at the years of use these dishes endured before they were discarded or broken. Despite their damaged state, these fragments of ceramic and pottery hold stories of family gatherings, meals shared, and the hands that crafted and handled them.

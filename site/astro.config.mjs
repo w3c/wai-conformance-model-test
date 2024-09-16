@@ -4,8 +4,8 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://accessiblecommunity.github.io",
-  base: "fixable",
+  site: "https://w3c.github.io",
+  base: "wai-conformance-model-test",
   trailingSlash: "always",
   server: {
     host: true,

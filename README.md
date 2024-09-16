@@ -1,22 +1,19 @@
-# **fix**able
+# WAI Conformance Model Test
 
-`fixable`, provided by [Accessible Community](https://www.accessiblecommunity.org), is a site designed to show common accessibility errors and how to fix them.
+This repository contains a site designed to demonstrate a wide variety of accessibility failures.
 
 ## Repository layout
 
-* The [`site`](https://github.com/accessiblecommunity/fixable/tree/main/site) folder contains the javascript code used to build the site.
-    * `fixable` is powered by [Astro](https://astro.build/).
+The `site` folder contains the code used to build the site, powered by [Astro](https://astro.build/).
 
 ## Setting up a Development Environment
 
-If you don't have one, we recommend installing an IDE that supports multiple languages (Python, Javascript, HTML/CSS, etc). The recommendations are [VS Code](https://code.visualstudio.com/) or [Sublime Text](https://www.sublimetext.com/), but this is a developer choice.
+If you don't have one, we recommend installing an IDE that supports multiple languages (Javascript, HTML/CSS, etc).
+[Visual Studio Code](https://code.visualstudio.com/) is recommended, as Astro provides an
+[extension](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode)
+which includes intellisense, syntax highlighting, and formatting of `.astro` files.
 
-The next step is to determine which development environment you would like to use. You can choose between a couple of options:
-
-- A direct Node.js install.
-- Running in a Docker container.
-
-### Setting up a Development Environment using Node
+### Repository Setup with Node.js
 
 **Note:** `npm` commands should be run **within the `site` directory**.
 
@@ -32,7 +29,10 @@ Other useful npm commands within the `site` directory:
 - `npm run build` to create a production build
 - `npm run preview` to preview the production build created by `npm run build`
 
+### Broken and Fixed Versions
+
 This repository includes components designed to allow implementing both "broken" and "fixed" versions side-by-side.
+The above commands run the "broken" version by default.
 
 To run the "fixed" version:
 
@@ -41,14 +41,3 @@ To run the "fixed" version:
 
 Note that the default "broken" version has been the initial focus of development,
 so the "fixed" version is even more work-in-progress.
-
-### Setting up a Development Environment using Docker
-
-1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop) or another way to run a containerized environment.
-  * If on Windows, we recommend installing the [Linux Subsystem](https://learn.microsoft.com/en-us/windows/wsl/install) to help performance, but it’s not required. See [configuring Docker Desktop to use WSL 2](https://docs.docker.com/desktop/wsl/).
-2. There are a series a `make` commands to help you run the commands in Docker. To use those, you'll need to install a way to run `make`.
-  * On Windows, use the Linux Subsystem or [chocolatey](https://chocolatey.org/).
-  * On Mac, install the Xcode client tools or use [homebrew](https://brew.sh/).
-  * If preferred, install some integration with the IDE you are using instead.
-    * For instance, [`Makefile` support for VS Code](https://devblogs.microsoft.com/cppblog/now-announcing-makefile-support-in-visual-studio-code/)
-3. Run `make serve` to launch the container, install the dependencies and run the development server.

@@ -52,6 +52,10 @@ const headerNavLinks = filterNavTreeLinks(
 <Layout title="Collections" {headerNavLinks}>
   <h2>Our Collections</h2>
   <ul>
+    <li class="event">
+      <a href="../early-home-computers-event/"
+        >👉 Early Home Computers Event! 👉</a>
+    </li>
     {
       categories.map(({ data, slug }, i) => (
         <>
@@ -103,6 +107,37 @@ const headerNavLinks = filterNavTreeLinks(
 
   li {
     margin-bottom: 1rem;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100vw);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .event {
+    background: var(--blue-600);
+    column-span: all;
+    container: eventcontainer / inline-size;
+    font-weight: bold;
+    overflow: hidden;
+    padding: calc(var(--ms-6) * 1rem);
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .event a {
+    color: var(--gold-vivid-200);
+    display: inline-block;
+    font-size: 3cqi;
+    text-decoration: none;
+    @media (prefers-reduced-motion: no-preference) {
+      animation: marquee 8s linear 1;
+    }
   }
 
   a:has(img) {

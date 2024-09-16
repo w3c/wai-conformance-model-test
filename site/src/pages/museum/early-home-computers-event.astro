@@ -1,0 +1,491 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+import zx81 from "@/assets/images/exhibits/early-home-computers/zx81.webp";
+import spectrum from "@/assets/images/exhibits/early-home-computers/spectrum.webp";
+import beebpc from "@/assets/images/exhibits/early-home-computers/bbc-micro.webp";
+import c64 from "@/assets/images/exhibits/early-home-computers/c64.webp";
+import vic20 from "@/assets/images/exhibits/early-home-computers/vic20.webp";
+---
+
+<Layout title="Special PC event">
+  <header class="page">
+    <h1>Early Home Computers Event!</h1>
+  </header>
+
+  <div class="about-the-event" role="region">
+    <p class="h2">About The Event</p>
+    <div class="initial">
+      <p>
+        Roll up, you GenXers, and re-live your childhood memories of tiny
+        amounts of memory, three-channel (if you were lucky) sound, and loading
+        games from a cassette. Step back into the 1980s with our exhibit on
+        personal computers, a time when technology was just beginning to reshape
+        everyday life. These early PCs—like the Commodore 64, and ZX
+        Spectrum—were the first glimpse into a digital future. From cassette
+        tapes, floppy disks, and—later on—dial-up modems, these machines sparked
+        creativity, gaming, and new ways to connect. Explore the roots of
+        today's tech-savvy world through the innovations that shaped a
+        generation.
+      </p>
+    </div>
+    <div class="more" hidden>
+      In the 1980s, personal computers were more than just machines; they were
+      gateways to new possibilities for Generation X. Whether it was programming
+      in BASIC, playing pixelated video games, or experimenting with early word
+      processing, these devices were a revolution in both work and play.
+      Companies like Apple, IBM, and Atari competed to capture the imagination
+      of users, each pushing the boundaries of what computers could do at home.
+      For many, the thrill of hearing a modem connect or inserting a floppy disk
+      was part of the charm. These computers didn't just introduce new
+      tools—they sparked a culture of innovation and creativity that would shape
+      careers and hobbies for decades to come. The exhibit takes you back to
+      that era, reminding us how these groundbreaking devices laid the
+      foundation for the digital world we live in today.
+    </div>
+    <div class="controls">
+      <button aria-expanded="false" type="button">Read More</button>
+      <button aria-expanded="true" type="button" hidden>View Less</button>
+    </div>
+  </div>
+
+  <div class="devices">
+    <div class="device">
+      <img src={zx81.src} alt="Sinclair ZX Spectrum" />
+      <div class="initial">
+        <h4>ZX81</h4>
+        <p>
+          The ZX81 is a home computer that was produced by Sinclair Research and
+          manufactured in Dundee, Scotland, by Timex Corporation. It was
+          launched in the United Kingdom in March 1981 as the successor to
+          Sinclair's ZX80 and designed to be a low-cost introduction to home
+          computing for the general public.
+        </p>
+      </div>
+      <div class="more" hidden>
+        <p>
+          The unexpanded ZX81's tiny memory presents a major challenge to
+          programmers. Simply displaying a full screen takes up to 793 bytes,
+          the system variables take up another 125 bytes, and the program, input
+          buffer and stacks need more memory on top of that. Nonetheless,
+          ingenious programmers are able to achieve a surprising amount with
+          just 1 KB. One example is the Super Micro Chess Engine by Stefano
+          Maragò, which includes all of the rules of chess. The ZX81 conserves
+          its memory to a certain extent by representing entire BASIC commands
+          as one-byte tokens, stored as individual "characters" in the upper
+          reaches of the machine's unique (non-ASCII) character set.
+        </p>
+        <div class="attribs">
+          <small
+            >Text from <a href="https://en.wikipedia.org/wiki/ZX81"
+              >Wikipedia's ZX81 page</a
+            >. Image: Evan-Amos, <a
+              href="https://creativecommons.org/licenses/by-sa/3.0"
+              >CC BY-SA 3.0</a
+            >, via Wikimedia Commons.
+          </small>
+        </div>
+      </div>
+      <a class="read-more-link-button" href="#" role="button">Read More</a>
+    </div>
+
+    <div class="device">
+      <img src={spectrum.src} alt="Sinclair ZX Spectrum." />
+      <div class="initial">
+        <h4>ZX Spectrum</h4>
+        <p>
+          The ZX Spectrum (UK: /zɛd ɛks/) is an 8-bit home computer developed
+          and marketed by Sinclair Research. Considered one of the most
+          influential computers ever made, it is also one of the best-selling
+          British computers ever, with over five million units sold. It was
+          released in the United Kingdom on 23 April 1982, and around the world
+          in the following years, most notably in Europe, the United States, and
+          Eastern Bloc countries.
+        </p>
+      </div>
+      <div class="more" role="group" tabindex="-1" hidden>
+        <p>
+          The Spectrum played a pivotal role in the early history of personal
+          computing and video gaming, leaving an enduring legacy that influenced
+          generations. Its introduction led to a boom in companies producing
+          software and hardware, the effects of which are still seen. It was
+          among the first home computers aimed at a mainstream audience, with
+          some crediting it as responsible for launching the British information
+          technology industry.
+        </p>
+        <div class="attribs">
+          <small
+            >Text from <a href="https://en.wikipedia.org/wiki/ZX_Spectrum"
+              >Wikipedia's ZX Spectrum page</a
+            >. Image: By Bill Bertram - Own work, CC BY-SA 2.5,
+            https://commons.wikimedia.org/w/index.php?curid=170050.
+          </small>
+        </div>
+      </div>
+      <a class="read-more-link-button" href="#" role="button">Read More</a>
+    </div>
+
+    <div class="device">
+      <img src={beebpc.src} alt="Wikipedia photo of a computer" />
+      <div class="initial">
+        <h4>BBC Microcomputer</h4>
+        <p>
+          The BBC Microcomputer System, or BBC Micro, is a series of
+          microcomputers designed and built by Acorn Computers Limited in the
+          1980s for the Computer Literacy Project of the BBC.
+        </p>
+      </div>
+      <div class="more" tabindex="-1" title="additional content" hidden>
+        <p>
+          The machine was released as the BBC Microcomputer on 1 December 1981,
+          although production problems pushed delivery of the majority of the
+          initial run into 1982. Nicknamed "the Beeb", it was popular in the UK,
+          especially in the educational market; about 80% of British schools had
+          a BBC microcomputer.
+        </p>
+        <div class="attribs">
+          <small
+            >Text from <a href="https://en.wikipedia.org/wiki/BBC_Micro"
+              >Wikipedia's BBC Micro page</a
+            >. Image: By BBC_Micro.jpeg: Stuart Bradyderivative work: Ubcule
+            (talk) - BBC_Micro.jpeg, Public Domain,
+            https://commons.wikimedia.org/w/index.php?curid=11672213
+          </small>
+        </div>
+      </div>
+      <a class="read-more-link-button" href="#" role="button">Read More</a>
+    </div>
+
+    <div class="device">
+      <img src={vic20.src} alt="Photograph of a Commodore VIC-20" />
+      <div class="initial">
+        <h4>Commodore VIC-20</h4>
+        <p>
+          The VIC-20 (known as the VC-20 in Germany and the VIC-1001 in Japan)
+          is an 8-bit home computer that was sold by Commodore Business
+          Machines. The VIC-20 was announced in 1980, roughly three years after
+          Commodore's first personal computer, the PET. The VIC-20 was the first
+          computer of any description to sell one million units, eventually
+          reaching 2.5 million
+        </p>
+      </div>
+      <div class="more" aria-label="additional content" tabindex="-1" hidden>
+        It was described as "one of the first anti-spectatorial, non-esoteric
+        computers by design...no longer relegated to hobbyist/enthusiasts or
+        those with money, the computer Commodore developed was the computer of
+        the future."
+        <div class="attribs">
+          <small
+            >Text from <a href="https://en.wikipedia.org/wiki/VIC-20"
+              >Wikipedia's VIC-20 page</a
+            >. Image: By Evan-Amos - Own work, Public Domain,
+            https://commons.wikimedia.org/w/index.php?curid=38582541.
+          </small>
+        </div>
+      </div>
+      <a class="read-more-link-button" href="#" role="button">Read More</a>
+    </div>
+
+    <div class="device full-cover">
+      <img src={c64.src} alt="Commodore 64." />
+      <div class="initial">
+        <h4>Commodore 64</h4>
+        <p>
+          The Commodore 64, also known as the C64, is an 8-bit home computer
+          introduced in January 1982 by Commodore International (first shown at
+          the Consumer Electronics Show, January 7–10, 1982, in Las Vegas). It
+          has been listed in the Guinness World Records as the highest-selling
+          single computer model of all time, with independent estimates placing
+          the number sold between 12.5 and 17 million units.
+        </p>
+      </div>
+      <div
+        class="more"
+        aria-label="Volume production started in early 1982, marketing in August for US$595 (equivalent to $1,880 in 2023). Preceded by the VIC-20 and Commodore PET, the C64 took its name from its 64 kilobytes (65,536 bytes) of RAM. With support for multicolor sprites and a custom chip for waveform generation, the C64 could create superior visuals and audio compared to systems without such custom hardware."
+        tabindex="-1"
+        hidden
+      >
+        <p>
+          Volume production started in early 1982, marketing in August for
+          US$595 (equivalent to $1,880 in 2023). Preceded by the VIC-20 and
+          Commodore PET, the C64 took its name from its 64 kilobytes (65,536
+          bytes) of RAM. With support for multicolor sprites and a custom chip
+          for waveform generation, the C64 could create superior visuals and
+          audio compared to systems without such custom hardware.
+        </p>
+        <div class="attribs">
+          <small
+            >Text from <a href="https://en.wikipedia.org/wiki/Commodore_64"
+              >Wikipedia's Commodore 64 page</a
+            >. Image: By Evan-Amos - Own work, Public Domain,
+            https://commons.wikimedia.org/w/index.php?curid=17414881.
+          </small>
+        </div>
+      </div>
+      <a class="read-more-link-button" href="#" role="button">Read More</a>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const controls = document.querySelector("main .controls")!;
+  const devices = document.querySelector(".devices")!;
+
+  function toggleReadMore(event: Event) {
+    const el = event.target as HTMLElement;
+    if (el.tagName === "A" && el.className === "read-more-link-button") {
+      event.preventDefault();
+      const moreTarget = el.parentElement!.querySelector(
+        ".more"
+      ) as HTMLElement;
+      if (el.textContent == "Read More") {
+        moreTarget.removeAttribute("hidden");
+        el.textContent = "Read Less";
+        if (moreTarget.hasAttribute("tabindex")) moreTarget.focus();
+      } else {
+        moreTarget.setAttribute("hidden", "");
+        el.textContent = "Read More";
+      }
+    }
+    if (el.tagName === "BUTTON") {
+      const moreTarget = el.parentElement!.parentElement!.querySelector(
+        ".more"
+      ) as HTMLElement;
+      controls.querySelector("button[hidden]")?.removeAttribute("hidden");
+      el.setAttribute("hidden", "");
+      moreTarget.removeAttribute("hidden");
+      if (el.textContent == "View Less") {
+        moreTarget.setAttribute("hidden", "");
+      }
+    }
+  }
+
+  controls.addEventListener("click", toggleReadMore);
+  devices.addEventListener("click", toggleReadMore);
+</script>
+
+<style is:global>
+  :root {
+    --actual-black-not-like-that-other-black:black;
+    scrollbar-color: hsl(0, 0%, 20%) var(--actual-black-not-like-that-other-black);
+  }
+
+  body {
+    color: white;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--actual-black-not-like-that-other-black);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(0, 0%, 20%);
+  }
+
+  main.inset {
+    background-color: var(--actual-black-not-like-that-other-black);
+    display: grid;
+    gap: calc(var(--ms0) * 1rem);
+    grid-template-columns: repeat(8, 1fr);
+    max-width: unset;
+  }
+
+  header {
+    color: var(--black);
+  }
+
+  header.page {
+    background: var(--actual-black-not-like-that-other-black);
+    container: hd1 / inline-size;
+    grid-column: 1 / -1;
+  }
+
+  @media(width <= 750px){
+    header.page{
+      position:sticky;
+      top:0;
+      z-index: 2;
+    }
+  }
+
+  h1 {
+    font-size: clamp(
+      calc(var(--ms14) * 1rem),
+      10cqi + 1rem,
+      calc(var(--ms19) * 1rem)
+    );
+    line-height: var(--ms1) !important;
+    margin-block-end: calc(var(--ms-10) * 1em);
+    margin-block-start: calc(var(--ms-5) * 1em);
+    background: -webkit-linear-gradient(
+      var(--gold-vivid-200),
+      var(--red-warm-400)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @container hd1 (600px <= width <= 720px) {    
+    h1 {
+      font-size: calc(var(--ms14) * 1rem);
+      text-align: center;
+    }
+  }
+
+  @container hd1 (width <= 599px) {    
+    h1 {
+      font-size: 11cqi;
+      text-align: center;
+    }
+  }
+
+  .h2 {
+    color: var(--gold-vivid-200);
+    font-size: calc(var(--ms12) * 1rem);
+    margin: 0;
+  }
+
+  .about-the-event {
+    border-block-start: 3px solid var(--gold-400);
+    border-block-end: 3px solid var(--gold-400);
+    font-size: calc(var(--ms2) * 1rem);
+    grid-column: 1 / -1;
+    padding: 0 calc(var(--ms0) * 2rem) calc(var(--ms0) * 2rem);
+    & .controls {
+      justify-content: center;
+      display: flex;
+      gap: 1em;
+    }
+    .initial p::first-line {
+      color: var(--red-warm-400);
+      font-size: calc(var(--ms7) * 1rem);
+    }
+  }
+
+  .devices {
+    display: grid;
+    gap: 1rem;
+    grid-column: 2 / -2;
+    grid-template-columns: subgrid;
+  }
+
+  @media (600px <= width <= 1200px) {
+    .devices {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .device {
+      grid-column: span 2;
+    }
+    .h2 {
+      font-size: calc(var(--ms12) * 1rem);
+      text-align: center;
+    }
+  }
+
+  @media (width <= 599px) {
+    .devices {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  .device {
+    border: 1px solid var(--gold-600);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    grid-column: span 2;
+    padding: calc(var(--ms1) * 1rem);
+    text-align: justify;
+    & a {
+      color: var(--white);
+    }
+    & img {
+      display: block;
+      height: auto;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    & *:is(:focus-visible) {
+      box-shadow:
+        0 0 0 2px white,
+        0 0 0 4px blue;
+      outline: none;
+    }
+    & h4 {
+      background: white;
+      color: var(--black);
+      margin: 0.75em 0 0.3em;
+      text-align: center;
+      & + p {
+        margin-block-start: 0;
+      }
+    }
+    & .read-more-link-button {
+      margin-block-start: auto;
+    }
+    & .attribs {
+      border-block-start: 1px solid var(--gold-400);
+      border-block-end: 1px solid var(--gold-400);
+      font-size: calc(var(--ms-2) * 1rem);
+      font-style: italic;
+      margin-block-end: calc(var(--ms0) * 1em);
+      padding: calc(var(--ms-6) * 1em) 0;
+      & a{
+        @supports (text-decoration-color: hsl(from red h s calc(l - 5%))) {
+        text-decoration-color: hsl(from var(--red-warm-600) h s calc(l - 5%));
+        }
+        text-decoration-color: hsl(from var(--red-warm-600) h s calc(l - 5));
+        text-decoration-thickness:0.25em;
+      }
+    }
+    & .initial p::first-line {
+      color: var(--red-warm-400);
+      font-size: calc(var(--ms3) * 1rem);
+    }
+    & .more:focus {
+      box-shadow: none;
+    }
+    &.full-cover{
+      position: relative;
+      & a::after{
+        content:"";
+        position: absolute;
+        bottom:0;
+        left:0;
+        right:0;
+        top:0;
+      }
+      & a:focus-visible{
+        box-shadow: none;
+      }
+      &:focus-within{
+        box-shadow:
+        0 0 0 2px white,
+        0 0 0 4px blue;
+      }      
+    }
+  }
+
+  @media (forced-colors: active) {
+    h1 {
+      color: mark;
+    }
+
+    .h2 {
+      color: linktext;
+    }
+
+    .device {
+      border-color: linktext;
+      & h4 {
+        color: linktext;
+      }
+      & .attribs a {
+        color: buttontext;
+        text-decoration-color: buttonface;
+      }
+    }
+  }
+</style>

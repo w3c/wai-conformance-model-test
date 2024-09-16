@@ -35,7 +35,7 @@ import Layout from "@/layouts/Layout.astro";
     <canvas id="captcha" width="360" height="80"></canvas>
     <label
       >Enter the letters shown above:
-      <input name="captcha" />
+      <input name="captcha" class="captcha" />
     </label>
     <button>Submit</button>
   </FormLayout>
@@ -98,3 +98,18 @@ import Layout from "@/layouts/Layout.astro";
     else persist("registration", registrationSchema.parse(result.data));
   });
 </script>
+
+<style>
+  input.captcha {
+    border: none;
+    border-bottom: 1px solid var(--gray-300);
+    caret-color: var(--white);
+    letter-spacing: 1rem;
+    width: 10rem;
+
+    &:focus {
+      border-bottom-color: var(--gray-500);
+      outline: none;
+    }
+  }
+</style>

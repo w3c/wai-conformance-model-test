@@ -19,7 +19,7 @@ interface Props extends HTMLAttributes<"form"> {}
 
     & select,
     & textarea,
-    & input:not([type="checkbox"]):not([type="radio"]) {
+    & input:not([type="checkbox"], [type="radio"]) {
       display: block;
     }
   }

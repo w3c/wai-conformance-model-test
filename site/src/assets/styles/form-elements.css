@@ -1,5 +1,5 @@
 select, textarea,
-input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="range"]) {
+input:not([type="checkbox"], [type="file"], [type="image"], [type="radio"], [type="range"]) {
   border: 1px solid var(--gray-800);
   font: inherit;
   letter-spacing: inherit;

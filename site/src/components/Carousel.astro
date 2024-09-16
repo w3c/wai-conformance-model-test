@@ -73,7 +73,7 @@ const collectionLabels = {
   }, 10000);
 </script>
 
-<style>
+<style define:vars={{ cursorUrl: `url(${import.meta.env.BASE_URL}radial-cursor.png)` }}>
   .carousel {
     height: 80vh;
     overflow: hidden;
@@ -129,6 +129,7 @@ const collectionLabels = {
 
   .broken {
     & :global(.entry) {
+      cursor: var(--cursorUrl) 16 16, crosshair;
       transition: transform 1s ease-in;
       transform: translateX(100%);
 

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Video from "@/components/Video.astro";
 import { getMode } from "@/lib/mode";
 import { defaultNavLinks, filterNavTreeLinks } from "@/lib/nav-links";
 
@@ -11,6 +12,7 @@ const headerNavLinks =
 
 <Layout title="Take a Tour" {headerNavLinks}>
   <h1>Take a Tour</h1>
+  <Video src="welcome-tour.mp4" />
   <div role="alert" class="next-tour">
     Next tour departs in
     <strong id="next-tour-countdown"></strong>

@@ -9,7 +9,7 @@ import vic20 from "@/assets/images/exhibits/early-home-computers/vic20.webp";
 ---
 
 <Layout title="Special PC event">
-  <header class="page">
+  <header>
     <h1>Early Home Computers Event!</h1>
   </header>
 
@@ -264,7 +264,7 @@ import vic20 from "@/assets/images/exhibits/early-home-computers/vic20.webp";
   devices.addEventListener("click", toggleReadMore);
 </script>
 
-<style is:global>
+<style is:global is:inline>
   :root {
     --actual-black-not-like-that-other-black:black;
     scrollbar-color: hsl(0, 0%, 20%) var(--actual-black-not-like-that-other-black);
@@ -293,17 +293,19 @@ import vic20 from "@/assets/images/exhibits/early-home-computers/vic20.webp";
   header {
     color: var(--black);
   }
+</style>
 
-  header.page {
+<style>
+  header {
     background: var(--actual-black-not-like-that-other-black);
     container: hd1 / inline-size;
     grid-column: 1 / -1;
   }
 
-  @media(width <= 750px){
-    header.page{
-      position:sticky;
-      top:0;
+  @media (width <= 750px) {
+    header {
+      position: sticky;
+      top: 0;
       z-index: 2;
     }
   }
@@ -432,12 +434,12 @@ import vic20 from "@/assets/images/exhibits/early-home-computers/vic20.webp";
       font-style: italic;
       margin-block-end: calc(var(--ms0) * 1em);
       padding: calc(var(--ms-6) * 1em) 0;
-      & a{
+      & a {
         @supports (text-decoration-color: hsl(from red h s calc(l - 5%))) {
         text-decoration-color: hsl(from var(--red-warm-600) h s calc(l - 5%));
         }
         text-decoration-color: hsl(from var(--red-warm-600) h s calc(l - 5));
-        text-decoration-thickness:0.25em;
+        text-decoration-thickness: 0.25em;
       }
     }
     & .initial p::first-line {
@@ -447,20 +449,17 @@ import vic20 from "@/assets/images/exhibits/early-home-computers/vic20.webp";
     & .more:focus {
       box-shadow: none;
     }
-    &.full-cover{
+    &.full-cover {
       position: relative;
-      & a::after{
+      & a::after {
         content:"";
         position: absolute;
-        bottom:0;
-        left:0;
-        right:0;
-        top:0;
+        inset: 0;
       }
-      & a:focus-visible{
+      & a:focus-visible {
         box-shadow: none;
       }
-      &:focus-within{
+      &:focus-within {
         box-shadow:
         0 0 0 2px white,
         0 0 0 4px blue;

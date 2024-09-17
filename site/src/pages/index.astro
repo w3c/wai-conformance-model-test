@@ -11,7 +11,6 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       This site is designed to demonstrate a wide range of accessibility
       failures, for teaching and assessment purposes.
     </p>
-    <p>This page summarizes the accessibility issues from WCAG 2 and WCAG 3 for each section of the site. 
     <p>
       <strong>Reminder:</strong> This site is an example only.
       The contents are made up and it does not perform real sign-in or payment processing.
@@ -21,13 +20,16 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     <p>
       (The site also does not actually store cookies, despite what the home page might suggest.)
     </p>
+    <p>
+      <a href="museum/">Visit the Museum of Broken Things</a>
+    </p>
   </section>
 
   { /* Hide summary for built version at the moment; show in dev for confirming content */ }
   <section id="summary-of-failures" hidden={import.meta.env.PROD || undefined}>
     <h2>Summary of failures</h2>
     <p>
-      This section provides a breakdown of failures, organized by sections of the site.
+      This section provides a breakdown of WCAG 2 and WCAG 3 failures, organized by sections of the site.
     </p>
 
     {

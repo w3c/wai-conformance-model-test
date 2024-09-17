@@ -1,15 +1,26 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+
 /**
  * Plays videos as either a backdrop or an active element.
  * As a backdrop, any slotted HTML/CSS will be overlaid.
  */
-interface Props {
+interface Props extends HTMLAttributes<"video"> {
   backdrop?: boolean;
+  /** Video path/filename, relative to public/assets/videos folder */
   src: string;
 }
 
-const { src: filename, backdrop = false } = Astro.props;
-const src = `${import.meta.env.BASE_URL}assets/videos/${filename}`;
+const {
+  backdrop = false,
+  poster: posterFilename,
+  src: filename,
+  ...rest
+} = Astro.props;
+
+const videoBasePath = `${import.meta.env.BASE_URL}assets/videos/`;
+const src = `${videoBasePath}${filename}`;
+const poster = posterFilename && `${videoBasePath}${posterFilename}`;
 const extension = filename.slice(filename.lastIndexOf(".") + 1);
 const type = `video/${extension}`;
 
@@ -21,13 +32,12 @@ const videoAttributes = backdrop
       loop: true,
     }
   : {
-      autoplay: true,
       controls: true,
     };
 ---
 
 <div class={backdrop ? "video-wrapper" : undefined}>
-  <video {...videoAttributes}>
+  <video {...videoAttributes} {poster} {...rest}>
     <source {src} {type} />
     Your browser does not support the video tag.
   </video>

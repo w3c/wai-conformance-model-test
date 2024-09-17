@@ -1,4 +1,5 @@
 ---
+import Video from "@/components/Video.astro";
 import Layout from "@/layouts/Layout.astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
@@ -43,6 +44,11 @@ const dateFormat = new Intl.DateTimeFormat(["en-GB"], { dateStyle: "medium" });
       </header>
     </div>
     <div class="content inset">
+      {
+        post.data.video && (
+          <Video src={post.data.video} poster={post.data.videoCover || undefined} />
+        )
+      }
       <Content />
     </div>
   </article>

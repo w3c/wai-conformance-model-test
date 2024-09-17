@@ -20,6 +20,8 @@ export const collections = {
       category: z.union([z.literal("Events"), z.literal("In the News")]),
       date: z.date().or(z.literal("now")),
       image: image(),
+      video: z.string().optional(),
+      videoCover: z.string().optional(),
     }),
   }),
 

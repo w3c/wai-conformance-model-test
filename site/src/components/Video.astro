@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { src: filename, backdrop = false } = Astro.props;
-const src = `/fixable/assets/videos/${filename}`;
+const src = `${import.meta.env.BASE_URL}assets/videos/${filename}`;
 const extension = filename.slice(filename.lastIndexOf(".") + 1);
 const type = `video/${extension}`;
 
@@ -35,6 +35,11 @@ const videoAttributes = backdrop
 </div>
 
 <style>
+  video {
+    height: 100%;
+    width: 100%;
+  }
+
   .video-wrapper {
     height: 50vh;
     position: relative;
@@ -44,8 +49,6 @@ const videoAttributes = backdrop
       object-fit: cover;
       object-position: center;
       position: absolute;
-      height: 100%;
-      width: 100%;
     }
   }
 </style>

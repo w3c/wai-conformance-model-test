@@ -11,15 +11,28 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       This site is designed to demonstrate a wide range of accessibility
       failures, for teaching and assessment purposes.
     </p>
-    <p>
-      <strong>Reminder:</strong> This site is an example only.
-      The contents are made up and it does not perform real sign-in or payment processing.
-      Do not enter real information! These flows do work, but operate locally in the browser with no
-      server-side component.
-    </p>
-    <p>
-      (The site also does not actually store cookies, despite what the home page might suggest.)
-    </p>
+    <h3>Site Behavior</h3>
+    <p><strong>This site is an example only. Do not enter real information!</strong></p>
+    <ul>
+      <li>The contents are made up</li>
+      <li>The site is static; no data is retained by a server</li>
+      <li>No real shipping address or payment processing occurs</li>
+      <li>
+          Registration and sign-in is not processed by a server,
+          but it <em>does</em> function locally
+          <ul><li>
+            i.e., whatever email and password you most recently specified during registration
+            will then work on the Sign In page
+          </li></ul>
+      </li>
+      <li>
+        No cookies are stored, despite what the home page might suggest
+      </li>
+      <li>
+        Local storage is used for simulated persistence
+        (e.g., for sign-in and the gift shop cart)
+      </li>
+    </ul>
     <p>
       <a href="museum/">Visit the Museum of Broken Things</a>
     </p>
@@ -59,7 +72,8 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>The search field has no label.</dd>       
         <dt>1.4.6: Contrast (Enhanced)</dt>
         <dd>
-          The scrim on the carousel is not always enough to guarantee sufficient contrast.
+          The semi-transparent backdrop between the carousel text and background image
+          is not always enough to guarantee sufficient contrast.
         </dd>
         <dt>1.4.10: Reflow</dt>
         <dd>When zoomed, the header text moves off the background.</dd>
@@ -127,7 +141,8 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dd>The title in the header is 21:1 - is this above the contrast maximum?</dd>
         <dt>Minimum text contrast</dt>
         <dd>
-          The scrim on the carousel is not always enough to guarantee sufficient contrast.
+          The semi-transparent backdrop between the carousel text and background image
+          is not always enough to guarantee sufficient contrast.
         </dd>
         <dt>Motion</dt>
         <dd>

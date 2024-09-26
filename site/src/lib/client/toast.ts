@@ -48,7 +48,8 @@ function createTransitionPromise(el: HTMLElement) {
  * This is exposed for the Toast component; direct calls should be unnecessary.
  */
 export async function hideToast() {
-  await toastTransitionPromise; // Wait for any existing transition to finish first
+  // Wait for any existing transition to finish first
+  if (toastTransitionPromise) await toastTransitionPromise;
   const toastEl = document.getElementById("toast")!;
   if (toastEl.classList.contains("showing")) {
     toastEl.classList.remove("showing");
@@ -108,15 +109,10 @@ export async function showToast(
     const isButton = "actionCallback" in actionOptions;
     const el = document.createElement(isButton ? "button" : "a");
     if (isButton) {
-      el.addEventListener(
-        "click",
-        isBroken
-          ? () => {
-              toastEl.hidden = true;
-              actionOptions.actionCallback();
-            }
-          : actionOptions.actionCallback
-      );
+      el.addEventListener("click", async () => {
+        await hideToast();
+        actionOptions.actionCallback();
+      });
     } else {
       (el as HTMLAnchorElement).href = actionOptions.actionHref;
     }
@@ -127,7 +123,7 @@ export async function showToast(
 
   if (isBroken) toastEl.hidden = false;
   else (toastEl as HTMLDialogElement).show();
-  
+
   // Give element a chance to paint before adding class, to apply transition
   setTimeout(() => toastEl.classList.add("showing"), 15);
   await createTransitionPromise(toastEl);

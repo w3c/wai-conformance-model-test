@@ -10,8 +10,8 @@ import { getMode } from "@/lib/mode";
 import { Icon } from "astro-icon/components";
 
 const iconMap = {
-  error: "ri:error-warning-fill",
-  info: "ri:information-2-fill",
+  error: "ri:error-warning-line",
+  info: "ri:information-2-line",
 } as const;
 // Expose ToastType from here for use by API in toast.ts
 export type ToastType = keyof typeof iconMap;
@@ -26,10 +26,8 @@ export type ToastType = keyof typeof iconMap;
       </div>
     ) : (
       <dialog id="toast">
-        <form method="dialog">
-          <div id="toast-content" />
-          <button id="toast-dismiss">Dismiss</button>
-        </form>
+        <div id="toast-content" />
+        <button id="toast-dismiss">Dismiss</button>
       </dialog>
     )
   }
@@ -45,11 +43,10 @@ export type ToastType = keyof typeof iconMap;
 
 <script>
   import { hideToast } from "@/lib/client/toast";
-  import { getMode } from "@/lib/mode";
 
   // Dismiss needs to be explicitly handled in non-dialog case
   const dismissEl = document.getElementById("toast-dismiss")!;
-  if (getMode() === "broken") dismissEl.addEventListener("click", hideToast);
+  dismissEl.addEventListener("click", hideToast);
 </script>
 
 <style>
@@ -71,7 +68,10 @@ export type ToastType = keyof typeof iconMap;
     color: var(--gray-050);
     max-width: 90vw;
     opacity: 0;
-    transition: opacity 250ms, transform 250ms;
+    position: static; /* Override dialog to rely on container style */
+    transition:
+      opacity 250ms,
+      transform 250ms;
     transform: translateY(50%);
 
     & :global(a) {
@@ -88,27 +88,22 @@ export type ToastType = keyof typeof iconMap;
     height: 2rem;
     width: 2rem;
   }
-  svg[data-icon="ri:error-warning-fill"] {
+  svg[data-icon="ri:error-warning-line"] {
     color: var(--red-warm-400);
   }
-  svg[data-icon="ri:information-2-fill"] {
+  svg[data-icon="ri:information-2-line"] {
     color: var(--blue-400);
   }
 
-  div#toast,
-  #toast form {
+  #toast {
     display: flex;
-    gap: calc(1rem * var(--ms5)); /* Between content and dismiss button */
+    gap: 1rem; /* Between content and dismiss button */
     padding: 1rem;
 
-    & button {
+    & :global(button) {
       border-radius: 4px;
       padding-block: 0.25rem;
     }
-  }
-
-  dialog#toast {
-    padding: 0;
   }
 
   #toast-content {

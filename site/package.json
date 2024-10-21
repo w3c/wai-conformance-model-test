@@ -13,18 +13,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "~5.2.0",
+    "@astrojs/markdown-remark": "^5.3.0",
     "@fontsource-variable/cabin": "^5.0.19",
     "@fontsource/corinthia": "^5.0.21",
     "@fontsource/patua-one": "^5.0.19",
-    "astro": "^4.15.1",
+    "astro": "^4.16.6",
     "astro-icon": "^1.1.0",
     "fast-glob": "^3.3.2",
     "lodash-es": "^4.17.21",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.3",
+    "@astrojs/check": "^0.9.4",
     "@iconify-json/ri": "^1.1.21",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.14.14",

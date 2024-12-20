@@ -20,11 +20,19 @@ const expandedCategories = await Promise.all(
   }))
 );
 
-const carouselEntries = [
+// Astro 5.x no longer provides per-item typings and getEntry() can return undefined,
+// so confirm at build time that the entries are defined
+function confirmDefinedEntries<E>(entries: E[]) {
+  for (const entry of entries)
+    if (!entry) throw new Error("Failed to resolve carousel entry");
+  return entries as NonNullable<E>[];
+}
+
+const carouselEntries = confirmDefinedEntries([
   await getEntry("blog", "events/live-event"),
   await getEntry("exhibits", "technology/crt-monitor"),
   await getEntry("products", "vessels/water-bottle"),
-];
+]);
 ---
 
 <Layout title="Home" withFixedSearch={false} withInsetMain={false}>
@@ -33,7 +41,7 @@ const carouselEntries = [
     <h2>Explore our Collections</h2>
     <div class="cards">
       {
-        expandedCategories.map(({ data, slug }) => (
+        expandedCategories.map(({ data, id }) => (
           <div class="card">
             <div class="card-image-container">
               <CoverImage
@@ -52,7 +60,7 @@ const carouselEntries = [
               <div>{data.topDescription}</div>
             </div>
             <div class="card-footer">
-              <a class="btn btn-primary w-100" href={`collections/${slug}/`}>
+              <a class="btn btn-primary w-100" href={`collections/${id}/`}>
                 Explore
               </a>
             </div>

@@ -1,11 +1,11 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
   const allProducts = await getCollection("products");
 
   return allProducts.map((product) => {
-    const [category, productSlug] = product.slug.split("/");
+    const [category, productSlug] = product.id.split("/");
     return {
       params: { category, product: productSlug },
       props: { product },
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const { product } = Astro.props;
-const { Content } = await product.render();
+const { Content } = await render(product);
 ---
 
 <ShopLayout title={product.data.title}>
@@ -44,7 +44,7 @@ const { Content } = await product.render();
       <strong>${product.data.price}</strong>
       <form>
         <input type="hidden" name="name" value={product.data.title} />
-        <input type="hidden" name="slug" value={product.slug} />
+        <input type="hidden" name="slug" value={product.id} />
         <input type="hidden" name="price" value={product.data.price} />
         <div class="quantity-controls">
           <label for="quantity">Quantity: </label>

@@ -19,16 +19,16 @@ const categories = sortBy(
 
 const exhibits = uniqBy(
   await getCollection("exhibits"),
-  ({ slug }) => slug.split("/")[0]
+  ({ id }) => id.split("/")[0]
 );
 
 const exhibitsMap = {} as Record<
-  CollectionEntry<"exhibit-categories">["slug"],
+  CollectionEntry<"exhibit-categories">["id"],
   CollectionEntry<"exhibits">["data"] & { downsizedSrc: string }
 >;
 
-for (const { data, slug } of exhibits) {
-  exhibitsMap[slug.split("/")[0]] = {
+for (const { data, id } of exhibits) {
+  exhibitsMap[id.split("/")[0]] = {
     ...data,
     downsizedSrc: await getDownsizedSrc(data.image, 480),
   };
@@ -57,16 +57,16 @@ const headerNavLinks = filterNavTreeLinks(
         >👉 Early Home Computers Event! 👉</a>
     </li>
     {
-      categories.map(({ data, slug }, i) => (
+      categories.map(({ data, id }, i) => (
         <>
           <li>
             <Fixable
               as="a"
-              href={`${slug}/`}
+              href={`${id}/`}
               broken={{ tabindex: tabIndices[i] }}
             >
               {/* Reference the downsized optimized image */}
-              <img src={exhibitsMap[slug].downsizedSrc} alt="" />
+              <img src={exhibitsMap[id].downsizedSrc} alt="" />
               <span class="label">{data.title}</span>
             </Fixable>
           </li>

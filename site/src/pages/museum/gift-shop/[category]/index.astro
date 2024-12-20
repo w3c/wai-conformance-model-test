@@ -11,7 +11,7 @@ interface Props {
 
 export async function getStaticPaths() {
   const allProducts = await getCollection("products");
-  const categories = uniq(allProducts.map(({ slug }) => slug.split("/")[0] ));
+  const categories = uniq(allProducts.map(({ id }) => id.split("/")[0] ));
 
   return categories.map((category) => ({
     params: { category },
@@ -32,7 +32,7 @@ const { category, products } = Astro.props;
   <h2>{category}</h2>
   <ul class="grid-wrapper">
     {
-      products.map(({ data, slug }) => (
+      products.map(({ data, id }) => (
         <li>
           <div class="image-container">
             <CoverImage
@@ -44,7 +44,7 @@ const { category, products } = Astro.props;
             />
           </div>
           <div class="content">
-            <a href={`../${slug}/`}>
+            <a href={`../${id}/`}>
               <div class="title">{data.title}</div>
               <div class="price">${data.price}</div>
             </a>

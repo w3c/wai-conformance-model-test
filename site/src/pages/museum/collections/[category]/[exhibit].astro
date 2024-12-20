@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import CoverImage from "@/components/CoverImage.astro";
 import Favorite from "@/components/Favorite.astro";
 import Layout from "@/layouts/Layout.astro";
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 
   return Promise.all(
     allExhibits.map(async (exhibit) => {
-      const [categorySlug, exhibitSlug] = exhibit.slug.split("/");
+      const [categorySlug, exhibitSlug] = exhibit.id.split("/");
       return {
         params: { category: categorySlug, exhibit: exhibitSlug },
         props: {
@@ -28,7 +28,7 @@ interface Props {
 }
 
 const { category, exhibit } = Astro.props;
-const { Content } = await exhibit.render();
+const { Content } = await render(exhibit);
 ---
 
 <Layout title={exhibit.data.title} withInsetMain={!category.data.dangerous}>
@@ -41,7 +41,7 @@ const { Content } = await exhibit.render();
         <h1>{exhibit.data.title}</h1>
         <Content />
         <div class="favorite-container">
-          <Favorite id={exhibit.slug} />
+          <Favorite id={exhibit.id} />
         </div>
       </div>
     ) : (
@@ -56,7 +56,7 @@ const { Content } = await exhibit.render();
               widths={[960]}
             />
             <div class="favorite-container">
-              <Favorite id={exhibit.slug} />
+              <Favorite id={exhibit.id} />
             </div>
           </div>
           <div class="content">

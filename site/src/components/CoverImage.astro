@@ -19,9 +19,13 @@ type Props = LocalImageProps & {
 const { height, objectPosition, width } = Astro.props;
 
 const image = await getImage({
-  ...Astro.props,
+  // Explicitly convert height/width for type safety
+  ...omit(Astro.props, "height", "width"),
+  ...(typeof height === "number" && { height }),
   ...(typeof height === "string" && { height: parseInt(height) }),
+  ...(typeof width === "number" && { width }),
   ...(typeof width === "string" && { width: parseInt(width) }),
+
 });
 
 const attributes = {

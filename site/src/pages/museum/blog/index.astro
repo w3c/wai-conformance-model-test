@@ -38,7 +38,7 @@ const postsByCategory = posts.reduce(
     livePost && (
       <div class="featured">
         <div>
-          <a class="image-link" href={`${livePost.slug}/`}>
+          <a class="image-link" href={`${livePost.id}/`}>
             <div
               class="background"
               style={{
@@ -52,7 +52,7 @@ const postsByCategory = posts.reduce(
         <div>
           <h2 class="top">{livePost.data.title}</h2>
           <Fragment set:html={livePost.excerpt} />
-          <a class="read-more" href={`${livePost.slug}/`}>
+          <a class="read-more" href={`${livePost.id}/`}>
             <FixableRegion>
               <span slot="fixed">Read more</span>
             </FixableRegion>
@@ -76,7 +76,7 @@ const postsByCategory = posts.reduce(
             <div class="post">
               <a
                 class="image-link"
-                href={`${post.data.brokenUrl ? "broken" : post.slug}/`}
+                href={`${post.data.brokenUrl ? "broken" : post.id}/`}
               >
                 <div
                   class="background"
@@ -87,7 +87,7 @@ const postsByCategory = posts.reduce(
                 />
               </a>
               <div>
-                <a href={`${post.data.brokenUrl ? "broken" : post.slug}/`}>
+                <a href={`${post.data.brokenUrl ? "broken" : post.id}/`}>
                   <h3>{post.data.title}</h3>
                 </a>
                 <Fragment set:html={post.excerpt} />

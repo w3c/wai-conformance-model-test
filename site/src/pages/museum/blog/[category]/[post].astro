@@ -1,13 +1,13 @@
 ---
 import Video from "@/components/Video.astro";
 import Layout from "@/layouts/Layout.astro";
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
 
   return posts.map((post) => {
-    const [category, postSlug] = post.slug.split("/");
+    const [category, postSlug] = post.id.split("/");
     return {
       params: { category, post: postSlug },
       props: { post },
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 const dateFormat = new Intl.DateTimeFormat(["en-GB"], { dateStyle: "medium" });
 ---

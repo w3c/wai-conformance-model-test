@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import { sortBy } from "lodash-es";
 import ConditionalParent from "@/components/ConditionalParent.astro";
 import CoverImage from "@/components/CoverImage.astro";
@@ -18,11 +18,11 @@ export async function getStaticPaths() {
   const categories = await getCollection("exhibit-categories");
 
   return categories.map((category) => ({
-    params: { category: category.slug },
+    params: { category: category.id },
     props: {
       category,
       exhibits: sortBy(
-        allExhibits.filter(({ id }) => id.startsWith(`${category.slug}/`)),
+        allExhibits.filter(({ id }) => id.startsWith(`${category.id}/`)),
         ({ data }) => data.title
       ),
     } as Props,
@@ -30,12 +30,12 @@ export async function getStaticPaths() {
 }
 
 const { category, exhibits } = Astro.props;
-const { Content } = await category.render();
+const { Content } = await render(category);
 
 const shouldWrapImageInLink =
-  getMode() === "broken" && category.slug === "music";
+  getMode() === "broken" && category.id === "music";
 const shouldDuplicateLink =
-  getMode() === "broken" && category.slug === "sports";
+  getMode() === "broken" && category.id === "sports";
 ---
 
 <Layout title={category.data.title}>
@@ -74,18 +74,18 @@ const shouldDuplicateLink =
   }
   <ul class="grid-wrapper" id="list">
     {
-      exhibits.map(({ data, slug }) => (
+      exhibits.map(({ data, id }) => (
         <li>
           <ConditionalParent
             as="a"
             if={shouldWrapImageInLink}
-            href={`../${slug}/`}
+            href={`../${id}/`}
           >
             <div class="image-container">
               <ConditionalParent
                 as="a"
                 if={shouldDuplicateLink}
-                href={`../${slug}/`}
+                href={`../${id}/`}
               >
                 <CoverImage
                   src={data.image}
@@ -104,7 +104,7 @@ const shouldDuplicateLink =
               <ConditionalParent
                 as="a"
                 if={!shouldWrapImageInLink}
-                href={`../${slug}/`}
+                href={`../${id}/`}
               >
                 {data.title}
               </ConditionalParent>

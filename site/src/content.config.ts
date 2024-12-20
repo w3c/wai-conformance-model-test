@@ -1,3 +1,4 @@
+import { glob } from "astro/loaders";
 import {
   defineCollection,
   reference,
@@ -14,7 +15,7 @@ const baseImageSchema = z.object({
 
 export const collections = {
   blog: defineCollection({
-    type: "content",
+    loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/blog" }),
     schema: ({ image }) => baseImageSchema.extend({
       brokenUrl: z.boolean().default(false),
       category: z.union([z.literal("Events"), z.literal("In the News")]),
@@ -26,14 +27,14 @@ export const collections = {
   }),
 
   exhibits: defineCollection({
-    type: "content",
+    loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/exhibits" }),
     schema: ({ image }) => baseImageSchema.extend({
       image: image(),
     })
   }),
 
   "exhibit-categories": defineCollection({
-    type: "content",
+    loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/exhibit-categories" }),
     schema: z.object({
       dangerous: z.boolean().default(false),
       topDescription: z.string().optional(),
@@ -43,7 +44,7 @@ export const collections = {
   }),
 
   products: defineCollection({
-    type: "content",
+    loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/products" }),
     schema: ({ image }) => baseImageSchema.extend({
       image: image(),
       price: z.number().positive(),

@@ -7,12 +7,12 @@ import { sortBy, startCase, uniqBy } from "lodash-es";
 
 const allProducts = await getCollection("products");
 const categories = sortBy(
-  uniqBy(allProducts, ({ slug }) => slug.split("/")[0]).map(
-    ({ data, slug }) => ({
+  uniqBy(allProducts, ({ id }) => id.split("/")[0]).map(
+    ({ data, id }) => ({
+      id: id.split("/")[0],
       image: data.image,
       imagePosition: data.imagePosition,
-      name: startCase(slug.split("/")[0]),
-      slug: slug.split("/")[0],
+      name: startCase(id.split("/")[0]),
     })
   ),
   ({ name }) => name
@@ -25,14 +25,14 @@ const categories = sortBy(
   <div>
     <ul class="grid-wrapper">
       {
-        categories.map(({ image, imagePosition, name, slug }) => (
+        categories.map(({ image, imagePosition, name, id }) => (
           <li
             style={{
               backgroundImage: `url(${image.src})`,
               backgroundPosition: imagePosition,
             }}
           >
-            <Fixable as="a" fixed={{ class: "fixed" }} href={`${slug}/`}>
+            <Fixable as="a" fixed={{ class: "fixed" }} href={`${id}/`}>
               {name}
             </Fixable>
           </li>

@@ -13,15 +13,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^6.2.0",
+    "@astrojs/markdown-remark": "^6.3.1",
     "@fontsource-variable/cabin": "^5.0.19",
     "@fontsource/corinthia": "^5.0.21",
     "@fontsource/patua-one": "^5.0.19",
-    "astro": "^5.4.2",
+    "astro": "^5.5.5",
     "astro-icon": "^1.1.5",
     "fast-glob": "^3.3.2",
     "lodash-es": "^4.17.21",
-    "typescript": "^5.5.4"
+    "typescript": "^5.8.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

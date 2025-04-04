@@ -20,8 +20,20 @@ import Layout from "@/layouts/Layout.astro";
     </label>
     <label
       >Email address
-      <Fixable as="input" fixed={{ type: "email" }} name="email" />
+      <Fixable
+        as="input"
+        broken={{ type: "text" }}
+        fixed={{ type: "email", "aria-describedby": "email-suggestion" }}
+        name="email"
+        id="email"
+      />
     </label>
+    <Fixable
+      as="div"
+      broken={{ class: "email-did-you-mean__broken" }}
+      fixed={{ class: "email-did-you-mean__fixed", role: "alert" }}
+      id="email-suggestion"
+    />
     <label
       >Phone number
       <Fixable as="input" fixed={{ type: "tel" }} name="phone" />
@@ -29,6 +41,20 @@ import Layout from "@/layouts/Layout.astro";
     <button type="submit">Submit</button>
   </FormLayout>
 </Layout>
+<style>
+  #email-suggestion {
+    display: none;
+    margin-block-start: -1rem;
+  }
+
+  .email-did-you-mean__broken {
+    color: var(--red-warm-400);
+  }
+
+  .email-did-you-mean__fixed {
+    color: var(--red-warm-500);
+  }
+</style>
 
 <script>
   import { disableInputs } from "@/lib/client/form";
@@ -42,4 +68,21 @@ import Layout from "@/layouts/Layout.astro";
     });
     disableInputs(document.querySelector("main form") as HTMLFormElement);
   }, 60000);
+
+  document.getElementById("email")!.addEventListener("blur", function () {
+    const email = (this as HTMLInputElement).value || "";
+    const suggestion = document.getElementById("email-suggestion")!;
+    if (
+      email &&
+      email.includes("@") &&
+      !email.endsWith("@gmail.com") &&
+      !email.endsWith("@hotmail.com")
+    ) {
+      suggestion.style.display = "block";
+      suggestion.textContent = "Did you mean gmail.com or hotmail.com?";
+    } else {
+      suggestion.style.display = "";
+      suggestion.textContent = "";
+    }
+  });
 </script>

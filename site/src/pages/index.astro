@@ -1003,6 +1003,10 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
       <p>This section includes task completion and form based failures. This includes a small number of errors.</p>
 
       <dl slot="wcag2">
+        <dt>1.4.3 and 1.4.6: Contrast</dt>
+        <dd>
+          The "did you mean" email prompt has insufficient contrast.
+        </dd>
         <dt>2.2.3: No Timing</dt>
         <dd>
           The volunteer form becomes unsubmittable after a short time,
@@ -1017,9 +1021,20 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
           When the form becomes disabled, the toast that appears
           does not grab focus and is not announced.
         </dd>
+        <dd>
+          The "did you mean" email prompt doesn't grab focus and isn't announced.
+        </dd>
       </dl>
 
       <dl slot="wcag3">
+        <dt>Minimum text contrast</dt>
+        <dd>
+          The "did you mean" email prompt has insufficient contrast.
+        </dd>
+        <dt>Error identification</dt>
+        <dd>
+          The "did you mean" email prompt isn't programmatically associated with the error source.
+        </dd>
         <dt>Persistent error notification</dt>
         <dd>
           The timeout notification toast dismisses itself automatically

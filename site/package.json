@@ -17,7 +17,7 @@
     "@fontsource-variable/cabin": "^5.0.19",
     "@fontsource/corinthia": "^5.0.21",
     "@fontsource/patua-one": "^5.0.19",
-    "astro": "^5.5.5",
+    "astro": "^5.7.10",
     "astro-icon": "^1.1.5",
     "fast-glob": "^3.3.2",
     "lodash-es": "^4.17.21",

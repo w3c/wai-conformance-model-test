@@ -15,10 +15,19 @@ type ImageEntry =
 
 const { entries } = Astro.props;
 
-const collectionLabels = {
-  blog: "Post",
-  exhibits: "Exhibit",
-  products: "Merch",
+const collectionMap = {
+  blog: {
+    label: "Post",
+    path: "blog",
+  },
+  exhibits: {
+    label: "Exhibit",
+    path: "collections",
+  },
+  products: {
+    label: "Merch",
+    path: "gift-shop"
+  },
 };
 ---
 
@@ -32,14 +41,14 @@ const collectionLabels = {
       >
         <FixableRegion>
           <div class="overline">L A T E S T &nbsp; {
-            collectionLabels[entry.collection].toUpperCase().split("").join(" ")
+            collectionMap[entry.collection].label.toUpperCase().split("").join(" ")
           }</div>
-          <div slot="fixed" class="overline">Latest {collectionLabels[entry.collection]}</div>
+          <div slot="fixed" class="overline">Latest {collectionMap[entry.collection].label}</div>
         </FixableRegion>
         <div class="title">{entry.data.title}</div>
         <a
           class="button"
-          href={`${museumBaseUrl}${entry.collection}/${entry.id}/`}
+          href={`${museumBaseUrl}${collectionMap[entry.collection].path}/${entry.id}/`}
         >
           Read more
         </a>

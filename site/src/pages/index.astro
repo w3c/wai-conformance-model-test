@@ -36,6 +36,10 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     <p>
       <a href="museum/">Visit the Museum of Broken Things</a>
     </p>
+    <p>
+      <button id="clear-localStorage">Clear local storage</button>
+      (Note: If the site is open in any other tabs, they will need to be reloaded)
+    </p>
   </section>
 
   <section id="summary-of-failures">
@@ -1187,6 +1191,12 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
 </MetaLayout>
 
 <script>
+  import { clear } from "@/lib/client/store";
+
+  document.getElementById("clear-localStorage")!.addEventListener("click", () => {
+    clear();
+  });
+
   if (
     import.meta.env.DEV &&
     location.hash &&

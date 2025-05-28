@@ -36,13 +36,16 @@ type StoreHandler<K extends StoreKey> = (
   previousValue: Store[K] | undefined
 ) => void;
 
+/** Clears all client-side-stored values. To be called ONLY from top-level index. */
+export const clear = () => storage.removeItem(storageKey);
+
 function initStore() {
   try {
     const json = storage.getItem(storageKey);
     return storeSchema.parse(json ? JSON.parse(json) : {});
   } catch (error) {
     // Reset store upon error in parsing JSON or validating schema (e.g. due to upgrades)
-    storage.removeItem(storageKey);
+    clear();
     return storeSchema.parse({});
   }
 }

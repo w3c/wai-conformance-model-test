@@ -19,7 +19,9 @@
     "@fontsource/patua-one": "^5.0.19",
     "astro": "^5.7.13",
     "astro-icon": "^1.1.5",
+    "cheerio": "^1.0.0",
     "fast-glob": "^3.3.2",
+    "github-slugger": "^2.0.0",
     "lodash-es": "^4.17.21",
     "typescript": "^5.8.2"
   },

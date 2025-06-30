@@ -23,7 +23,7 @@ const flattenedNavLinks = defaultNavLinks.reduce((links, parentOrLink) => {
 }, [] as NavLink[]);
 ---
 
-<footer class={mode}>
+<footer id="footer" class={mode}>
   <div class="links">
     {
       flattenedNavLinks.map(({ name, href, footerClass }) => (

@@ -2,6 +2,9 @@
 import Fixable from "@/components/Fixable.astro";
 import FormLayout from "@/components/FormLayout.astro";
 import Layout from "@/layouts/Layout.astro";
+
+/** @breaklocation Volunteer */
+/** @breakprocess volunteering */
 ---
 
 <Layout title="Volunteer">
@@ -28,6 +31,24 @@ import Layout from "@/layouts/Layout.astro";
         id="email"
       />
     </label>
+    {
+      /**
+       * @break
+       * wcag2:
+       *   - 1.4.3
+       *   - 1.4.6
+       * wcag3: Text contrast sufficient (minimum)
+       * description: |
+       *   The "did you mean" email prompt has insufficient contrast.
+       */
+      /**
+       * @break
+       * wcag2: 4.1.3
+       * wcag3: Error notifications available
+       * description: |
+       *   The "did you mean" email prompt doesn't grab focus and isn't announced.
+       */
+    }
     <Fixable
       as="div"
       broken={{ class: "email-did-you-mean__broken" }}
@@ -60,7 +81,40 @@ import Layout from "@/layouts/Layout.astro";
   import { disableInputs } from "@/lib/client/form";
   import { showToast } from "@/lib/client/toast";
 
+  /**
+   * @break
+   * wcag2: 2.2.3
+   * wcag3: Timeout adjustable
+   * description: |
+   *   The toast that appears when the timeout lapses disappears after a few seconds,
+   *   and this cannot be prevented.
+   */
+  /**
+   * @break
+   * wcag2: 2.2.6
+   * wcag3:
+   *   - No time limits
+   *   - Time limits conveyed
+   * description: |
+   *   The form becomes unsubmittable after a short time period,
+   *   which is not disclosed in advance and cannot be adjusted or disabled.
+   */
   setTimeout(() => {
+    /**
+     * @break
+     * wcag2: 4.1.3
+     * wcag3: Error notifications available
+     * description: |
+     *   When the form times out, the toast that appears
+     *   does not grab focus and is not announced.
+     */
+    /**
+     * @break
+     * wcag3: Error messages persistent
+     * description: |
+     *   The timeout notification toast dismisses itself automatically
+     *   without waiting for the user.
+     */
     showToast("The form has expired; please refresh the page to start over.", {
       duration: 3000,
       type: "error",

@@ -1,5 +1,11 @@
 ---
 title: Technology
+breaklocation: Technology Collection
+breakprocess: collections
+breaks:
+- wcag2: 1.1.1
+  wcag3: Image alternatives available
+  description: Some of the exhibit images lack alt text.
 ---
 
 <p class="h4">Welcome to the Broken Technology Collection!</p>

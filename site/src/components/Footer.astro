@@ -21,6 +21,18 @@ const flattenedNavLinks = defaultNavLinks.reduce((links, parentOrLink) => {
   else links.push(parentOrLink);
   return links;
 }, [] as NavLink[]);
+
+/**
+ * @break
+ * location: Home & Search
+ * process: ALL
+ * href: "/#footer"
+ * wcag2: 1.4.6
+ * wcag3: Text contrast sufficient (minimum)
+ * description: The text in the footer is lower contrast and smaller size.
+ * discussionItems:
+ *   - This break is actually site-wide and maybe not intentional
+ */
 ---
 
 <footer id="footer" class={mode}>

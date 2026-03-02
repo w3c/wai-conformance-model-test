@@ -2,6 +2,9 @@
 import Fixable from "@/components/Fixable.astro";
 import FormLayout from "@/components/FormLayout.astro";
 import Layout from "@/layouts/Layout.astro";
+
+/** @breaklocation Register & Sign In */
+/** @breakprocess volunteering */
 ---
 
 <Layout title="Create Account">
@@ -32,7 +35,57 @@ import Layout from "@/layouts/Layout.astro";
       <input name="password-confirm" type="password" />
     </label>
     <h2>Prove You're a Human</h2>
+    {
+      /**
+       * @break
+       * href: "#prove-youre-a-human"
+       * wcag2: 1.1.1
+       * wcag3: Image alternatives available
+       * description: A CAPTCHA image is required and no text alternative is provided.
+       */
+      /**
+       * @break
+       * href: "#prove-youre-a-human"
+       * wcag2:
+       *   - 3.3.8
+       *   - 3.3.9
+       * wcag3: Cognitive test alternatives available
+       * description: A cognitive test is present on the Register page.
+       */
+    }
     <canvas id="captcha" width="360" height="80"></canvas>
+    {
+      /**
+       * @break
+       * href: "#prove-youre-a-human"
+       * wcag2: 1.4.1
+       * wcag3: Focus indicator contrast sufficient
+       * description: |
+       *   The focused state of the CAPTCHA field only affects its existing border,
+       *   and does not have sufficient contrast against the unfocused state.
+       */
+      /**
+       * @break
+       * href: "#prove-youre-a-human"
+       * wcag2: 2.4.13
+       * wcag3: Focus indicator size sufficient
+       * description: |
+       *   The focused state of the CAPTCHA field only affects a 1px-thick border,
+       *   and does not have sufficient contrast against the unfocused state.
+       */
+      /**
+       * @break
+       * href: "#prove-youre-a-human"
+       * wcag3: Interactive element contrast sufficient
+       * description:
+       *   - The CAPTCHA field has an invisible text cursor/caret.
+       *   - |
+       *     The CAPTCHA field is initially empty and indicated only by a
+       *     low-contrast underline, making its target area ambiguous.
+       * discussionItems:
+       *   - Does the invisible text cursor/caret fail INteractive element contrast?
+       */
+    }
     <label
       >Enter the letters shown above:
       <input name="captcha" class="captcha" />

@@ -12,9 +12,41 @@ const headerNavLinks =
         ...defaultNavLinks.filter(({ name }) => name !== "About"),
       ]
     : defaultNavLinks;
+
+/** @breaklocation About */
+/** @breakprocess learning */
 ---
 
 <Layout title="About" {headerNavLinks}>
+  {
+    /**
+     * @break
+     * wcag2:
+     *   - 1.1.1
+     *   - 4.1.2
+     * wcag3:
+     *   - Image alternatives available
+     *   - Roles, values, states, properties available
+     * description: |
+     *   Images of text are used for headings,
+     *   but the image has no accessible name / text equivalent.
+     */
+    /**
+     * @break
+     * wcag2: 1.4.12
+     * description: Heading text cannot be adjusted.
+     */
+    /**
+     * @break
+     * wcag3: Relationships detectable
+     * description: The headings and other structural elements are not reflected in code.
+     */
+    /**
+     * @break
+     * wcag3: Blocks of content available (minimum)
+     * description: There is no margin between paragraphs.
+     */
+  }
   <h1 class="masked about"><span>About The Museum</span></h1>
   <div class={getMode() === "broken" ? "broken" : undefined}>
     <p>
@@ -22,6 +54,24 @@ const headerNavLinks =
       On this page, you'll find out about our mission and opening times.
     </p>
 
+    {
+      /**
+       * @break
+       * wcag2: 1.4.4
+       * description: |
+       *   The mission statement cuts off beyond a set maximum height,
+       *   noticeable on mobile or when zoom is increased.
+       */
+      /**
+       * @break
+       * wcag3: Text style readable (minimum)
+       * description: |
+       *   The mission statement and the days of the week in the schedule are rendered
+       *   in a cursive handwriting font.
+       * discussionItems:
+       *   - Is the hard-to-read text that's used in the mission statement and table headers just bad usability or an accessibility issue?
+       */
+    }
     <aside class="mission-statement">
       The Museum Of Broken Things aims to engage and provoke
       <abbr title="Web Content Accessibility Guidelines">WCAG-y</abbr>
@@ -31,6 +81,27 @@ const headerNavLinks =
 
     <h2 class="masked hours"><span>Opening Hours</span></h2>
 
+    {
+      /**
+       * @break
+       * href: "#opening-hours"
+       * wcag2: 1.3.1
+       * wcag3: Relationships detectable
+       * description: |
+       *   The table's layout changes at smaller breakpoints,
+       *   but the relevant ARIA attributes aren't also updated,
+       *   resulting in incorrect relationships between the data.
+       * discussionItems:
+       *   - Is using the ARIA grid role on a table of static content an issue?
+       */
+      /**
+       * @break
+       * href: "#opening-hours"
+       * wcag2: 1.4.3
+       * wcag3: Text contrast sufficient (minimum)
+       * description: The text in the table header cells has insufficent contrast.
+       */
+    }
     <div class="table__desktop" role="grid">
       <div class="row" role="row">
         <div class="cell" role="columnheader">Mon</div>
@@ -83,6 +154,26 @@ const headerNavLinks =
       </div>
     </div>
 
+    {
+      /**
+       * @break
+       * href: "#travel-directions"
+       * wcag2: 1.3.1
+       * wcag3:
+       *   - Images detectable
+       *   - Sections labeled
+       * description: |
+       *   The Travel Directions heading is marked up as a <code>div</code> with no ARIA role.
+       */
+      /**
+       * @break
+       * href: "#travel-directions"
+       * wcag2:
+       *   - 1.4.5
+       *   - 1.4.9
+       * description: The Travel Directions "heading" is an image of text.
+       */
+    }
     <div class="header-gradient-backer" id="travel-directions">
       <svg
         class="travel-directions"
@@ -108,6 +199,19 @@ const headerNavLinks =
         <rect fill="#fff" x="0" y="0" height="100%" width="100%"></rect>
       </svg>
     </div>
+    {
+      /**
+       * @break
+       * href: "#travel-directions"
+       * wcag2: 2.4.9
+       * wcag3:
+       *   - Interactive element names available
+       *   - Roles, values, states, properties available
+       * description: The "here" link under the Travel Directions heading is ambiguous.
+       * discussionItems:
+       *   - Does this fail Name, role, value, state for WCAG 3?
+       */
+    }
     <p>For travel directions, click <a href="../map/">here</a> to see the Museum Map page.</p>
   </div>
 </Layout>

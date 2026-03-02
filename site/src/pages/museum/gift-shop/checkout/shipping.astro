@@ -2,6 +2,9 @@
 import FixableRegion from "@/components/FixableRegion.astro";
 import FormLayout from "@/components/FormLayout.astro";
 import ShopLayout from "@/layouts/ShopLayout.astro";
+
+/** @breaklocation Gift Shop */
+/** @breakprocess gift-shop */
 ---
 
 <ShopLayout title="Checkout">
@@ -58,6 +61,12 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
 
   form.addEventListener("focusout", refreshErrors);
 
+  /**
+   * @break
+   * wcag2: 2.2.3
+   * description: |
+   *   Forms in the checkout process time out after an undisclosed period of time.
+   */
   setTimeout(() => {
     showToast(`The form has expired; you will need to start over.`, {
       role: "alert",

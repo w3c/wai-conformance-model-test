@@ -8,8 +8,37 @@ interface Props {
 }
 
 const { id, size = 48 } = Astro.props;
+
+// TODO: this is currently broken in all collections
+/** @breaklocation Dishes Collection */
+/** @breakprocess collections */
+/** @breakhref /collections/dishes/blue-dish/#main */
 ---
 
+{
+  /**
+   * @break
+   * wcag2: 2.1.1
+   * wcag3: Keyboard operable
+   * description: The favorites marker is not accessible via keyboard.
+   */
+  /**
+   * @break
+   * location: Containers Collection
+   * wcag2: 1.3.6
+   * wcag3: Roles, values, states, properties available
+   * description: The favorite toggle does not programmatically indicate that it accepts input.
+   */
+  /**
+   * @break
+   * location: Containers Collection
+   * wcag2: 1.4.11
+   * wcag3: Interactive element contrast sufficient
+   * description: |
+   *   The favorite icon uses a color that does not always maintain sufficient contrast with the background
+   *   (see old clay jug).
+   */
+}
 <FixableRegion>
   <div class="favorite broken" id={`favorite-${id}`}>
     <Icon name="ri:heart-line" class="off" {size} />
@@ -44,6 +73,20 @@ const { id, size = 48 } = Astro.props;
       if (el.tagName === "BUTTON") el.setAttribute("aria-checked", "" + value);
       else el.classList.toggle("added", value);
 
+      /**
+       * @break
+       * wcag2: 2.2.3
+       * wcag3: Timeout adjustable
+       * description: |
+       *   The toast displayed when the favorite state is toggled contains an undo button,
+       *   but the toast disappears in a few seconds, giving the user limited time to interact.
+       */
+      /**
+       * @break
+       * wcag3: Notifications adjustable
+       * description: |
+       *   The confirmation toasts in response to toggling favorites cannot be customized or disabled.
+       */
       // Show toast, but only in response to user-initiated changes on current page
       // (either via favorite button or undo in confirmation toast)
       if (oldFavorites) {

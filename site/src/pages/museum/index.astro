@@ -32,6 +32,19 @@ const carouselEntries = confirmDefinedEntries([
   await getEntry("exhibits", "technology/crt-monitor"),
   await getEntry("products", "vessels/water-bottle"),
 ]);
+
+/** @breaklocation Home & Search */
+/** @breakprocess learning */
+/**
+ * @break
+ * wcag2: 2.4.9
+ * wcag3:
+ *   - Interactive element names available
+ *   - Roles, values, states, properties available
+ * description: The Read More and Explore link text does not provide enough information to know which links go where.
+ * discussionItems:
+ *   - Do the Read More and Explore links fail Name, role, value, state under WCAG 3?
+ */
 ---
 
 <Layout title="Home" withFixedSearch={false} withInsetMain={false}>
@@ -73,6 +86,15 @@ const carouselEntries = confirmDefinedEntries([
   </div>
 
   <h2 class="inset">Coming soon: Our homes exhibit.</h2>
+  {
+    /**
+     * @break
+     * href: "#coming-soon-our-homes-exhibit"
+     * wcag2: 1.2.5
+     * wcag3: Audio descriptions available (prerecorded)
+     * description: No spoken description is provided for the promotional video at the bottom of the home page.
+     */
+  }
   <Video backdrop src="exhibit-landscape.mp4" />
 </Layout>
 

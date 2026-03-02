@@ -1,0 +1,39 @@
+[
+  {
+    "id": "learning",
+    "title": "Viewing the Home, About, and Help pages"
+  },
+  {
+    "id": "searching",
+    "title": "Performing a search from any page, and viewing the search results"
+  },
+  {
+    "id": "collections",
+    "title": "Browsing the list of collections, the list of exhibits in a collection, and specific exhibit pages",
+    "discussionItems": [
+      "Should emojis that are used as part of a span of text be hidden from assistive technology or have a suitable accessible name to aid in comprehension?",
+      "Is wrapping an animation in a <code>prefers-reduced-motion</code> media query sufficient for automatically animated content?",
+      "Is misusing <a href=\"https://drafts.csswg.org/mediaqueries-5/#forced-colors\">CSS forced colors</a> something that WCAG 3 needs to address?",
+      "Do WCAG 3's Adjust Color and/or AT Control have the same coverage as Section 508's and EN 301 549's <a href=\"https://www.access-board.gov/ict/#503.2\">User Preference</a> requirement?"
+    ]
+  },
+  {
+    "id": "blog",
+    "title": "Viewing the list of blog posts, and reading individual blog entries",
+    "discussionItems": [
+      "In the post titled 'Announcing the Addition of a New Wing', there is a pull quote from the subsequent paragraph, which appears two sentences later in the article. Should the pull quote be hidden from screen readers?"
+    ]
+  },
+  {
+    "id": "gift-shop",
+    "title": "Browsing products in the Gift shop, adding products to cart, viewing/editing the cart, and completing the checkout process"
+  },
+  {
+    "id": "visiting",
+    "title": "Learning how to visit the museum by browsing the Museum Map and Take a Tour pages"
+  },
+  {
+    "id": "volunteering",
+    "title": "Filling out the volunteer form"
+  }
+]

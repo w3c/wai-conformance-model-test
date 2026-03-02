@@ -7,6 +7,14 @@ imageDescription: A woman adjusts a studio microphone on a boom arm in front of 
 imagePosition: right
 video: "live/live.mp4"
 videoCover: "live/live-cover.webp"
+breaklocation: Blog
+breakprocess: blog
+breaks:
+  - wcag2: 1.2.4
+    wcag3: Captions available (prerecorded)
+    description: |
+      The topmost blog post contains a video element representing a live broadcast,
+      which does not include any captions.
 ---
 
 Introducing Our New Podcast Series: <cite>Stories from the Broken</cite>—Join Us for a Live Event!

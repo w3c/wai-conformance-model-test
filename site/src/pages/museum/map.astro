@@ -3,6 +3,9 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import mapImage from "@/assets/images/map/map.png";
 import Layout from "@/layouts/Layout.astro";
+
+/** @breaklocation Museum Map */
+/** @breakprocess visiting */
 ---
 
 <Layout title="Museum Map">
@@ -11,6 +14,22 @@ import Layout from "@/layouts/Layout.astro";
       <h1>Location</h1>
       <p>You can come visit us at:</p>
       <address>Kerbela Street, Shrewsbury, England, SY1 1DG</address>
+      {
+        /**
+         * @break
+         * wcag2: 1.3.3
+         * wcag3: Sensory characteristics not relied on
+         * description: |
+         *   Instructions allude only to color when describing visible map controls, which is insufficient to disambiguate for colorblind users.
+         */
+        /**
+         * @break
+         * wcag2: 1.4.1
+         * wcag3: Hue not relied on
+         * description: |
+         *   The map controls for zooming and panning vertically use the same icons, and are distinguished only by color.
+         */
+      }
       <h2>Map Usage Instructions</h2>
       <ul>
         <li>
@@ -29,6 +48,15 @@ import Layout from "@/layouts/Layout.astro";
     </div>
     <div class="map-container">
       <div class="image-wrapper">
+        {
+          /**
+           * @break
+           * wcag2: 1.4.11
+           * description: The pin on the map uses a color that has extremely poor contrast against the map's colors.
+           * discussionItems:
+           *   - Would this fail any WCAG 3 guideline? It is neither text nor a control.
+           */
+        }
         <Image
           src={mapImage}
           alt="Draggable Image"
@@ -36,6 +64,28 @@ import Layout from "@/layouts/Layout.astro";
           id="draggable-image"
         />
       </div>
+      {
+        /**
+         * @break
+         * wcag2: 1.1.1
+         * wcag3: Image alternatives available
+         * description: The arrow buttons over the map do not contain text labels.
+         */
+        /**
+         * @break
+         * wcag2: 1.4.10
+         * wcag3: Layout reflow supported
+         * description: The controls disappear when magnified.
+         */
+        /**
+         * @break
+         * wcag2: 2.4.13
+         * wcag3: Focus indicator contrast sufficient
+         * description: |
+         *   The map controls use a dotted focus outline with a color that falls well below
+         *   3:1 contrast against the underlying map.
+         */
+      }
       <div class="controls hidden-below-md">
         <button id="in"><Icon name="ri:arrow-up-s-fill" /></button>
         <button id="up"><Icon name="ri:arrow-up-s-fill" /></button>
@@ -107,6 +157,12 @@ import Layout from "@/layouts/Layout.astro";
     return Math.sqrt(diffX * diffX + diffY * diffY);
   }
 
+  /**
+   * @break
+   * wcag2: 2.5.1
+   * wcag3: Simple pointer input available
+   * description: On mobile devices, the only way to zoom the map is via a pinch gesture.
+   */
   container.addEventListener("pointerdown", (event) => {
     if (event.button !== 0 || (primaryPointer && secondaryPointer)) return;
     event.preventDefault();
@@ -170,6 +226,20 @@ import Layout from "@/layouts/Layout.astro";
 
   // Keyboard handler
 
+  /**
+   * @break
+   * wcag2: 2.1.4
+   * wcag3:
+   *   - No keyboard conflicts
+   * description: |
+   *   Single-character key bindings are implemented across the entire page
+   *   for map movement, and cannot be turned off or customized.
+   */
+  /**
+   * @break
+   * wcag3: Keyboard effort comparable
+   * description: Panning the map can require many more keypresses compared to dragging a pointer device.
+   */
   document.body.addEventListener("keydown", (event) => {
     if (event.key === "w") container.scrollTop -= increment;
     if (event.key === "s") container.scrollTop += increment;

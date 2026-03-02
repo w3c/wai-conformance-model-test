@@ -1,13 +1,14 @@
 {
-  // Note: No change needed if you use "astro/tsconfigs/strict" or "astro/tsconfigs/strictest"
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["src/*"]
     },
     "strictNullChecks": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": ["dist"]
 }

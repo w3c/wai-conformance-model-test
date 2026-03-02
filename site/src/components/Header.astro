@@ -12,8 +12,22 @@ interface Props {
 }
 
 const { searchMode } = Astro.props;
+
+/** @breaklocation Home & Search */
+/** @breakprocess ALL */
+/** @breakhref / */
 ---
 
+{
+  /**
+   * @break
+   * wcag2: 1.4.10
+   * wcag3: Text reflow supported
+   * description:
+   *   - When zoomed, the header text moves off the background.
+   *   - At 400% zoom, the cookie notice occupies more than the full screen and cannot be scrolled.
+   */
+}
 <header>
   <a class="logo" href={museumBaseUrl}
     ><Image src={logo} alt="" width="80" height="80" />

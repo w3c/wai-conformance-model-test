@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config';
 
 import icon from "astro-icon";
 
+import preact from "@astrojs/preact";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://w3c.github.io",
@@ -9,11 +11,12 @@ export default defineConfig({
   trailingSlash: "always",
   server: {
     host: true,
-    port: 4323
+    port: 4323,
   },
   integrations: [
     icon({
       iconDir: "src/assets/icons",
     }),
-  ]
+    preact(),
+  ],
 });

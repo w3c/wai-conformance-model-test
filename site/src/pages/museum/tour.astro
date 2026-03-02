@@ -4,6 +4,16 @@ import Video from "@/components/Video.astro";
 import { getMode } from "@/lib/mode";
 import { defaultNavLinks, filterNavTreeLinks } from "@/lib/nav-links";
 
+/** @breaklocation Take a Tour */
+/** @breakprocess visiting */
+
+/**
+ * @break
+ * href: ""
+ * wcag2: 3.2.3
+ * wcag3: Consistent navigation order
+ * description: The "Take a Tour" item is missing from the top nav on this page.
+ */
 const headerNavLinks =
   getMode() === "broken"
     ? filterNavTreeLinks(defaultNavLinks, ({ name }) => name !== "Take a Tour")
@@ -12,7 +22,51 @@ const headerNavLinks =
 
 <Layout title="Take a Tour" {headerNavLinks}>
   <h1>Take a Tour</h1>
+  {
+    /**
+     * @break
+     * wcag2:
+     *   - 1.2.3
+     *   - 1.2.5
+     * description: |
+     *   No audio description, nor media alternative, is provided to explain the non-narrated contents of
+     *   the video at the top of the page.
+     */
+    /**
+     * @break
+     * wcag2: 1.2.6
+     * wcag3: Sign language available (prerecorded)
+     * description: |
+     *   No sign language interpretation is provided for the prerecorded audio content
+     *   in the video at the top of the page.
+     */
+    /**
+     * @break
+     * wcag3: Audio descriptions available (prerecorded)
+     * description: |
+     *   No audio description is provided to explain the non-narrated contents of
+     *   the video at the top of the page.
+     */
+    /**
+     * @break
+     * wcag3:
+     *   - Media alternatives findable
+     *   - Transcripts available
+     * description: |
+     *   No media alternative is provided to explain the contents of
+     *   the video at the top of the page.
+     */
+  }
   <Video src="welcome-tour.mp4" autoplay />
+
+  {
+    /**
+     * @break
+     * wcag2: 2.2.4
+     * wcag3: Notifications adjustable
+     * description: The time to next departure is called out every 15 seconds and cannot be turned off.
+     */
+  }
   <div role="alert" class="next-tour">
     Next tour departs in
     <strong id="next-tour-countdown"></strong>

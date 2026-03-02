@@ -1,5 +1,10 @@
 ---
 title: Glass
+breaklocation: Glass Collection
+breakprocess: collections
+breaks:
+- wcag2: 3.1.5
+  description: The Glass collection has a reading level of advanced education with no alternative version.
 ---
 
 <p class="h4">Welcome to the Shattered Treasures Collection.</p>

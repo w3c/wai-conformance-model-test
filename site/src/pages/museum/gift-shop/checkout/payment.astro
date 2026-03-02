@@ -3,6 +3,9 @@ import Fixable from "@/components/Fixable.astro";
 import FixableRegion from "@/components/FixableRegion.astro";
 import FormLayout from "@/components/FormLayout.astro";
 import ShopLayout from "@/layouts/ShopLayout.astro";
+
+/** @breaklocation Gift Shop */
+/** @breakprocess gift-shop */
 ---
 
 <ShopLayout title="Checkout">
@@ -12,12 +15,87 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
     The payment method you enter below will be charged <strong id="total"
     ></strong>.
   </p>
+  {
+    /**
+     * @break
+     * wcag2:
+     *   - 3.3.4
+     *   - 3.3.6
+     * description:
+     *   There is no confirmation step after entering payment information.
+     */
+  }
   <Fixable
     as={FormLayout}
     broken={{ action: "../confirmation/" }}
     fixed={{ action: "../review/" }}
   >
+    {
+      /**
+       * @break
+       * wcag2: 3.3.1
+       * wcag3: Errors associated
+       * description: |
+       *   Errors in the payment form are not programmatically associated with the field that caused the failure.
+       */
+      /**
+       * @break
+       * wcag2: 3.3.1
+       * wcag3: Error notifications available
+       * description: |
+       *   Errors in the payment form do not specifically describe what requirement was not met.
+       */
+      /**
+       * @break
+       * wcag2: 3.3.3
+       * wcag3: Error suggestions provided
+       * description: The payment form does not suggest corrections for formatting errors.
+       */
+      /**
+       * @break
+       * wcag3: Error notifications available
+       * description: The only indication of errors in payment form fields is a border color change.
+       */
+      /**
+       * @break
+       * wcag3: Error messages persistent
+       * description: |
+       *   There is no way to dismiss errors until the entire form is resubmitted.
+       * discussionItems:
+       *   - Does this not actually fail? The requirement now says "at least until the error is resolved or the user dismisses them",
+       *     which could be interpreted to mean that it's okay for them to stay around forever.
+       */
+      /**
+       * @break
+       * wcag3: Error messages collocated
+       * description: |
+       *   The payment form only displays one generic error message at the top.
+       */
+    }
     <p id="error" class="error" hidden></p>
+    {
+      /**
+       * @break
+       * wcag2: 3.3.2
+       * wcag3: Interactive element names available
+       * description: |
+       *   Fields in the payment form have no labels.
+       */
+      /**
+       * @break
+       * wcag2: 3.3.2
+       * description: |
+       *   The payment form does not provide any indication of accepted input formats.
+       * discussionItems:
+       *   - Is there an equivalent under WCAG 3 that this would fail?
+       */
+      /**
+       * @break
+       * wcag3: Required action available
+       * description: |
+       *   The payment form does not visibly indicate required fields until the user attempts to submit.
+       */
+    }
     <input name="name" placeholder="Name on Card" />
     <input name="card" placeholder="Card Number" />
     <input name="expiration" placeholder="Expiration" />
@@ -41,6 +119,11 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
 
   const form = document.querySelector("main form") as HTMLFormElement;
 
+  /**
+   * @break
+   * wcag3: Automated entry allowed
+   * description: The input fields on the payment step disallow paste.
+   */
   if (getMode() === "broken") {
     form
       .querySelectorAll("input")
@@ -69,6 +152,33 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
     }
   });
 
+  /**
+   * @break
+   * wcag2: 4.1.3
+   * wcag3:
+   *   - Change of content notified
+   *   - Change of focus notified
+   * description: |
+   *   When the payment form becomes disabled, the toast that appears
+   *   does not grab focus and is not announced.
+   */
+  /**
+   * @break
+   * wcag2: 2.2.6
+   * wcag3:
+   *   - No time limits
+   *   - Time limits conveyed
+   * description: |
+   *   There is a timeout on each checkout step that may be
+   *   too short to enter required information.
+   */
+  /**
+   * @break
+   * wcag3: Consistent interactions
+   * description: |
+   *   The toasts displayed upon form timeouts on the shipping and payment steps are
+   *   inconsistent with each other (one has <code>role="alert"</code>, the other does not).
+   */
   setTimeout(() => {
     showToast(`The form has expired; you will need to start over.`, {
       type: "error",

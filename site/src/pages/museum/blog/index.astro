@@ -31,12 +31,65 @@ const postsByCategory = posts.reduce(
   },
   {} as Record<string, typeof posts>
 );
+
+/** @breaklocation Blog */
+/** @breakprocess blog */
 ---
 
+{
+  /**
+   * @break
+   * href: ""
+   * wcag2: 1.4.13
+   * description: |
+   *   In the top navigation bar, nested items open on keyboard focus and can only be dismissed by moving focus.
+   * discussionItems:
+   *   - What does this fail under WCAG 3?
+   */
+  /**
+   * @break
+   * href: ""
+   * wcag2: 2.4.1
+   * description: The "Skip to content" link does not work properly on the blog listing page.
+   * discussionItems:
+   *   - What does this fail under WCAG 3?
+   */
+  /**
+   * @break
+   * href: ""
+   * wcag2: 2.4.13
+   * wcag3:
+   *   - Focus indicator contrast sufficient
+   *   - Focus indicator size sufficient
+   * description: |
+   *   In the top nav, links within submenus indicate focus by only a single border
+       located equidistant from the text above and below it, making it ambiguous
+       which item is focused. When the last item in a submenu is focused,
+       the indicator has low contrast against the page background.
+   */
+  /**
+   * @break
+   * href: ""
+   * wcag2: 4.1.2
+   * wcag3: Roles, values, states, properties available
+   * description: In the top navigation bar, there is no programmatic indication of expandable items.
+   */
+}
 <Layout headerNavFailureMode="focus" title="Blog" withMainId={false}>
   {
     livePost && (
       <div class="featured">
+        {
+          /**
+           * @break
+           * wcag2:
+           *   - 1.4.3
+           *   - 1.4.6
+           * wcag3: Text contrast sufficient (minimum)
+           * description: |
+           *   The "Blog" heading is superimposed over an image with no overlay to guarantee minimum contrast.
+           */
+        }
         <div>
           <a class="image-link" href={`${livePost.id}/`}>
             <div
@@ -56,6 +109,16 @@ const postsByCategory = posts.reduce(
             <FixableRegion>
               <span slot="fixed">Read more</span>
             </FixableRegion>
+            {
+              /**
+               * @break
+               * wcag2: 2.5.5
+               * description: |
+               *   The link after the excerpt from the topmost post is smaller than 44 by 44 pixels.
+               * discussionItems:
+               *   - Is there no target size requirement in WCAG 3 anymore?
+               */
+            }
             <Fixable
               as={Icon}
               name="ri:arrow-drop-right-line"
@@ -74,6 +137,29 @@ const postsByCategory = posts.reduce(
           <h2>{startCase(category.replace(/-/g, " "))}</h2>
           {postsByCategory[category].map((post) => (
             <div class="post">
+              {
+                /**
+                 * @break
+                 * wcag2: 2.3.3
+                 * description: Images zoom in on hover and do not respect <code>prefers-reduced-motion</code>.
+                 * discussionItems:
+                 *   - This does not fail No visual motion in WCAG 3 because of the "lasting longer than 5 seconds" condition
+                 */
+                /**
+                 * @break
+                 * wcag2:
+                 *   - 2.4.4
+                 *   - 2.4.9
+                 * wcag3:
+                 *   - Interactive element names available
+                 *   - Roles, values, states, properties available
+                 * description: |
+                 *   Each post image, as well as the arrow on the topmost post, links to its post,
+                 *   but has no content to describe the link.
+                 * discussionItems:
+                 *   - Does this fail Name, role, value, state under WCAG 3?
+                 */
+              }
               <a
                 class="image-link"
                 href={`${post.data.brokenUrl ? "broken" : post.id}/`}

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "Home & Search",
+    "path": "",
+    "description": "This section demonstrates content that has a moderate number of accessibility failures. The failures present a mix of those that can be found through automated testing and those that require manual testing."
+  },
+  {
+    "id": "Collections",
+    "path": "collections/",
+    "description": "This section includes only the [All] Colections page, demonstrating content that has a moderate-to-high number of accessibility failures, some of which would be very difficult to work around. The failures present a mix of those that can be found through automated testing and those that require manual testing.",
+    "discussionItems": [
+      "Should emojis that are used as part of a span of text be hidden from assistive technology or have a suitable accessible name to aid in comprehension?",
+      "Is wrapping an animation in a <code>prefers-reduced-motion</code> media query sufficient for automatically animated content?"
+    ]
+  },
+  {
+    "id": "Containers Collection",
+    "path": "collections/containers/",
+    "description": "This section includes the containers collection page and related item subpages, demonstrating content that a number of small accessibility failures."
+  },
+  {
+    "id": "Dishes Collection",
+    "path": "collections/dishes/",
+    "description": "includes the dishes collection page and related item subpages, demonstrating content that has very few accessibility failures, where the failures that exist can be worked around or are in less-important features. The failures present a mix of those that can be found through automated testing and those that require manual testing."
+  },
+  {
+    "id": "Glass Collection",
+    "path": "collections/glass/",
+    "description": "This section includes the glass collection page and related item subpages."
+  },
+  {
+    "id": "Home Collection",
+    "path": "collections/home/",
+    "description": "This section demonstrates content that has few accessibility failures, BUT the failures that exist could cause physical or psychological harm to individuals with disabilities."
+  },
+  {
+    "id": "Music Collection",
+    "path": "collections/music/"
+  },
+  {
+    "id": "Sports Collection",
+    "path": "collections/sports/"
+  },
+  {
+    "id": "Technology Collection",
+    "path": "collections/technology/",
+    "description": "This section includes the technology collection page and related item subpages, demonstrating content that has very few accessibility failures in the programmatic portion of the page but has a number of failures in the content."
+  },
+  {
+    "id": "Early Home Computers Event",
+    "path": "early-home-computers-event/",
+    "description": "This section demonstrates issues with focus management, accessible names, incompletely implement controls for user interface components with ARIA roles, reading order, and Windows high-contrast mode.",
+    "discussionItems": [
+      "Is misusing <a href=\"https://drafts.csswg.org/mediaqueries-5/#forced-colors\">CSS forced colors</a> something that WCAG 3 needs to address?",
+      "Do WCAG 3's Adjust Color and/or AT Control have the same coverage as Section 508's and EN 301 549's <a href=\"https://www.access-board.gov/ict/#503.2\">User Preference</a> requirement?"
+    ]
+  },
+  {
+    "id": "About",
+    "path": "about/"
+  },
+  {
+    "id": "Blog",
+    "path": "blog/",
+    "description": "This section includes the Blog page and related article subpages, demonstrating a moderate level of content, interaction, and multimedia failures.",
+    "discussionItems": [
+      "In the post titled 'Announcing the Addition of a New Wing', there is a pull quote from the subsequent paragraph, which appears two sentences later in the article. Should the pull quote be hidden from screen readers?"
+    ]
+  },
+  {
+    "id": "Gift Shop",
+    "path": "gift-shop/",
+    "description": "This section includes the Gift shop, product subpages and checkout process, demonstrating task completion and form-based failures. Note that at least one item must be in the cart to continue the checkout process."
+  },
+  {
+    "id": "Help",
+    "path": "help/"
+  },
+  {
+    "id": "Museum Map",
+    "path": "map/"
+  },
+  {
+    "id": "Register & Sign In",
+    "path": "login/",
+    "description": "This section includes the registration and sign in processes, demonstrating failures related to task completion, forms, and authentication."
+  },
+  {
+    "id": "Take a Tour",
+    "path": "tour/",
+    "description": "This section includes the Take a Tour page and related subpages, demonstrating task completion and multimedia failures."
+  },
+  {
+    "id": "Volunteer",
+    "path": "volunteer/",
+    "description": "This section includes the volunteer sign up process pages, demonstrating a small number of task completion and form-based failures."
+  }
+]

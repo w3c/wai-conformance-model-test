@@ -4,6 +4,20 @@ import ConditionalParent from "./ConditionalParent.astro";
 import Fixable from "./Fixable.astro";
 
 const isBroken = getMode() === "broken";
+
+/** @breaklocation Home & Search */
+/** @breakprocess ALL */
+/** @breakhref /#footer */
+/**
+ * @break
+ * wcag2:
+ *   - 2.4.11
+ *   - 2.4.12
+ * wcag3: Focus order meaningful
+ * description: |
+ *   The cookie notice at the bottom-left of the page fully obscures some of the footer links,
+ *   which occur before it in the document's focus order.
+ */
 ---
 
 <ConditionalParent as="div" if={isBroken} id="cookie-banner" hidden>

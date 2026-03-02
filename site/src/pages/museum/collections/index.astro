@@ -39,6 +39,17 @@ for (const { data, id } of exhibits) {
 // which we would intentionally want to break anyway)
 const tabIndices = [1, 2, 4, 6, 3, 5, 7];
 
+/** @breaklocation Collections */
+/** @breakprocess collections */
+
+/**
+ * @break
+ * wcag2: 3.2.3
+ * wcag3: Consistent navigation order
+ * description: |
+ *   The links that appear within the "See More" section within the main content
+ *   are removed from the header navigation where they otherwise typically appear.
+ */
 const seeMoreLabels = ["Blog", "Gift Shop"];
 const seeMoreLinks = defaultNavLinks
   .filter((link) => seeMoreLabels.includes(link.name))
@@ -47,9 +58,50 @@ const headerNavLinks = filterNavTreeLinks(
   defaultNavLinks,
   ({ name }) => !seeMoreLabels.includes(name)
 );
+
+/**
+ * @break
+ * wcag2: 1.4.13
+ * wcag3: Hover or focus content dismissible
+ * description: The text displayed over collection images upon hover can't be dismissed without moving the pointer.
+ */
+/**
+ * @break
+ * wcag2: 2.1.1
+ * wcag3: Keyboard operable
+ * description: The text label on each collection's link only becomes visible on hover (not focus).
+ */
+/**
+ * @break
+ * wcag2: 2.2.2
+ * description: The scrolling banner for the PC event lasts for eight seconds.
+ * discussionItems:
+ *   - The scrolling content is only visible for four seconds, so does this fail or not?
+ */
+/**
+ * @break
+ * wcag2: 2.4.3
+ * wcag3: Focus order meaningful
+ * description:
+ *   - The collection links have explicit tabindex attributes, causing them to come before anything else in the page.
+ *   - The links in the "See More" section are not included in the explicit order, meaning focus tabs to each collection link,
+ *     then header items, then the "See More" links, then the footer.
+ *   - The explicit tab order is optimized specifically for the widest layout,
+ *     making it incorrect even within the collections list on narrower viewports.
+ */
 ---
 
 <Layout title="Collections" {headerNavLinks}>
+  {
+    /**
+     * @break
+     * wcag2: 2.4.10
+     * wcag3: Heading structure available
+     * description: The page doesn't have an H1.
+     * discussionItems:
+     *   - For WCAG 3, is it more appropriate to fail this under Heading structure available or Sections labeled (or both)?
+     */
+  }
   <h2>Our Collections</h2>
   <ul>
     <li class="event">

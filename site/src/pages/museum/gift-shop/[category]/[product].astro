@@ -27,6 +27,10 @@ interface Props {
 
 const { product } = Astro.props;
 const { Content } = await render(product);
+
+/** @breaklocation Gift Shop */
+/** @breakprocess gift-shop */
+/** @breakhref /gift-shop/apparel/tshirt/#main */
 ---
 
 <ShopLayout title={product.data.title}>
@@ -48,6 +52,35 @@ const { Content } = await render(product);
         <input type="hidden" name="price" value={product.data.price} />
         <div class="quantity-controls">
           <label for="quantity">Quantity: </label>
+          {
+            /**
+             * @break
+             * wcag2: 2.4.7
+             * wcag3: Focus indicator contrast sufficient
+             * description: |
+             *   On product pages, the focus is not visible on the increment/decrement buttons
+             *   that adjust the number of items.
+             */
+            /**
+             * @break
+             * wcag2: 3.3.6
+             * description: |
+             *   The quantity field uses <code>type="tel"</code>, which allows non-numeric input,
+             *   rather than the more appropriate <code>type="number"</code>.
+             */
+            /**
+             * @break
+             * wcag3: Focus placed
+             * description:
+             *   - Upon entering an invalid quantity (e.g. 0), pressing add to cart, then dismissing the modal,
+             *     focus is not restored to the add to cart button.
+             *   - Upon entering an invalid quantity (e.g. 0),
+             *     the modal that appears does not grab and trap focus.
+             * discussionItems:
+             *   - Focus placed does not seem to actually cover focus _into_ a modal, only returning from it?
+             *     What requirement would be relevant to failing to move focus inside a modal when it opens?
+             */
+          }
           <FixableRegion>
             <button type="button" id="decrement"
               ><Icon name="ri:arrow-drop-down-line" /></button

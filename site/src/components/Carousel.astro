@@ -29,17 +29,54 @@ const collectionMap = {
     path: "gift-shop"
   },
 };
+
+/** @breaklocation Home & Search */
+/** @breakprocess learning */
+/** @breakhref / */
+
+/**
+ * @break
+ * wcag3: Pointer visible
+ * description: The carousel uses a custom cursor graphic which can be very hard to see.
+ */
 ---
 
+{
+/**
+ * @break
+ * wcag2: 2.2.2
+ * wcag3: No visual motion
+ * description:
+ *   - The carousel does not include controls to stop moving and updating.
+ *   - The promotional video at the bottom of the home page loops infinitely and does not have controls to pause.
+ */
+}
 <div class:list={["carousel", getMode()]}>
   {
     entries.map((entry, i) => (
+      /**
+       * @break
+       * wcag2: 1.4.6
+       * wcag3: Text contrast sufficient (minimum)
+       * description: |
+       *   The semi-transparent backdrop between the carousel text and background image
+       *   is not always enough to guarantee sufficient contrast.
+       */
       <div
         class:list={["entry", !i && "in"]}
         style={{ backgroundImage: `url(${entry.data.image.src})` }}
         {...(i && getMode() === "fixed" && { inert: true })}
       >
         <FixableRegion>
+          {
+            /**
+             * @break
+             * wcag2: 1.3.2
+             * description: The overline text over each title in the carousel uses space characters between each letter.
+             * discussionItems:
+             *   - For WCAG 3, this used to be filed under Unambiguous text, which no longer exists; is there a suitable alternative to fail it under?
+             */
+          }
           <div class="overline">L A T E S T &nbsp; {
             collectionMap[entry.collection].label.toUpperCase().split("").join(" ")
           }</div>

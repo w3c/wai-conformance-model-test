@@ -30,5 +30,7 @@ export const GET: APIRoute = async () => {
       });
   }
 
-  return new Response(JSON.stringify(pageResults));
+  return new Response(JSON.stringify(pageResults), {
+    headers: { "Content-Type": "application/json" },
+  });
 };

@@ -9,6 +9,8 @@ import GithubSlugger from "github-slugger";
  */
 const addHeadingIds: MiddlewareHandler = async (_, next) => {
   const response = await next();
+  if (response.headers.get("Content-Type") !== "text/html") return response;
+
   const $ = load(await response.text());
   const slugger = new GithubSlugger();
 

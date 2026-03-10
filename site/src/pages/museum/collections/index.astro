@@ -82,12 +82,24 @@ const headerNavLinks = filterNavTreeLinks(
  * @break
  * wcag2: 2.4.3
  * wcag3: Focus order meaningful
- * description:
- *   - The collection links have explicit tabindex attributes, causing them to come before anything else in the page.
- *   - The links in the "See More" section are not included in the explicit order, meaning focus tabs to each collection link,
- *     then header items, then the "See More" links, then the footer.
- *   - The explicit tab order is optimized specifically for the widest layout,
- *     making it incorrect even within the collections list on narrower viewports.
+ * description: |
+ *   The collection links have explicit tabindex attributes, causing them to come before anything else in the page.
+ */
+/**
+ * @break
+ * wcag2: 2.4.3
+ * wcag3: Focus order meaningful
+ * description: |
+ *   The links in the "See More" section are not included in the explicit order, meaning focus tabs to each collection link,
+ *   then header items, then the "See More" links, then the footer.
+ */
+/**
+ * @break
+ * wcag2: 2.4.3
+ * wcag3: Focus order meaningful
+ * description: |
+ *   The explicit tab order is optimized specifically for the widest layout,
+ *   making it incorrect even within the collections list on narrower viewports.
  */
 ---
 

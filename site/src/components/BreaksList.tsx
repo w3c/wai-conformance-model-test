@@ -81,8 +81,7 @@ export const BreaksList = ({ breaks, breakProcessesMap }: BreaksListProps) => {
     if (!query) return true;
 
     if (caseInsensitiveIncludes(data.location.id, query)) return true;
-    if (data.description.find((d) => caseInsensitiveIncludes(d, query)))
-      return true;
+    if (caseInsensitiveIncludes(data.description, query)) return true;
 
     if (version === "2")
       return !!data.wcag2!.find(
@@ -217,47 +216,45 @@ export const BreaksList = ({ breaks, breakProcessesMap }: BreaksListProps) => {
                       />
                     </dt>
                   )}
-                  {brk.description.map((description) => (
-                    <dd
-                      id={slugger.slug(
-                        `${name}-${brk[wcagProp]?.replace(/\./g, "-")}`
-                      )}
-                    >
-                      <a href={`${museumBaseUrl.slice(0, -1)}${brk.href}`}>
-                        {brk.href}
-                      </a>
-                      :{" "}
-                      <span dangerouslySetInnerHTML={{ __html: description }} />
-                      {brk.discussionItems &&
-                        (brk.discussionItems.length === 1 ? (
+                  <dd
+                    id={slugger.slug(
+                      `${name}-${brk[wcagProp]?.replace(/\./g, "-")}`
+                    )}
+                  >
+                    <a href={`${museumBaseUrl.slice(0, -1)}${brk.href}`}>
+                      {brk.href}
+                    </a>
+                    :{" "}
+                    <span
+                      dangerouslySetInnerHTML={{ __html: brk.description }}
+                    />
+                    {brk.discussionItems &&
+                      (brk.discussionItems.length === 1 ? (
+                        <div>
+                          <strong class="discussion-item">
+                            Discussion item:
+                          </strong>{" "}
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: brk.discussionItems[0],
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <>
                           <div>
                             <strong class="discussion-item">
-                              Discussion item:
-                            </strong>{" "}
-                            <span
-                              dangerouslySetInnerHTML={{
-                                __html: brk.discussionItems[0],
-                              }}
-                            />
+                              Discussion items:
+                            </strong>
                           </div>
-                        ) : (
-                          <>
-                            <div>
-                              <strong class="discussion-item">
-                                Discussion items:
-                              </strong>
-                            </div>
-                            <ul>
-                              {brk.discussionItems.map((item) => (
-                                <li
-                                  dangerouslySetInnerHTML={{ __html: item }}
-                                />
-                              ))}
-                            </ul>
-                          </>
-                        ))}
-                    </dd>
-                  ))}
+                          <ul>
+                            {brk.discussionItems.map((item) => (
+                              <li dangerouslySetInnerHTML={{ __html: item }} />
+                            ))}
+                          </ul>
+                        </>
+                      ))}
+                  </dd>
                 </>
               ))}
             </dl>

@@ -184,7 +184,7 @@ export const collections = {
     // in order for typings for references and transforms to work
     schema: z
       .object({
-        description: singleOrArray(z.string()).transform(transformToArray),
+        description: z.string(),
         discussionItems: z.array(z.string()).nonempty().optional(),
         href: z.string().regex(/^(\/|#|$)/),
         location: reference("breakSections"),

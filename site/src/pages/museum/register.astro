@@ -19,12 +19,56 @@ import Layout from "@/layouts/Layout.astro";
       fixed={{ role: "alert", tabindex: -1 }}
     />
     <label
-      >Display Name
-      <input name="displayName" />
+      >First name
+      <input name="firstName" />
+    </label>
+    <label
+      >Middle name
+      <input name="middleName" />
+    </label>
+    <label
+      >Last name
+      <input name="lastName" />
     </label>
     <label
       >Email Address
-      <input type="email" name="email" />
+      <Fixable
+        as="input"
+        broken={{ type: "text" }}
+        fixed={{ type: "email", "aria-describedby": "email-suggestion" }}
+        name="email"
+        id="email"
+      />
+    </label>
+    {
+      /**
+       * @break
+       * wcag2:
+       *   - 1.4.3
+       *   - 1.4.6
+       * wcag3: Text contrast sufficient (minimum)
+       * description: |
+       *   The "did you mean" email prompt has insufficient contrast.
+       */
+      /**
+       * @break
+       * wcag2: 4.1.3
+       * wcag3: Error notifications available
+       * description: |
+       *   The "did you mean" email prompt doesn't grab focus and isn't announced.
+       * discussionItems:
+       *   - The message this displays can be confusing/misleading; does that fail any SC/requirement?
+       */
+    }
+    <Fixable
+      as="div"
+      broken={{ class: "email-did-you-mean__broken" }}
+      fixed={{ class: "email-did-you-mean__fixed", role: "alert" }}
+      id="email-suggestion"
+    />
+    <label
+      >Phone number
+      <Fixable as="input" fixed={{ type: "tel" }} name="phone" />
     </label>
     <label
       >Password
@@ -53,6 +97,13 @@ import Layout from "@/layouts/Layout.astro";
        * description: A cognitive test is present on the Register page.
        */
     }
+    <Fixable
+      as="p"
+      id="captcha-error"
+      class="error"
+      hidden
+      fixed={{ role: "alert", tabindex: -1 }}
+    />
     <canvas id="captcha" width="360" height="80"></canvas>
     {
       /**
@@ -119,6 +170,9 @@ import Layout from "@/layouts/Layout.astro";
   });
 
   const errorEl = document.getElementById("error") as HTMLParagraphElement;
+  const captchaErrorEl = document.getElementById(
+    "captcha-error"
+  ) as HTMLParagraphElement;
   const form = document.querySelector("main form") as HTMLFormElement;
   form.addEventListener("submit", (event) => {
     const codeText = codeLetters.join("");
@@ -129,26 +183,56 @@ import Layout from "@/layouts/Layout.astro";
     const result = validateInputs(
       form,
       registrationSchema.extend({
-        displayName: z.string().min(1),
         "password-confirm": z
           .string()
           .min(1)
           .refine((value) => value === form.elements["password"].value),
-        captcha: z.string().refine((value) => value.toUpperCase() === codeText),
       })
     );
 
     if (!result.success) {
       event.preventDefault();
       errorEl.textContent =
-        "All fields are required and the password fields must match.";
+        "All fields except Middle Name are required, and the password fields must match.";
       errorEl.hidden = false;
 
       if (getMode() === "fixed") errorEl.focus();
     }
 
+    const captchaResult = validateInputs(
+      form,
+      z.object({
+        captcha: z.string().refine((value) => value.toUpperCase() === codeText),
+      })
+    );
+    if (!captchaResult.success) {
+      event.preventDefault();
+      captchaErrorEl.textContent =
+        "The text you entered does not match the letters in the image; try again.";
+      captchaErrorEl.hidden = false;
+
+      if (getMode() === "fixed") captchaErrorEl.focus();
+    }
+
     // Re-parse to strip fields that shouldn't persist
     else persist("registration", registrationSchema.parse(result.data));
+  });
+
+  document.getElementById("email")!.addEventListener("blur", function () {
+    const email = (this as HTMLInputElement).value || "";
+    const suggestion = document.getElementById("email-suggestion")!;
+    if (
+      email &&
+      email.includes("@") &&
+      !email.endsWith("@gmail.com") &&
+      !email.endsWith("@hotmail.com")
+    ) {
+      suggestion.style.display = "block";
+      suggestion.textContent = "Did you mean gmail.com or hotmail.com?";
+    } else {
+      suggestion.style.display = "";
+      suggestion.textContent = "";
+    }
   });
 </script>
 
@@ -164,5 +248,18 @@ import Layout from "@/layouts/Layout.astro";
       border-bottom-color: var(--gray-500);
       outline: none;
     }
+  }
+
+  #email-suggestion {
+    display: none;
+    margin-block-start: -1rem;
+  }
+
+  .email-did-you-mean__broken {
+    color: var(--red-warm-400);
+  }
+
+  .email-did-you-mean__fixed {
+    color: var(--red-warm-500);
   }
 </style>

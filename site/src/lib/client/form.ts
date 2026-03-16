@@ -2,7 +2,7 @@ import type { ZodObject, ZodRawShape } from "astro/zod";
 
 /** Utility function for failure cases that disables all inputs/buttons in a form. */
 export function disableInputs(form: HTMLFormElement) {
-  const inputSelectors = ["input", "select", "button"] as const;
+  const inputSelectors = ["input", "select", "textarea", "button"] as const;
   inputSelectors.forEach((selector) =>
     form.querySelectorAll(selector).forEach((el) => (el.disabled = true))
   );

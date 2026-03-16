@@ -23,8 +23,12 @@ export const storeSchema = z.object({
   hasDismissedCookieBanner: z.boolean().default(false),
   loggedInAt: z.string().datetime().nullable().default(null),
   registration: z.object({
+    firstName: z.string().min(1),
+    middleName: z.string().optional(),
+    lastName: z.string().min(1),
     email: z.string().email(),
     password: z.string().min(1),
+    phone: z.string().regex(/^[\d -]+$/),
   }).nullable().default(null),
 });
 export type Store = z.infer<typeof storeSchema>;

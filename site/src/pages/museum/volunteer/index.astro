@@ -1,142 +1,169 @@
 ---
-import Fixable from "@/components/Fixable.astro";
+import ConditionalParent from "@/components/ConditionalParent.astro";
+import FixableRegion from "@/components/FixableRegion.astro";
 import FormLayout from "@/components/FormLayout.astro";
 import Layout from "@/layouts/Layout.astro";
+import { getMode } from "@/lib/mode";
+
+const isBroken = getMode() === "broken";
 
 /** @breaklocation Volunteer */
 /** @breakprocess volunteering */
 ---
 
 <Layout title="Volunteer">
-  <FormLayout action="thank-you/">
-    <label
-      >First name
-      <input name="firstname" />
-    </label>
-    <label
-      >Middle name
-      <input name="middlename" />
-    </label>
-    <label
-      >Last name
-      <input name="lastname" />
-    </label>
-    <label
-      >Email address
-      <Fixable
-        as="input"
-        broken={{ type: "text" }}
-        fixed={{ type: "email", "aria-describedby": "email-suggestion" }}
-        name="email"
-        id="email"
-      />
-    </label>
+  <h1>Thank You to our Volunteers</h1>
+  <p>
+    The Museum would not be where it is today without the generous help of a
+    wide variety of volunteers. We are grateful to everyone who has contributed
+    in any way, and we're incredibly proud of all we've accomplished together.
+  </p>
+  <p id="sign-in-cta" hidden>
+    Interested in volunteering? Please <a href="../login/">sign in</a> to apply.
+  </p>
+  <FormLayout id="volunteer-form" action="thank-you/" hidden>
+    <p>
+      If you are interested in volunteering, please fill out the form below.
+    </p>
+    <h2>Volunteer Application Form</h2>
+    <ConditionalParent as="div" class="fieldset" role="group" if={isBroken}>
+      <ConditionalParent as="fieldset" if={!isBroken}>
+        <FixableRegion>
+          <div id="days-of-week">Days of week available:</div>
+          <legend slot="fixed">Days of week available</legend>
+        </FixableRegion>
+        {
+          [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ].map((day, i) => (
+            <>
+              <input type="checkbox" name="days" id={`days-${i}`} value={i} />
+              <label for={`days-${i}`}>{day}</label>
+            </>
+          ))
+        }
+      </ConditionalParent>
+    </ConditionalParent>
     {
       /**
        * @break
-       * wcag2:
-       *   - 1.4.3
-       *   - 1.4.6
-       * wcag3: Text contrast sufficient (minimum)
-       * description: |
-       *   The "did you mean" email prompt has insufficient contrast.
-       */
-      /**
-       * @break
-       * wcag2: 4.1.3
-       * wcag3: Error notifications available
-       * description: |
-       *   The "did you mean" email prompt doesn't grab focus and isn't announced.
+       * wcag2: 1.3.1
+       * wcag3: Relationships detectable
+       * description: The `aria-labelledby` attribute points to the wrong field.
+       * discussionItems:
+       *   - Do cases where no label or no group role is set also fail this or another SC/requirement?
        */
     }
-    <Fixable
+    <ConditionalParent
       as="div"
-      broken={{ class: "email-did-you-mean__broken" }}
-      fixed={{ class: "email-did-you-mean__fixed", role: "alert" }}
-      id="email-suggestion"
-    />
-    <label
-      >Phone number
-      <Fixable as="input" fixed={{ type: "tel" }} name="phone" />
-    </label>
+      class="fieldset"
+      role="group"
+      aria-labelledby="days-of-week"
+      if={isBroken}
+    >
+      <ConditionalParent as="fieldset" if={!isBroken}>
+        <FixableRegion>
+          <div>Times of day available:</div>
+          <legend slot="fixed">Times of day available</legend>
+        </FixableRegion>
+        {
+          ["Morning", "Afternoon", "Evening"].map((time) => (
+            <>
+              <input
+                type="checkbox"
+                name="times"
+                id={`times-${time.toLowerCase()}`}
+                value={time.toLowerCase()}
+              />
+              <label for={`times-${time.toLowerCase()}`}>{time}</label>
+            </>
+          ))
+        }
+      </ConditionalParent>
+    </ConditionalParent>
+    <ConditionalParent as="div" class="fieldset" if={isBroken}>
+      <ConditionalParent as="fieldset" if={!isBroken}>
+        <FixableRegion>
+          <div>Positions of interest:</div>
+          <legend slot="fixed">Positions of interest</legend>
+        </FixableRegion>
+        <input
+          type="checkbox"
+          name="positions"
+          id="positions-docent"
+          value="docent"
+        />
+        <label for="positions-docent">
+          Docent (requires 60 hours of training)</label
+        >
+        <input
+          type="checkbox"
+          name="positions"
+          id="positions-information-desk"
+          value="information-desk"
+        />
+        <label for="positions-information-desk"> Information Desk</label>
+        <input
+          type="checkbox"
+          name="positions"
+          id="positions-alt"
+          value="alt"
+        />
+        <label for="positions-alt"
+          >Crowdsource alt text for collection images (remote)</label
+        >
+        <div>
+          <input
+            type="checkbox"
+            name="positions"
+            id="positions-other"
+            value="other"
+          />
+          <label for="positions-other">Other (explain expertise)</label>
+          {
+            /**
+             * @break
+             * wcag2: 4.1.2
+             * wcag3: Roles, values, states, properties available
+             * description: The "Other" textarea has no label.
+             */
+            /**
+             * @break
+             * wcag3: Changes to elements notified
+             * description: |
+             *   The "Other" textarea only appears when the "Other (explain expertise)" checkbox is checked.
+             *   This change is not announced.
+             */
+          }
+          <textarea name="positions-other"></textarea>
+        </div>
+      </ConditionalParent>
+    </ConditionalParent>
     <button type="submit">Submit</button>
   </FormLayout>
 </Layout>
-<style>
-  #email-suggestion {
-    display: none;
-    margin-block-start: -1rem;
-  }
-
-  .email-did-you-mean__broken {
-    color: var(--red-warm-400);
-  }
-
-  .email-did-you-mean__fixed {
-    color: var(--red-warm-500);
-  }
-</style>
 
 <script>
-  import { disableInputs } from "@/lib/client/form";
-  import { showToast } from "@/lib/client/toast";
+  import { recall } from "@/lib/client/store";
 
-  /**
-   * @break
-   * wcag2: 2.2.3
-   * wcag3: Timeout adjustable
-   * description: |
-   *   The toast that appears when the timeout lapses disappears after a few seconds,
-   *   and this cannot be prevented.
-   */
-  /**
-   * @break
-   * wcag2: 2.2.6
-   * wcag3:
-   *   - No time limits
-   *   - Time limits conveyed
-   * description: |
-   *   The form becomes unsubmittable after a short time period,
-   *   which is not disclosed in advance and cannot be adjusted or disabled.
-   */
-  setTimeout(() => {
-    /**
-     * @break
-     * wcag2: 4.1.3
-     * wcag3: Error notifications available
-     * description: |
-     *   When the form times out, the toast that appears
-     *   does not grab focus and is not announced.
-     */
-    /**
-     * @break
-     * wcag3: Error messages persistent
-     * description: |
-     *   The timeout notification toast dismisses itself automatically
-     *   without waiting for the user.
-     */
-    showToast("The form has expired; please refresh the page to start over.", {
-      duration: 3000,
-      type: "error",
-      withDismiss: false,
-    });
-    disableInputs(document.querySelector("main form") as HTMLFormElement);
-  }, 60000);
-
-  document.getElementById("email")!.addEventListener("blur", function () {
-    const email = (this as HTMLInputElement).value || "";
-    const suggestion = document.getElementById("email-suggestion")!;
-    if (
-      email &&
-      email.includes("@") &&
-      !email.endsWith("@gmail.com") &&
-      !email.endsWith("@hotmail.com")
-    ) {
-      suggestion.style.display = "block";
-      suggestion.textContent = "Did you mean gmail.com or hotmail.com?";
-    } else {
-      suggestion.style.display = "";
-      suggestion.textContent = "";
-    }
-  });
+  if (recall("loggedInAt"))
+    document.getElementById("volunteer-form")!.hidden = false;
+  else document.getElementById("sign-in-cta")!.hidden = false;
 </script>
+
+<style>
+  input[value="other"]:not(:checked) ~ textarea[name="positions-other"] {
+    display: none;
+  }
+
+  fieldset label,
+  .fieldset label {
+    margin-inline-end: 1em;
+  }
+</style>

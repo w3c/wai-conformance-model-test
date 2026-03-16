@@ -184,6 +184,7 @@ export const collections = {
     // in order for typings for references and transforms to work
     schema: z
       .object({
+        title: z.string().optional(),
         description: z.string(),
         discussionItems: z.array(z.string()).nonempty().optional(),
         href: z.string().regex(/^(\/|#|$)/),

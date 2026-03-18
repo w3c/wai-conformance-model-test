@@ -1,7 +1,6 @@
 ---
 import Fixable from "@/components/Fixable.astro";
 import FixableRegion from "@/components/FixableRegion.astro";
-import FormLayout from "@/components/FormLayout.astro";
 import Layout from "@/layouts/Layout.astro";
 import { museumBaseUrl } from "@/lib/constants";
 
@@ -12,7 +11,7 @@ import { museumBaseUrl } from "@/lib/constants";
 <Layout title="Sign In">
   <h1>Sign In</h1>
   <p id="registered" hidden>Registration successful. Please sign in below.</p>
-  <FormLayout class="form" action={`${museumBaseUrl}`}>
+  <form action={`${museumBaseUrl}`}>
     <Fixable
       as="p"
       id="error"
@@ -49,7 +48,7 @@ import { museumBaseUrl } from "@/lib/constants";
       </Fragment>
     </FixableRegion>
     <button>Submit</button>
-  </FormLayout>
+  </form>
   <p id="register">
     Don't have an account?
     <a href="../register/">Register</a>
@@ -106,7 +105,7 @@ import { museumBaseUrl } from "@/lib/constants";
 </script>
 
 <style>
-  .form {
+  form {
     margin: 10vh 0;
   }
 

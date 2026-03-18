@@ -1,7 +1,6 @@
 ---
 import Fixable from "@/components/Fixable.astro";
 import FixableRegion from "@/components/FixableRegion.astro";
-import FormLayout from "@/components/FormLayout.astro";
 import ShopLayout from "@/layouts/ShopLayout.astro";
 
 /** @breaklocation Gift Shop */
@@ -26,7 +25,7 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
      */
   }
   <Fixable
-    as={FormLayout}
+    as="form"
     broken={{ action: "../confirmation/" }}
     fixed={{ action: "../review/" }}
   >

@@ -1,0 +1,12 @@
+main form:not([method]) {
+  > * {
+    display: block;
+    margin: 1rem 0;
+  }
+
+  & select,
+  & textarea,
+  & input:not([type="checkbox"], [type="radio"]) {
+    display: block;
+  }
+}

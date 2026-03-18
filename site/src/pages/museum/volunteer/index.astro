@@ -1,7 +1,6 @@
 ---
 import ConditionalParent from "@/components/ConditionalParent.astro";
 import FixableRegion from "@/components/FixableRegion.astro";
-import FormLayout from "@/components/FormLayout.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getMode } from "@/lib/mode";
 
@@ -21,7 +20,7 @@ const isBroken = getMode() === "broken";
   <p id="sign-in-cta" hidden>
     Interested in volunteering? Please <a href="../login/">sign in</a> to apply.
   </p>
-  <FormLayout id="volunteer-form" action="thank-you/" hidden>
+  <form id="volunteer-form" action="thank-you/" hidden>
     <p>
       If you are interested in volunteering, please fill out the form below.
     </p>
@@ -146,7 +145,7 @@ const isBroken = getMode() === "broken";
       </ConditionalParent>
     </ConditionalParent>
     <button type="submit">Submit</button>
-  </FormLayout>
+  </form>
 </Layout>
 
 <script>

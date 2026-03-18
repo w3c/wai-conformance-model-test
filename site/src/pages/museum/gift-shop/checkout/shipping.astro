@@ -1,6 +1,5 @@
 ---
 import FixableRegion from "@/components/FixableRegion.astro";
-import FormLayout from "@/components/FormLayout.astro";
 import ShopLayout from "@/layouts/ShopLayout.astro";
 
 /** @breaklocation Gift Shop */
@@ -10,7 +9,7 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
 <ShopLayout title="Checkout">
   <h1>Checkout</h1>
   <FixableRegion><h2 slot="fixed">Shipping Information</h2></FixableRegion>
-  <FormLayout action="../payment/">
+  <form action="../payment/">
     <div id="error" class="error" role="alert" hidden></div>
     <input name="name" placeholder="Recipient Name" />
     <input name="street1" placeholder="Street Address" />
@@ -19,7 +18,7 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
     <input name="state" placeholder="State" />
     <input name="zip" placeholder="ZIP Code" />
     <button>Continue</button>
-  </FormLayout>
+  </form>
 </ShopLayout>
 
 <script>

@@ -1,4 +1,5 @@
 ---
+import Annotation from "@/components/Annotation.astro";
 import Fixable from "@/components/Fixable.astro";
 import FixableRegion from "@/components/FixableRegion.astro";
 import ShopLayout from "@/layouts/ShopLayout.astro";
@@ -20,8 +21,12 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
      * wcag2:
      *   - 3.3.4
      *   - 3.3.6
+     * title: No confirmation step
      * description: |
      *   There is no confirmation step after entering payment information.
+     * fixTitle: Confirmation step included
+     * fixDescription: |
+     *   A confirmation step is displayed after entering payment information.
      */
   }
   <Fixable
@@ -100,8 +105,12 @@ import ShopLayout from "@/layouts/ShopLayout.astro";
     <input name="expiration" placeholder="Expiration" />
     <input name="code" placeholder="CVC" />
     <input name="zip" placeholder="ZIP Code" />
-    <button>Continue</button>
-  </Fixable>
+    <button
+      ><Annotation breakTitle="No confirmation step" offset="left"
+        >Continue</Annotation
+      ></button
+    ></Fixable
+  >
 </ShopLayout>
 
 <script>

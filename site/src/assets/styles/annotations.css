@@ -1,0 +1,46 @@
+body {
+  --annotation-color: #900;
+  &.fixed {
+    --annotation-color: #060;
+  }
+
+  margin: 0 2rem;
+  &:not(.show-annotations) {
+    margin: 0;
+
+    & .annotation-link,
+    & .annotation-list {
+      display: none;
+    }
+  }
+}
+
+.annotation-link {
+  display: inline-block;
+  outline: solid 2px var(--annotation-color);
+  border: solid 2px #fff;
+  background-color: var(--annotation-color);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  margin-inline-start: 1rem;
+  width: 2rem;
+
+  &[class*="offset-"] {
+    margin-inline-start: 0;
+    position: absolute;
+  }
+  &.offset-left {
+    left: -2.5rem;
+  }
+  &.offset-right {
+    right: -2.5rem;
+  }
+}
+
+/* Parent of annotations to be positioned relatively */
+:has(> astro-island > .annotation-link[class*="offset-"]) {
+  overflow: visible;
+  position: relative;
+}

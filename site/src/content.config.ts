@@ -186,6 +186,8 @@ export const collections = {
       .object({
         title: z.string().optional(),
         description: z.string(),
+        fixTitle: z.string().optional(),
+        fixDescription: z.string().optional(),
         discussionItems: z.array(z.string()).nonempty().optional(),
         href: z.string().regex(/^(\/|#|$)/),
         location: reference("breakSections"),

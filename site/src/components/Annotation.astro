@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import { load } from "cheerio";
+import { AnnotationLink, type OffsetDirection } from "./Annotations";
+
+interface Props {
+  /** Title of break the annotation should present information from (for both break and fix) */
+  breakTitle: string;
+  /**
+   * Direction to offset annotation link relative to its parent.
+   * (If unspecified, the link is rendered in flow.)
+   */
+  offset?: OffsetDirection;
+}
+
+const { breakTitle, offset } = Astro.props;
+
+async function resolveBreak() {
+  // Validate that break reference is resolvable
+  // TODO: build a map for this, institute explicit IDs, or add titles to all breaks and use that as ID?
+  const breaks = await getCollection(
+    "breaks",
+    ({ data }) => data.title === breakTitle
+  );
+  if (!breaks.length)
+    throw new Error(`Could not find a break with title ${breakTitle}`);
+  if (breaks.length > 1)
+    throw new Error(`Found multiple breaks with the same title ${breakTitle}`);
+  return breaks[0];
+}
+
+let autoId = 0;
+
+async function renderAnnotatedHtml() {
+    if (!Astro.slots.has("default")) {
+      console.warn("Ignoring <Annotation /> with no content");
+      return "";
+    }
+    const slotHtml = await Astro.slots.render("default");
+    const $ = load(slotHtml, null, false);
+    if (!$.root().children().length) $.root().wrapInner("<span></span>");
+    const $firstChild = $.root().children().first();
+    if (!$firstChild.length)
+      throw new Error(`Could not resolve first child in slot HTML: ${slotHtml}`);
+    $firstChild.attr("data-annotation", breakTitle);
+    if (!$firstChild.attr("id"))
+      $firstChild.attr("id", `annotation-ref-${++autoId}`);
+    return $.html();
+}
+---
+
+<Fragment set:html={renderAnnotatedHtml()} />
+<AnnotationLink breakEntry={await resolveBreak()} {offset} client:only="preact" />

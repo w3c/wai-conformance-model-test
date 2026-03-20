@@ -20,6 +20,7 @@
     "@fontsource-variable/cabin": "^5.0.19",
     "@fontsource/corinthia": "^5.0.21",
     "@fontsource/patua-one": "^5.0.19",
+    "@preact/signals": "^2.8.2",
     "astro": "~5.15.9",
     "astro-icon": "^1.1.5",
     "cheerio": "^1.0.0",

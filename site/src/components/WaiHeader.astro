@@ -69,6 +69,11 @@
     justify-content: space-around;
   }
 
+  .wai-header input:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
   .wai-header-title {
     font-size: 1.5rem;
   }
@@ -89,10 +94,13 @@
     "show-annotations"
   ) as HTMLInputElement;
 
-  showAnnotationsEl.addEventListener("change", () => {
+  function syncState() {
     document.body.classList.toggle(
       "show-annotations",
       showAnnotationsEl.checked
     );
-  });
+  }
+
+  showAnnotationsEl.addEventListener("change", syncState);
+  syncState();
 </script>

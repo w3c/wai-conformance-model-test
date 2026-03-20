@@ -9,11 +9,6 @@ interface Annotation {
 
 const annotations: Signal<Annotation[]> = signal([]);
 
-// TODO: remove if we're sure about not going sidebar route
-// function measureAnnotationPositions() {
-//   return annotations.value.map(({ element }) => element.offsetTop);
-// }
-
 export type OffsetDirection = "left" | "right";
 
 interface AnnotationRegistrationProps {
@@ -57,36 +52,6 @@ export const AnnotationLink = ({
     </a>
   );
 };
-
-// export const AnnotationSidebar = () => {
-//   const positions = useSignal<number[]>([]);
-//   const updatePositions = useCallback(() => {
-//     positions.value = measureAnnotationPositions();
-//   }, []);
-
-//   useLayoutEffect(() => {
-//     updatePositions();
-//     window.addEventListener("resize", updatePositions);
-//     return () => {
-//       window.removeEventListener("resize", updatePositions);
-//     };
-//   }, []);
-
-//   return (
-//     <div class="annotation-bar">
-//       {annotations.value.map(({ element }, i) => (
-//         <a
-//           class="annotation-link"
-//           data-annotation-target={element.id}
-//           href={`#annotation${i + 1}`}
-//           style={{ top: positions.value[i] + "px" }}
-//         >
-//           {i + 1}
-//         </a>
-//       ))}
-//     </div>
-//   );
-// };
 
 export const AnnotationList = () => (
   <div class="annotation-list">

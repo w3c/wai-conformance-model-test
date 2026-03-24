@@ -1,15 +1,10 @@
 import { Signal, signal, useSignal } from "@preact/signals";
 import type { CollectionEntry } from "astro:content";
-import { useLayoutEffect } from "preact/hooks";
+import { useLayoutEffect, useRef } from "preact/hooks";
 
 import wcag2 from "@/lib/wcag2.json";
 
-interface Annotation {
-  breakEntry: CollectionEntry<"breaks">;
-  element: HTMLElement;
-}
-
-const annotations: Signal<Annotation[]> = signal([]);
+const annotations: Signal<CollectionEntry<"breaks">[]> = signal([]);
 
 /**
  * Displays the annotation dialog with the content for the given annotation.
@@ -58,27 +53,18 @@ export const AnnotationButton = ({
   breakEntry,
   offset,
 }: AnnotationButtonProps) => {
-  const listPosition = useSignal(0);
+  const listPosition = useSignal(-1);
+  const ref = useRef<HTMLButtonElement | null>(null);
   const classes = [
     "annotation-button",
     ...(offset ? [`offset-${offset}`] : []),
   ];
 
   useLayoutEffect(() => {
-    // TODO: update w/ final data attribute value format
-    const element = document.querySelector(
-      `[data-annotation="${breakEntry.data.title}"]`
-    ) as HTMLElement | null;
-    if (!element)
-      throw new Error(`Couldn't resolve element from ${breakEntry.data.title}`);
+    if (!ref.current)
+      throw new Error(`Couldn't resolve AnnotationButton element`);
 
-    const newValue = [
-      ...annotations.value,
-      {
-        breakEntry,
-        element,
-      },
-    ];
+    const newValue = [...annotations.value, breakEntry];
     annotations.value = newValue;
     listPosition.value = newValue.length;
   }, []);
@@ -88,6 +74,8 @@ export const AnnotationButton = ({
       class={classes.join(" ")}
       type="button"
       onClick={() => showAnnotation(listPosition.value)}
+      id={`annotation-button-${listPosition.value}`}
+      ref={ref}
     >
       {listPosition.value}
     </button>
@@ -98,7 +86,7 @@ export const AnnotationList = () => (
   <>
     <div class="annotation-list">
       <h2>Annotations</h2>
-      {annotations.value.map(({ breakEntry: { data }, element }, i) => {
+      {annotations.value.map(({ data }, i) => {
         const title = data[import.meta.env.PUBLIC_FIXED ? "fixTitle" : "title"];
         const description =
           data[import.meta.env.PUBLIC_FIXED ? "fixDescription" : "description"];
@@ -114,7 +102,9 @@ export const AnnotationList = () => (
                   <p>This fails the following WCAG 2 success criteria:</p>
                   <ul>
                     {data.wcag2.map((sc) => (
-                      <li>{sc} {wcag2[sc]}</li>
+                      <li>
+                        {sc} {wcag2[sc]}
+                      </li>
                     ))}
                   </ul>
                 </>
@@ -131,7 +121,9 @@ export const AnnotationList = () => (
               )}
             </dl>
             <p>
-              <a href={`#${element.id}`}>Jump to location in page</a>
+              <a href={`#annotation-button-${i + 1}`}>
+                Jump to location in page
+              </a>
             </p>
           </div>
         );

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { load } from "cheerio";
-import { AnnotationLink, type OffsetDirection } from "./Annotations";
+import { AnnotationButton, type OffsetDirection } from "./Annotations";
 
 interface Props {
   /** Title of break the annotation should present information from (for both break and fix) */
@@ -50,4 +50,4 @@ async function renderAnnotatedHtml() {
 ---
 
 <Fragment set:html={renderAnnotatedHtml()} />
-<AnnotationLink breakEntry={await resolveBreak()} {offset} client:only="preact" />
+<AnnotationButton breakEntry={await resolveBreak()} {offset} client:only="preact" />

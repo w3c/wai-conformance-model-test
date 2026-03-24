@@ -8,14 +8,16 @@ body {
   &:not(.show-annotations) {
     margin: 0;
 
-    & .annotation-link,
+    & .annotation-button,
     & .annotation-list {
       display: none;
     }
   }
 }
 
-.annotation-link {
+/* Button placed around each failure, which will open the annotation dialog */
+.annotation-button {
+  cursor: pointer;
   display: inline-block;
   outline: solid 2px var(--annotation-color);
   border: solid 2px #fff;
@@ -33,14 +35,29 @@ body {
   }
   &.offset-left {
     left: -2.5rem;
+    top: 0;
   }
   &.offset-right {
     right: -2.5rem;
+    top: 0;
   }
 }
 
 /* Parent of annotations to be positioned relatively */
-:has(> astro-island > .annotation-link[class*="offset-"]) {
+:has(> astro-island > .annotation-button[class*="offset-"]) {
   overflow: visible;
   position: relative;
+}
+
+#annotation-dialog {
+  /* Dialog title */
+  & h2 {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  /* Close button */
+  & button:first-child {
+    float: right;
+  }
 }

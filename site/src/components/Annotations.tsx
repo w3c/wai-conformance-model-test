@@ -2,6 +2,8 @@ import { Signal, signal, useSignal } from "@preact/signals";
 import type { CollectionEntry } from "astro:content";
 import { useLayoutEffect } from "preact/hooks";
 
+import wcag2 from "@/lib/wcag2.json";
+
 interface Annotation {
   breakEntry: CollectionEntry<"breaks">;
   element: HTMLElement;
@@ -9,21 +11,56 @@ interface Annotation {
 
 const annotations: Signal<Annotation[]> = signal([]);
 
+/**
+ * Displays the annotation dialog with the content for the given annotation.
+ */
+function showAnnotation(id: number) {
+  const dialogEl = document.getElementById(
+    "annotation-dialog"
+  ) as HTMLDialogElement;
+  const dialogBodyEl = document.getElementById(
+    "annotation-dialog-body"
+  ) as HTMLElement;
+  dialogBodyEl.innerHTML = "";
+  const annotationEl = document.getElementById(`annotation-${id}`);
+  if (!annotationEl) throw new Error(`Invalid annotation ID specified: ${id}`);
+  for (const child of annotationEl.childNodes) {
+    if (child instanceof HTMLElement) {
+      if (child.tagName === "H3") {
+        // Set h2 content for dialog "title"
+        dialogEl.querySelector("h2")!.innerHTML = child.innerHTML;
+        continue;
+      }
+      if (child.matches("p:last-child:has(a:only-child)")) {
+        // Skip "Jump to location in page" link paragraph
+        continue;
+      }
+    }
+    dialogBodyEl.appendChild(child.cloneNode(true));
+  }
+
+  dialogEl.showModal();
+}
+
+function closeAnnotation() {
+  (document.getElementById("annotation-dialog") as HTMLDialogElement).close();
+}
+
 export type OffsetDirection = "left" | "right";
 
-interface AnnotationRegistrationProps {
+interface AnnotationButtonProps {
   // TODO: potentially allow multiple (but still to be rendered separately)
   breakEntry: CollectionEntry<"breaks">;
   offset?: OffsetDirection;
 }
 
-export const AnnotationLink = ({
+export const AnnotationButton = ({
   breakEntry,
   offset,
-}: AnnotationRegistrationProps) => {
+}: AnnotationButtonProps) => {
   const listPosition = useSignal(0);
   const classes = [
-    "annotation-link",
+    "annotation-button",
     ...(offset ? [`offset-${offset}`] : []),
   ];
 
@@ -47,52 +84,63 @@ export const AnnotationLink = ({
   }, []);
 
   return (
-    <a class={classes.join(" ")} href={`#annotation-${listPosition.value}`}>
+    <button
+      class={classes.join(" ")}
+      type="button"
+      onClick={() => showAnnotation(listPosition.value)}
+    >
       {listPosition.value}
-    </a>
+    </button>
   );
 };
 
 export const AnnotationList = () => (
-  <div class="annotation-list">
-    <h2>Annotations</h2>
-    {annotations.value.map(({ breakEntry: { data }, element }, i) => {
-      const title = data[import.meta.env.PUBLIC_FIXED ? "fixTitle" : "title"];
-      const description =
-        data[import.meta.env.PUBLIC_FIXED ? "fixDescription" : "description"];
+  <>
+    <div class="annotation-list">
+      <h2>Annotations</h2>
+      {annotations.value.map(({ breakEntry: { data }, element }, i) => {
+        const title = data[import.meta.env.PUBLIC_FIXED ? "fixTitle" : "title"];
+        const description =
+          data[import.meta.env.PUBLIC_FIXED ? "fixDescription" : "description"];
 
-      return (
-        <div id={`annotation-${i + 1}`} class="annotation-list-item">
-          {title && <h3>{title}</h3>}
-          {/* TODO: render description as markdown (reuse Astro's toolchain) */}
-          {description}
-          <dl>
-            {data.wcag2 && (
-              <>
-                <p>This fails the following WCAG 2 success criteria:</p>
-                <ul>
-                  {data.wcag2.map((sc) => (
-                    <li>{sc}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {data.wcag3 && (
-              <>
-                <p>This fails the following WCAG 3 provisions:</p>
-                <ul>
-                  {data.wcag3.map((provision) => (
-                    <li>{provision}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </dl>
-          <p>
-            <a href={`#${element.id}`}>Return to location in page</a>
-          </p>
-        </div>
-      );
-    })}
-  </div>
+        return (
+          <div id={`annotation-${i + 1}`} class="annotation-list-item">
+            {title && <h3>{title}</h3>}
+            {/* TODO: render description as markdown (reuse Astro's toolchain) */}
+            {description}
+            <dl>
+              {data.wcag2 && (
+                <>
+                  <p>This fails the following WCAG 2 success criteria:</p>
+                  <ul>
+                    {data.wcag2.map((sc) => (
+                      <li>{sc} {wcag2[sc]}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {data.wcag3 && (
+                <>
+                  <p>This fails the following WCAG 3 provisions:</p>
+                  <ul>
+                    {data.wcag3.map((provision) => (
+                      <li>{provision}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </dl>
+            <p>
+              <a href={`#${element.id}`}>Jump to location in page</a>
+            </p>
+          </div>
+        );
+      })}
+    </div>
+    <dialog id="annotation-dialog">
+      <button onClick={closeAnnotation}>Close</button>
+      <h2></h2>
+      <div id="annotation-dialog-body"></div>
+    </dialog>
+  </>
 );

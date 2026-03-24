@@ -4,7 +4,9 @@ import type { ZodObject, ZodRawShape } from "astro/zod";
 export function disableInputs(form: HTMLFormElement) {
   const inputSelectors = ["input", "select", "textarea", "button"] as const;
   inputSelectors.forEach((selector) =>
-    form.querySelectorAll(selector).forEach((el) => (el.disabled = true))
+    form.querySelectorAll(selector).forEach((el) => {
+      if (!el.classList.contains("annotation-button")) el.disabled = true;
+    })
   );
 }
 
@@ -28,7 +30,9 @@ export function validateInputs<T extends ZodRawShape>(
   const result = schema.safeParse(entryMap);
   if (!result.success) {
     for (const { path } of result.error.issues)
-      (form.elements[path.join(".")] as HTMLInputElement).classList.add("error");
+      (form.elements[path.join(".")] as HTMLInputElement).classList.add(
+        "error"
+      );
   }
   return result;
 }

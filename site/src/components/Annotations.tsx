@@ -94,8 +94,7 @@ export const AnnotationList = () => (
         return (
           <div id={`annotation-${i + 1}`} class="annotation-list-item">
             {title && <h3>{title}</h3>}
-            {/* TODO: render description as markdown (reuse Astro's toolchain) */}
-            {description}
+            <div dangerouslySetInnerHTML={{ __html: description }} />
             <dl>
               {data.wcag2 && (
                 <>

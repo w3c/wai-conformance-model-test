@@ -1,5 +1,8 @@
 import { defineCollection, reference, z } from "astro:content";
-import { parseFrontmatter } from "@astrojs/markdown-remark";
+import {
+  createMarkdownProcessor,
+  parseFrontmatter,
+} from "@astrojs/markdown-remark";
 import { file, glob } from "astro/loaders";
 import type { ZodType, ZodTypeDef } from "astro/zod";
 import fg from "fast-glob";
@@ -32,6 +35,12 @@ const transformToOptionalArray = <T>(
   value: T | [T, ...T[]] | undefined
 ): [T, ...T[]] | undefined =>
   typeof value === "undefined" || Array.isArray(value) ? value : [value];
+
+const markdownProcessor = await createMarkdownProcessor({
+  shikiConfig: { theme: "github-light" },
+});
+const transformToMarkdown = async (value: string) =>
+  (await markdownProcessor.render(value)).code;
 
 export const collections = {
   breakProcesses: defineCollection({
@@ -185,9 +194,9 @@ export const collections = {
     schema: z
       .object({
         title: z.string().optional(),
-        description: z.string(),
+        description: z.string().transform(transformToMarkdown),
         fixTitle: z.string().optional(),
-        fixDescription: z.string().optional(),
+        fixDescription: z.string().optional().transform(transformToMarkdown),
         discussionItems: z.array(z.string()).nonempty().optional(),
         href: z.string().regex(/^(\/|#|$)/),
         location: reference("breakSections"),

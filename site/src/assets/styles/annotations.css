@@ -61,3 +61,11 @@ body {
     float: right;
   }
 }
+
+#annotation-dialog,
+.annotation-list-item {
+  & pre {
+    border: 1px solid #ddd;
+    padding: 1em;
+  }
+}

@@ -98,7 +98,10 @@ export const AnnotationList = () => (
             <dl>
               {data.wcag2 && (
                 <>
-                  <p>This fails the following WCAG 2 success criteria:</p>
+                  <p>
+                    This satisfies the following WCAG 2 success
+                    {` criteri${data.wcag2.length === 1 ? "on" : "a"}`}:
+                  </p>
                   <ul>
                     {data.wcag2.map((sc) => (
                       <li>
@@ -110,7 +113,10 @@ export const AnnotationList = () => (
               )}
               {data.wcag3 && (
                 <>
-                  <p>This fails the following WCAG 3 provisions:</p>
+                  <p>
+                    This satisfies the following WCAG 3
+                    {` provision${data.wcag3.length === 1 ? "" : "s"}`}:
+                  </p>
                   <ul>
                     {data.wcag3.map((provision) => (
                       <li>{provision}</li>
